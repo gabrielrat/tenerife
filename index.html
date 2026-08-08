@@ -178,7 +178,12 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
 .solo-no{color:var(--ink-dim);font-size:13.5px;flex:1 1 280px;min-width:0}
 
 /* ---------- tab rezervări ---------- */
-.book-btn{border-left:1px solid var(--hair);min-width:118px}
+.book-btn{
+  border-left:1px solid var(--hair);min-width:118px;
+  position:sticky;right:0;background:var(--ground);
+  box-shadow:-20px 0 18px -8px var(--ground);
+}
+.book-btn .n{color:var(--brick);font-weight:700}
 .bk-head{padding:30px 0 4px;display:grid;gap:14px;max-width:74ch}
 .bk-head h2{font-family:var(--mono);font-weight:700;text-transform:uppercase;
   font-size:clamp(22px,4.4vw,38px);line-height:1.02;margin:0}
@@ -311,8 +316,8 @@ const BOOK=[
  {lv:"var(--sky)",h:"Săptămâna asta",sub:"Fără presiune de disponibilitate, dar mai bine acum decât în vacanță.",items:[
   {w:"Scufundări · 2 persoane",f:"28 aug",fl:"Z02",
    y:"Gabi și Robi. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive — schimbă și prețul, și programul zilei.",u:"centru în Las Galletas"},
-  {w:"Jet ski · 6 locuri",f:"4 sep",fl:"Z09",
-   y:"Se poate și cu o zi-două înainte, e la 5 minute de vilă. Pus aici doar ca să nu se uite.",u:"Puerto Colón"},
+  {w:"Jet ski · 2 locuri, seara",f:"4 sep",fl:"Z09",
+   y:"Gabi și Robi, în jur de 18:00. Aici contează ora, nu disponibilitatea: majoritatea operatorilor din Puerto Colón închid pe la 19:00, deci cere explicit ultima ieșire a zilei.",u:"Puerto Colón · 5 min de vilă"},
   {w:"Masă la Los Abrigos · prânz",f:"5 sep",fl:"Z10",
    y:"Sâmbătă la prânz, înainte de zbor. Închideți vacanța unde ați început-o.",u:"telefonic"},
   {w:"Scooterul lui Cătălin",f:"27-31 aug",fl:"—",
@@ -499,15 +504,20 @@ const DAYS=[
 },
 {
  n:9,date:"4 sep",wd:"vineri",accent:"var(--sky)",
- title:"Buggy, jet ski, plajă",
- lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă, și se termină la o oră decentă ca să apucați să împachetați.",
+ title:"Buggy, plajă, jet ski la apus",
+ lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă. Jet ski-ul s-a mutat seara și a rămas pe doi — restul grupului stă pe plajă și se reunesc toți la cină.",
  people:ALL,
- tracks:[{name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
+ warn:"Atena dă 5 la jet ski, la fel ca Robi. Dacă rămâne pe doi, ea e singura cu notă maximă care nu intră — merită întrebată înainte să rezervi.",
+ tracks:[
+ {name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
   {t:"09:30",d:"3½ h",nm:"Buggy · Adeje",lat:28.1230,lon:-16.7400,alt:300,no:"Șase persoane egal exact trei buggy-uri, câte doi. Perfect divizibil, nimeni pe dinafară."},
-  {t:"14:00",d:"2 h",nm:"Jet ski · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Toți șase pot merge: niciunul nu dă sub 3. Cătălin dă 1 la jet ski și 2 la buggy — singura zi pe care a respins-o explicit."},
-  {t:"16:00",d:"3 h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei."},
-  {t:"19:00",d:"1 h",nm:"Împachetat la vilă",lat:28.0800,lon:-16.7350,alt:80,no:"Mâine dimineață nu mai aveți timp."},
-  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final."}
+  {t:"14:00",d:"4½ h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei. Ziua se lungește pe plajă acum că jet ski-ul e seara."},
+  {t:"18:30",d:"1 h",nm:"Împachetat la vilă",lat:28.0800,lon:-16.7350,alt:80,no:"Mâine dimineață nu mai aveți timp."},
+  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final, cu toți șase."}
+ ]},
+ {name:"Jet ski · doi",color:"var(--teal)",people:["Gabi","Robi"],stops:[
+  {t:"18:00",d:"1½ h",nm:"Jet ski · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Gabi și Robi. Apusul e la 20:18, dar majoritatea operatorilor din Puerto Colón închid pe la 19:00 — cere ultima ieșire a zilei și confirmă ora exactă la rezervare, nu la fața locului."},
+  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Reunire cu restul grupului."}
  ]}]
 },
 {
