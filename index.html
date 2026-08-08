@@ -216,6 +216,55 @@ ul.bk li.done .bk-what{text-decoration:line-through}
 .bk-for b{display:block;color:var(--ink);font-size:12px;letter-spacing:.05em;font-weight:700}
 .bk-note{margin-top:32px;border-left:2px solid var(--hair);padding:3px 0 3px 14px;
   color:var(--ink-faint);font-size:13px;max-width:74ch;line-height:1.65}
+/* ---------- tab locații ---------- */
+.loc-btn{border-left:1px solid var(--hair);min-width:110px;position:sticky;right:118px;
+  background:var(--ground);box-shadow:-20px 0 18px -8px var(--ground)}
+.loc-btn .n{color:var(--ochre);font-weight:700}
+.lc-filters{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 20px}
+.fchip{appearance:none;background:none;cursor:pointer;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--hair);
+  border-radius:2px;color:var(--ink-dim);transition:.15s}
+.fchip:hover{color:var(--ink)}
+.fchip[aria-pressed="true"]{background:var(--fc);border-color:var(--fc);color:#141716;font-weight:700}
+.fchip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.lc-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:26px;align-items:start}
+@media(max-width:900px){.lc-grid{grid-template-columns:1fr;gap:22px}}
+.lc-sec{margin-bottom:22px}
+.lc-sec>h3{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  margin:0 0 6px;color:var(--fc);display:flex;align-items:baseline;gap:9px}
+.lc-sec>h3 b{font-weight:400;color:var(--ink-faint);font-size:10px;letter-spacing:.1em}
+ul.lc{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-soft)}
+ul.lc li{display:grid;grid-template-columns:1fr 42px;gap:10px;align-items:center;padding:9px 7px;
+  border-bottom:1px solid var(--hair-soft);cursor:pointer;transition:background .15s}
+ul.lc li:hover,ul.lc li.on{background:rgba(226,222,206,.055)}
+ul.lc li.on{box-shadow:inset 3px 0 0 var(--fc)}
+.lc-n{font-weight:600;font-size:14.5px}
+.lc-m{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-top:2px}
+.lc-s{font-family:var(--mono);font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.lc-s small{display:block;font-weight:400;font-size:9px;color:var(--ink-faint)}
+#loc-detail:empty{display:none}
+.det{margin-top:16px;background:var(--plate);border:1px solid var(--hair);border-left:3px solid var(--fc);
+  border-radius:3px;padding:18px 18px 16px}
+.det h4{margin:0;font-size:19px;letter-spacing:-.01em}
+.det .dmeta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fc);margin:5px 0 12px}
+.det p{margin:0 0 12px;color:var(--ink-dim);font-size:14px;line-height:1.55}
+.det .drow{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.08em;color:var(--ink-faint);border-top:1px solid var(--hair-soft);padding-top:11px;margin-top:4px}
+.det .drow span{border:1px solid var(--hair);border-radius:2px;padding:3px 8px}
+.det .drow b{color:var(--ink)}
+.dvar{margin-top:14px;border-top:1px solid var(--hair-soft);padding-top:12px}
+.dvar h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 9px}
+.dvar ol{list-style:none;margin:0;padding:0;counter-reset:v}
+.dvar li{counter-increment:v;padding:7px 0 7px 26px;position:relative;font-size:13.5px;
+  color:var(--ink-dim);cursor:pointer;border-bottom:1px solid var(--hair-soft)}
+.dvar li:last-child{border-bottom:0}
+.dvar li::before{content:counter(v);position:absolute;left:0;top:7px;font-family:var(--mono);
+  font-size:9.5px;color:#141716;background:var(--fc);width:16px;height:16px;border-radius:50%;
+  display:grid;place-items:center;font-weight:700}
+.dvar li b{color:var(--ink);font-weight:600;display:block;font-size:14px}
+.dvar li:hover b{text-decoration:underline}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .route{stroke-dasharray:5 4}
 .mk.act circle.dot{stroke:var(--ink);stroke-width:2.5}
@@ -262,6 +311,25 @@ ul.bk li.done .bk-what{text-decoration:line-through}
   </div>
   </div>
 
+  <section id="view-loc" hidden>
+    <div class="bk-head">
+      <div class="bk-count" style="color:var(--ochre)"><i style="border-color:var(--ochre)"></i>28 din tabel · 13 cu variante</div>
+      <h2>Toate locațiile</h2>
+      <p>Tot ce a fost votat, inclusiv ce a rămas în afara planului. Alege din listă sau de pe hartă. Unde activitatea se poate face în mai multe locuri, variantele apar în detaliu.</p>
+    </div>
+    <div class="lc-filters" id="lc-filters"></div>
+    <div class="lc-grid">
+      <div>
+        <div class="plate">
+          <svg id="locmap" role="img" aria-label="Toate locațiile de pe insulă"></svg>
+          <div class="cap"><span>Toate locațiile votate</span><span id="loc-cap">—</span></div>
+        </div>
+        <div id="loc-detail"></div>
+      </div>
+      <div id="loc-list"></div>
+    </div>
+  </section>
+
   <section id="view-book" hidden></section>
 
   <div class="foot">
@@ -269,6 +337,7 @@ ul.bk li.done .bk-what{text-decoration:line-through}
     <span>Orele sunt ținte, nu obligații</span>
     <span>Cazări marcate cu pătrat</span>
     <span>Cătălin e pe scooter — traseele nu depind de el</span>
+    <span>Tabul Locații are tot ce a fost votat, inclusiv ce a rămas pe dinafară</span>
   </div>
 </div>
 
@@ -476,11 +545,12 @@ const DAYS=[
  title:"Nord-vest · Masca, Garachico, Cueva del Viento",
  lede:"Cea mai eficientă buclă geografică a insulei, făcută din baza corectă. Start la 09:30, nu la 08:00 — v-ați întors de la Teide după miezul nopții.",
  people:ALL,
+ warn:"Cueva del Viento se închide la 16:00. Peștera a urcat la prânz și Garachico a coborât după ea — în ordinea inversă rămâneați fără ultima intrare. Confirmă ora exactă a turului la rezervare.",
  tracks:[{name:"Toți șase",color:"var(--ochre)",people:ALL,stops:[
   {t:"10:20",d:"1½ h",nm:"Masca",lat:28.3050,lon:-16.8360,alt:600,no:"Satul și Mirador Cruz de Hilda. Parcarea e minusculă — la 10:20 mai prindeți loc."},
-  {t:"12:15",d:"1½ h",nm:"Garachico · El Caletón",lat:28.3736,lon:-16.7647,alt:5,no:"Prânz și piscinele naturale. Aici se bifează piscina naturală din tabel."},
-  {t:"14:15",d:"2 h",nm:"Cueva del Viento",lat:28.3600,lon:-16.6980,alt:620,no:"Tur ghidat, grupuri de maximum 15. Pantaloni lungi și adidași sau bocanci, obligatoriu. Cască tot timpul."},
-  {t:"16:30",d:"20 min",nm:"Drago Milenario · Icod",lat:28.3660,lon:-16.7150,alt:235,no:"La doi pași de peșteră."},
+  {t:"12:00",d:"2 h",nm:"Cueva del Viento",lat:28.3520,lon:-16.7040,alt:620,no:"Tur ghidat, grupuri de maximum 15. Centrul se închide la 16:00, deci turul e mutat la prânz — la 14:15 rămâneați fără ultima intrare. Pantaloni lungi și adidași sau bocanci, obligatoriu."},
+  {t:"14:15",d:"25 min",nm:"Drago Milenario · Icod",lat:28.3660,lon:-16.7150,alt:235,no:"La zece minute de peșteră."},
+  {t:"15:00",d:"2 h",nm:"Garachico · El Caletón",lat:28.3735,lon:-16.7661,alt:5,no:"Prânz târziu și piscinele naturale. Aici se bifează piscina naturală din tabel. Se închid când marea e agitată."},
   {t:"18:00",d:"2½ h",nm:"Los Gigantes · Los Guíos",lat:28.2450,lon:-16.8420,alt:10,no:"Falezele de 600 m prind cea mai bună lumină seara, apus la 20:22. Atena dă 2 la Los Gigantes dar 5 la Los Guíos — aceeași locație: ea rămâne pe plajă, restul urcă la mirador."},
   {t:"21:00",d:"cină",nm:"Puerto de Santiago",lat:28.2380,lon:-16.8390,alt:20,no:"Treizeci de minute până acasă."}
  ]}]
@@ -541,11 +611,12 @@ const map=document.getElementById("map");
 map.setAttribute("viewBox",`0 0 ${W} ${H}`);
 function el(t,a){const e=document.createElementNS(SVGNS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
 
-(function baseLayer(){
+function drawBase(sv,sfx){
+  sv.setAttribute("viewBox",`0 0 ${W} ${H}`);
   const defs=el("defs");
-  const cp=el("clipPath",{id:"isl"});
+  const cp=el("clipPath",{id:"isl"+sfx});
   const cpp=el("path",{d:coastPath()});
-  cp.appendChild(cpp);defs.appendChild(cp);map.appendChild(defs);
+  cp.appendChild(cpp);defs.appendChild(cp);sv.appendChild(defs);
 
   const g=el("g",{});
   // graticule
@@ -558,7 +629,7 @@ function el(t,a){const e=document.createElementNS(SVGNS,t);for(const k in a)e.se
   // land
   g.appendChild(el("path",{d:coastPath(),fill:"var(--land)",stroke:"rgba(226,222,206,.34)","stroke-width":1.2,"stroke-linejoin":"round"}));
   // massif shading, clipped to island
-  const gm=el("g",{"clip-path":"url(#isl)"});
+  const gm=el("g",{"clip-path":`url(#isl${sfx})`});
   const massifs=[
     {lat:28.272,lon:-16.642,rx:0.30,ry:0.16,rot:-18,steps:5}, // Teide / Cañadas
     {lat:28.545,lon:-16.235,rx:0.13,ry:0.055,rot:-28,steps:3}, // Anaga
@@ -583,10 +654,11 @@ function el(t,a){const e=document.createElementNS(SVGNS,t);for(const k in a)e.se
     const t=el("text",{x:px(o.lon),y:py(o.lat)+(o.n.startsWith("Teide")?22:4),"text-anchor":o.anchor,class:"geo-lbl"});
     t.textContent=o.n;g.appendChild(t);
   });
-  map.appendChild(g);
-  map.appendChild(el("g",{id:"lyr-base"}));
-  map.appendChild(el("g",{id:"lyr-route"}));
-})();
+  sv.appendChild(g);
+}
+drawBase(map,"");
+map.appendChild(el("g",{id:"lyr-base"}));
+map.appendChild(el("g",{id:"lyr-route"}));
 
 function coastPath(){
   return COAST.map((p,i)=>`${i?"L":"M"}${px(p[1]).toFixed(1)},${py(p[0]).toFixed(1)}`).join(" ")+" Z";
@@ -601,11 +673,15 @@ function render(i){
   document.getElementById("view-book").hidden=true;
   const bb=document.getElementById("book-btn");
   if(bb)bb.setAttribute("aria-selected","false");
+  const lcb=document.getElementById("loc-btn");
+  if(lcb)lcb.setAttribute("aria-selected","false");
+  const lcv=document.getElementById("view-loc");
+  if(lcv)lcv.hidden=true;
   const D=DAYS[i];
   document.documentElement.style.setProperty("--accent",D.accent);
 
   // rail
-  [...document.querySelectorAll(".day-btn:not(.book-btn)")].forEach((b,k)=>{
+  [...document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)")].forEach((b,k)=>{
     b.setAttribute("aria-selected",k===i?"true":"false");
     b.style.setProperty("--accent",DAYS[k].accent);
   });
@@ -787,7 +863,7 @@ DAYS.forEach((D,i)=>{
 });
 document.addEventListener("keydown",e=>{
   if(e.target.closest("input,textarea"))return;
-  const bs=document.querySelectorAll(".day-btn:not(.book-btn)");
+  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)");
   if(e.key==="ArrowRight"&&cur<DAYS.length-1)bs[cur+1].click();
   if(e.key==="ArrowLeft"&&cur>0)bs[cur-1].click();
 });
@@ -811,8 +887,11 @@ function daysTo(d){
 
 function showBook(){
   document.getElementById("view-day").hidden=true;
+  document.getElementById("view-loc").hidden=true;
+  const lb2=document.getElementById("loc-btn");
+  if(lb2)lb2.setAttribute("aria-selected","false");
   const v=document.getElementById("view-book");v.hidden=false;
-  document.querySelectorAll(".day-btn:not(.book-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
   bkBtn.setAttribute("aria-selected","true");
   document.documentElement.style.setProperty("--accent","var(--brick)");
   v.innerHTML="";
@@ -861,6 +940,152 @@ function showBook(){
   }
   countUp();
 }
+
+const LOCS=[{"nm":"Catamaran seara","cat":"apa","lat":28.0836,"lon":-16.7413,"sc":26,"day":5,"note":"Pleacă din Puerto Colón, la 5 minute de vila din San Eugenio. Cere tur de minimum 3 ore cu oprire reală de înot — cele de 2 ore nu ancorează. Delfinii nu sunt garantați de niciun operator.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 5 · Atena 5","cv":5,"info":"1/2 zi","src":"Seara pe ocean cu catamaranul pe langa insula si oprire pentru inot (delfini)","va":[{"nm":"Puerto Colón · Costa Adeje","lat":28.0836,"lon":-16.7413,"no":"Portul folosit în plan. Cel mai aproape de a doua cazare."},{"nm":"Los Gigantes","lat":28.2447,"lon":-16.8408,"no":"Pleacă de sub falezele de 600 m. Priveliște mai dramatică, dar 30 min de drum."},{"nm":"Los Cristianos","lat":28.047,"lon":-16.718,"no":"Mai multe curse pe zi, port mai mare, mai turistic."}]},{"nm":"Jet ski","cat":"apa","lat":28.0836,"lon":-16.7413,"sc":24,"day":9,"note":"Mutat vineri seara, pe doi: Gabi și Robi. Atenție la oră — majoritatea operatorilor închid pe la 19:00, chiar dacă apusul e la 20:18.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 3 · Atena 5","cv":1,"info":"activitate in ziua de plaja","src":"Plimbare pe langa insula pe skijet","va":[{"nm":"Puerto Colón","lat":28.0836,"lon":-16.7413,"no":"Varianta din plan, 5 min de vilă."},{"nm":"Playa de las Américas","lat":28.064,"lon":-16.73,"no":"Alternativă la 10 min, mai multe firme una lângă alta."}]},{"nm":"Buggy","cat":"apa","lat":28.123,"lon":-16.74,"sc":25,"day":9,"note":"Șase persoane egal exact trei buggy-uri, câte doi. Trei simultan cer rezervare, nu se rezolvă la fața locului.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 4 · Atena 5","cv":2,"info":"1/2 zi","src":"Plimbare pe insula cu buggy","va":[{"nm":"Costa Adeje · plecare","lat":28.123,"lon":-16.74,"no":"Traseele urcă spre Ifonche și Arona, pe drumuri de pământ."},{"nm":"Arona · trasee interioare","lat":28.099,"lon":-16.68,"no":"Variantă mai lungă, cu mai mult off-road."}]},{"nm":"Siam Park","cat":"parc","lat":28.0725,"lon":-16.725,"sc":27,"day":3,"note":"Mergeți doar la Siam Night, 20:00–24:00. Sezonul nopților se închide pe 29 august — nu există dată alternativă.","hours":"Zi: 10:00–18:00 · Siam Night 20:00–24:00, 16+","votes":"Gabi 4 · Alex 3 · Ovidiu 5 · Robi 5 · Viorel 5 · Atena 5","cv":4,"info":"1 zi","src":"Syam park (parc acvatic)","va":[]},{"nm":"Loro Parque","cat":"parc","lat":28.4085,"lon":-16.5647,"sc":18,"day":0,"note":"Exclus din plan. Cel mai slab scor din tot tabelul, iar doi oameni l-au marcat drept „doar dacă nu am altă variantă”.","hours":"9:30–17:30","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 3","cv":1,"info":"1/2 zi","src":"Loro Park (zoo)","va":[]},{"nm":"Plaja Benijo","cat":"plaja","lat":28.576,"lon":-16.183,"sc":27,"day":8,"note":"Ancora zilei de nord-est. Apusul de aici e reperul în jurul căruia se construiește tot restul zilei — dacă întârziați, tăiați Santa Cruz, nu Benijo.","hours":null,"votes":"Gabi 5 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 5","cv":3,"info":"","src":"Plaja Beniho","va":[{"nm":"Playa de Benijo","lat":28.576,"lon":-16.183,"no":"Nisip negru, stânci, valuri puternice. Nu e plajă de înot lejer."},{"nm":"Roque de las Bodegas","lat":28.571,"lon":-16.217,"no":"La 5 min, mai adăpostită, cu restaurante de pește."}]},{"nm":"Teide","cat":"munte","lat":28.253,"lon":-16.625,"sc":26,"day":6,"note":"Se face cu tur ghidat, pentru că biletele separate la teleferic sunt epuizate. Vârful cere permis cu procesare de până la 3 luni — practic imposibil acum, dar traseele de la Rambleta sunt libere.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 5","cv":5,"info":"","src":"Teide","va":[{"nm":"Teleferic · La Rambleta","lat":28.253,"lon":-16.625,"no":"3 555 m. De aici pleacă traseele PNT 11 și PNT 12, care nu cer permis."},{"nm":"Roques de García","lat":28.2262,"lon":-16.6295,"no":"Bucla de 3,5 km, circa 1h15. Cea mai fotografiată formațiune din parc."},{"nm":"Narices del Teide","lat":28.245,"lon":-16.68,"no":"Punctul de apus din tur, peste marea de nori."},{"nm":"Parador de las Cañadas","lat":28.2251,"lon":-16.6274,"no":"Singurul loc de masă din caldeiră."}]},{"nm":"Masca","cat":"munte","lat":28.305,"lon":-16.836,"sc":24,"day":7,"note":"Parcarea e minusculă — de asta plecarea e devreme. Drumul TF-436 are vreo 180 de curbe.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 4","cv":5,"info":"","src":"Masca","va":[{"nm":"Satul Masca","lat":28.305,"lon":-16.836,"no":"Case agățate pe creastă, între două prăpăstii."},{"nm":"Mirador Cruz de Hilda","lat":28.314,"lon":-16.829,"no":"Priveliștea clasică spre sat, cu cafenea."},{"nm":"Barranco de Masca · intrare","lat":28.302,"lon":-16.839,"no":"Coborârea în cheie: rezervare separată, circa 6h, dificultate mare. Din mai 2026 se lucrează la debarcader, deci ieșirea cu barca poate lipsi."}]},{"nm":"Anaga","cat":"munte","lat":28.528,"lon":-16.287,"sc":21,"day":8,"note":"Traseul spre Benijo, nu destinația în sine. Drumurile TF-134 și TF-136 sunt înguste și des în ceață.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 3 · Atena 3","cv":5,"info":"","src":"Anaga","va":[{"nm":"Cruz del Carmen","lat":28.528,"lon":-16.287,"no":"Centrul de vizitare și pădurea de laurisilva. Ceață aproape permanentă."},{"nm":"Mirador Pico del Inglés","lat":28.5253,"lon":-16.26,"no":"1 024 m, punctul cel mai înalt al zilei de nord-est."},{"nm":"Taganana","lat":28.568,"lon":-16.21,"no":"Satul de pe coborâre, între vii și ocean."},{"nm":"Chamorga","lat":28.558,"lon":-16.147,"no":"Capătul drumului în Anaga. Cel mai izolat sat de pe insulă."}]},{"nm":"Los Gigantes","cat":"munte","lat":28.245,"lon":-16.842,"sc":21,"day":7,"note":"Faleze de 600 m. Prind cea mai bună lumină seara, de asta e ultima oprire a zilei de nord-vest.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 4 · Atena 2","cv":5,"info":"","src":"Los Gigantes","va":[{"nm":"Mirador Archipenque","lat":28.247,"lon":-16.839,"no":"Priveliștea de sus spre faleze."},{"nm":"Playa de los Guíos","lat":28.243,"lon":-16.843,"no":"Plaja neagră de la bază. Atena dă 5 aici și 2 la mirador — același loc."}]},{"nm":"Scufundări","cat":"apa","lat":28.0106,"lon":-16.6512,"sc":22,"day":2,"note":"Gabi și Robi. Se face pe 28 august fix pentru că Viorel dă 2 și nu e încă pe insulă. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive.","hours":null,"votes":"Gabi 5 · Alex 3 · Ovidiu 3 · Robi 5 · Viorel 2 · Atena 4","cv":null,"info":"","src":"Scufundari","va":[{"nm":"Las Galletas","lat":28.0106,"lon":-16.6512,"no":"Cea mai bună zonă de diving din sud. 15 min de prima cazare."},{"nm":"El Puertito · Adeje","lat":28.131,"lon":-16.783,"no":"Golf mic, cunoscut pentru broaște țestoase. Bun și pentru snorkelling."},{"nm":"Radazul","lat":28.403,"lon":-16.322,"no":"Pe coasta de est, lângă Bocacangrejo."}]},{"nm":"Punta del Hidalgo","cat":"plaja","lat":28.575,"lon":-16.325,"sc":16,"day":0,"note":"Exclus: Atena dă 1, și nu adaugă nimic peste ce vedeți oricum în Anaga.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 1","cv":null,"info":"","src":"Punta de hidalgo","va":[{"nm":"Piscinele naturale","lat":28.5745,"lon":-16.327,"no":"Bazine betonate în stâncă, la capătul promenadei."}]},{"nm":"Mirador de Chipeque","cat":"mirador","lat":28.374,"lon":-16.4638,"sc":21,"day":0,"note":"Rezervă. Una dintre cele mai bune priveliști spre Teide la apus, dar cerea mașină proprie — iar la Teide mergeți cu tur.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Mirador de Chipeque","va":[]},{"nm":"Mirador 500 escalones","cat":"mirador","lat":28.4901,"lon":-16.4272,"sc":21,"day":0,"note":"Rezervă. Se poate lipi de întoarcerea din ziua de nord-est, dacă plecați devreme din Anaga. Trepte multe în jos, priveliște spre coasta de nord.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Mirador 500 escalones tenerife","va":[]},{"nm":"Ruinas Gordejuela","cat":"mirador","lat":28.3988,"lon":-16.5856,"sc":17,"day":0,"note":"Exclus: Atena dă 2. Fostă stație de pompare pe faleză, foto-stop de 15 minute, cu drum de acces pe jos.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 2","cv":null,"info":"","src":"Ruinas Gordejuela","va":[]},{"nm":"Los Guíos","cat":"plaja","lat":28.243,"lon":-16.843,"sc":21,"day":7,"note":"Plaja neagră de sub falezele Los Gigantes. Atena dă 5 aici — e locul în care rămâne cât restul urcă la mirador.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 4 · Atena 5","cv":null,"info":"","src":"Los Guios","va":[]},{"nm":"Playa de las Teresitas","cat":"plaja","lat":28.509,"lon":-16.187,"sc":21,"day":8,"note":"Nisip adus din Sahara și apă calmă, spre deosebire de restul coastei de nord. Duminica se umple de localnici.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Playa Teresitas","va":[]},{"nm":"Bocacangrejo","cat":"plaja","lat":28.4069,"lon":-16.3131,"sc":20,"day":8,"note":"Atena dă 5. Baie rapidă pe drumul spre Santa Cruz, la circa o oră de prima cazare.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Bocacangrejo","va":[]},{"nm":"Piscină naturală","cat":"munte","lat":28.3735,"lon":-16.7661,"sc":21,"day":7,"note":"Bifată la Garachico, în ziua de nord-vest. Se închid când marea e agitată — verifică înainte de drum.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Piscina naturala","va":[{"nm":"El Caletón · Garachico","lat":28.3735,"lon":-16.7661,"no":"Varianta din plan. Bazine formate de lava din erupția de la 1706."},{"nm":"Charco del Viento · La Guancha","lat":28.4007,"lon":-16.674,"no":"Mai sălbatic și mai puțin aglomerat, la 20 min est de Garachico."},{"nm":"Montaña Amarilla · Costa del Silencio","lat":28.0018,"lon":-16.6486,"no":"În sud, la 10 min de prima cazare. Varianta pentru 28 august."},{"nm":"Bajamar","lat":28.554,"lon":-16.367,"no":"Bazine mari betonate, pe coasta de nord-est."}]},{"nm":"Puerto de la Cruz","cat":"oras","lat":28.418,"lon":-16.548,"sc":19,"day":0,"note":"Rezervă. Orașul cel mai plăcut din nord, dar nimeni nu l-a votat activ. Lago Martiánez, piscinele lui César Manrique, sunt principalul motiv.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 3","cv":null,"info":"","src":"Puerto de la cruz","va":[]},{"nm":"Surfing El Médano","cat":"apa","lat":28.0451,"lon":-16.5386,"sc":22,"day":4,"note":"Gabi, Atena și Robi. Vântul e puternic garantat — de asta se face surf aici, dar nu e plajă de lenevit. La 15 min de prima cazare și 40 de a doua, deci trebuie făcut înainte de mutare.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 5 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Surfing in El Medano","va":[{"nm":"El Médano · Playa Grande","lat":28.0451,"lon":-16.5386,"no":"Locul lecției. Cea mai constantă zonă de vânt din insulă."},{"nm":"La Tejita","lat":28.0316,"lon":-16.546,"no":"Plaja lungă de alături, la poalele Montaña Roja."},{"nm":"Playa Honda · Las Américas","lat":28.07,"lon":-16.733,"no":"Alternativă în sud-vest, valuri mai mici, bună pentru începători."}]},{"nm":"Cueva del Viento","cat":"munte","lat":28.352,"lon":-16.704,"sc":21,"day":7,"note":"Tub vulcanic, tur ghidat de 2 ore, grupuri de maximum 15. Pantaloni lungi și adidași obligatoriu. Centrul se închide la 16:00 — confirmă ora ultimului tur.","hours":"9:00–16:00, zilnic","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 5 · Atena 4","cv":null,"info":"","src":"Cueva del viento","va":[]},{"nm":"La Orotava","cat":"oras","lat":28.39,"lon":-16.523,"sc":19,"day":0,"note":"Rezervă. Centru istoric, la 15 min de Puerto de la Cruz. Se putea lega de coborârea pe nord din ziua de Teide, dar turul ghidat nu permite ocolul.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Orotava","va":[]},{"nm":"Mirador Punta de Teno","cat":"mirador","lat":28.343,"lon":-16.921,"sc":20,"day":0,"note":"Tăiat din plan. Din 19 ianuarie 2026 sunt lucrări pe TF-445: acces doar cu autobuzul 369 sau taxi, interzis cu mașina, pe jos și pe bicicletă.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Mirador Punta de Teno","va":[]},{"nm":"Playa El Bollullo","cat":"plaja","lat":28.4175,"lon":-16.5201,"sc":19,"day":0,"note":"Rezervă. Nisip negru sub faleze, lângă Puerto de la Cruz. Accesul se face pe jos, în pantă, și valurile sunt puternice.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Playa el bollulo","va":[]},{"nm":"Monkey Park","cat":"parc","lat":28.0605,"lon":-16.6928,"sc":21,"day":5,"note":"Atena e singura care dă 5. E practic pe traseul dintre cele două cazări, de asta intră în ziua de mutare.","hours":"9:30–16:00","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Monkey park","va":[]},{"nm":"Santa Cruz de Tenerife","cat":"oras","lat":28.4682,"lon":-16.2546,"sc":20,"day":8,"note":"Prima oprire lungă din ziua de nord-est. Dacă plecați târziu, e prima care se taie.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Santacruz de Tenerife","va":[{"nm":"Plaza de España","lat":28.4682,"lon":-16.2546,"no":"Centrul, cu lacul artificial."},{"nm":"Mercado Nuestra Señora de África","lat":28.464,"lon":-16.253,"no":"Piața acoperită, cea mai animată duminica dimineața."},{"nm":"Auditorio de Tenerife","lat":28.459,"lon":-16.248,"no":"Clădirea lui Calatrava, pe faleză."}]},{"nm":"Mirador La Tarta","cat":"mirador","lat":28.3344,"lon":-16.4902,"sc":20,"day":0,"note":"Rezervă. Straturi vulcanice colorate ca un tort, pe TF-24. Cerea mașină proprie la coborârea de la Teide.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 5","cv":null,"info":"","src":"mirador la tarta","va":[]}];
+
+const CATS={
+ apa:{n:"Apă & adrenalină",c:"var(--teal)"},
+ munte:{n:"Munte & natură",c:"var(--ochre)"},
+ plaja:{n:"Plaje",c:"var(--sky)"},
+ mirador:{n:"Miradoare",c:"var(--violet)"},
+ parc:{n:"Parcuri",c:"var(--plum)"},
+ oras:{n:"Orașe",c:"var(--slate)"}
+};
+const DAYNM={1:"27 aug",2:"28 aug",3:"29 aug",4:"30 aug",5:"31 aug",6:"1 sep",7:"2 sep",8:"3 sep",9:"4 sep",10:"5 sep"};
+
+let locFilter=null, locSel=null, locVar=null;
+const locMap=document.getElementById("locmap");
+drawBase(locMap,"L");
+const lyrLoc=el("g",{id:"lyr-loc"});locMap.appendChild(lyrLoc);
+
+function locBtnInit(){
+  const f=document.getElementById("lc-filters");
+  const mk=(key,label,col)=>{
+    const b=document.createElement("button");
+    b.className="fchip";b.type="button";b.textContent=label;
+    b.style.setProperty("--fc",col);
+    b.setAttribute("aria-pressed",locFilter===key?"true":"false");
+    b.addEventListener("click",()=>{locFilter=(locFilter===key?null:key);locSel=null;locVar=null;showLoc()});
+    f.appendChild(b);
+  };
+  f.innerHTML="";
+  mk(null,"Toate 28","var(--ink)");
+  Object.keys(CATS).forEach(k=>mk(k,CATS[k].n+" "+LOCS.filter(l=>l.cat===k).length,CATS[k].c));
+  mk("off","În afara planului "+LOCS.filter(l=>!l.day).length,"var(--brick)");
+}
+
+function locPass(l){
+  if(!locFilter)return true;
+  if(locFilter==="off")return !l.day;
+  return l.cat===locFilter;
+}
+
+function drawLocMarkers(){
+  lyrLoc.innerHTML="";
+  const vis=LOCS.filter(locPass);
+  // variants of the selected location
+  if(locSel!==null&&LOCS[locSel].va.length){
+    LOCS[locSel].va.forEach((va,vi)=>{
+      const g=el("g",{class:"mk",tabindex:"0",role:"button"});
+      g.appendChild(el("circle",{class:"hit",cx:px(va.lon),cy:py(va.lat),r:14}));
+      g.appendChild(el("circle",{cx:px(va.lon),cy:py(va.lat),r:8,
+        fill:"var(--plate)",stroke:CATS[LOCS[locSel].cat].c,"stroke-width":2.2,
+        "stroke-dasharray":locVar===vi?"none":"3 2"}));
+      const t=el("text",{x:px(va.lon),y:py(va.lat)+3.5,"text-anchor":"middle",
+        class:"mk-lbl",fill:CATS[LOCS[locSel].cat].c,"font-size":"9"});
+      t.textContent=vi+1;g.appendChild(t);
+      const ti=el("title");ti.textContent=va.nm;g.appendChild(ti);
+      g.addEventListener("click",()=>{locVar=(locVar===vi?null:vi);showLoc()});
+      lyrLoc.appendChild(g);
+    });
+  }
+  vis.forEach(l=>{
+    const i=LOCS.indexOf(l), on=locSel===i;
+    const g=el("g",{class:"mk",tabindex:"0",role:"button"});
+    g.appendChild(el("circle",{class:"hit",cx:px(l.lon),cy:py(l.lat),r:15}));
+    g.appendChild(el("circle",{cx:px(l.lon),cy:py(l.lat),r:on?10:6.5,
+      fill:l.day?CATS[l.cat].c:"var(--plate)",
+      stroke:on?"var(--ink)":CATS[l.cat].c,"stroke-width":on?2.5:1.8}));
+    const ti=el("title");ti.textContent=l.nm+(l.day?" · ziua "+l.day:" · în afara planului");
+    g.appendChild(ti);
+    g.addEventListener("click",()=>{locSel=(on?null:i);locVar=null;showLoc()});
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();locSel=(on?null:i);locVar=null;showLoc()}});
+    lyrLoc.appendChild(g);
+  });
+  document.getElementById("loc-cap").textContent=
+    vis.length+" locații"+(locSel!==null?" · "+LOCS[locSel].nm:"");
+}
+
+function drawLocList(){
+  const w=document.getElementById("loc-list");w.innerHTML="";
+  Object.keys(CATS).forEach(k=>{
+    const items=LOCS.map((l,i)=>({l,i})).filter(x=>x.l.cat===k&&locPass(x.l))
+                    .sort((a,b)=>b.l.sc-a.l.sc);
+    if(!items.length)return;
+    const sec=document.createElement("div");sec.className="lc-sec";
+    sec.style.setProperty("--fc",CATS[k].c);
+    const ul=document.createElement("ul");ul.className="lc";
+    items.forEach(({l,i})=>{
+      const li=document.createElement("li");
+      if(locSel===i)li.classList.add("on");
+      li.innerHTML=`<div><div class="lc-n">${l.nm}</div>`+
+        `<div class="lc-m">${l.day?"ziua "+l.day+" · "+DAYNM[l.day]:"în afara planului"}`+
+        `${l.va.length?" · "+l.va.length+" variante":""}</div></div>`+
+        `<div class="lc-s">${l.sc}<small>din 30</small></div>`;
+      li.addEventListener("click",()=>{locSel=(locSel===i?null:i);locVar=null;showLoc()});
+      ul.appendChild(li);
+    });
+    sec.innerHTML=`<h3>${CATS[k].n}<b>${items.length}</b></h3>`;
+    sec.appendChild(ul);w.appendChild(sec);
+  });
+  if(!w.children.length)w.innerHTML='<p style="color:var(--ink-faint);font-size:14px">Niciun rezultat pentru filtrul ales.</p>';
+}
+
+function drawLocDetail(){
+  const d=document.getElementById("loc-detail");
+  if(locSel===null){d.innerHTML="";return}
+  const l=LOCS[locSel], c=CATS[l.cat];
+  let h=`<div class="det" style="--fc:${c.c}">`+
+    `<h4>${l.nm}</h4>`+
+    `<div class="dmeta">${c.n} · ${l.day?"ziua "+l.day+", "+DAYNM[l.day]:"în afara planului"}</div>`+
+    `<p>${l.note}</p>`+
+    `<div class="drow">`+
+      `<span>scor <b>${l.sc}/30</b></span>`+
+      `<span>Cătălin <b>${l.cv?l.cv+"/5":"nevotat"}</b></span>`+
+      (l.hours?`<span>program <b>${l.hours}</b></span>`:"")+
+      (l.info?`<span>durată <b>${l.info}</b></span>`:"")+
+      `<span>${l.lat.toFixed(4)}, ${l.lon.toFixed(4)}</span>`+
+    `</div>`+
+    `<div class="drow" style="border-top:0;padding-top:6px"><span style="border:0;padding-left:0">voturi: ${l.votes}</span></div>`;
+  if(l.va.length){
+    h+=`<div class="dvar"><h5>${l.va.length} variante de loc</h5><ol>`;
+    l.va.forEach((v,i)=>{h+=`<li data-v="${i}"${locVar===i?' style="background:rgba(226,222,206,.05)"':""}><b>${v.nm}</b>${v.no}</li>`});
+    h+=`</ol></div>`;
+  }
+  d.innerHTML=h+`</div>`;
+  d.querySelectorAll(".dvar li").forEach(li=>{
+    li.addEventListener("click",()=>{const i=+li.dataset.v;locVar=(locVar===i?null:i);showLoc()});
+  });
+}
+
+function showLoc(){
+  document.getElementById("view-day").hidden=true;
+  document.getElementById("view-book").hidden=true;
+  document.getElementById("view-loc").hidden=false;
+  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  bkBtn.setAttribute("aria-selected","false");
+  lcBtn.setAttribute("aria-selected","true");
+  document.documentElement.style.setProperty("--accent","var(--ochre)");
+  locBtnInit();drawLocMarkers();drawLocList();drawLocDetail();
+}
+
+const lcBtn=document.createElement("button");
+lcBtn.className="day-btn loc-btn";lcBtn.type="button";lcBtn.id="loc-btn";
+lcBtn.setAttribute("role","tab");lcBtn.setAttribute("aria-selected","false");
+lcBtn.style.setProperty("--accent","var(--ochre)");
+lcBtn.innerHTML=`<span class="n">28</span><span class="d">Locații</span><span class="w">toate</span>`;
+lcBtn.addEventListener("click",showLoc);
+rail.appendChild(lcBtn);
 
 render(0);
 </script>
