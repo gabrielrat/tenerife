@@ -265,6 +265,14 @@ ul.lc li.on{box-shadow:inset 3px 0 0 var(--fc)}
   display:grid;place-items:center;font-weight:700}
 .dvar li b{color:var(--ink);font-weight:600;display:block;font-size:14px}
 .dvar li:hover b{text-decoration:underline}
+/* ---------- buton de partajare ---------- */
+.share{appearance:none;background:none;cursor:pointer;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  border:1px solid var(--hair);border-radius:2px;padding:3px 9px;margin-left:4px;
+  transition:color .15s,border-color .15s,background .15s;white-space:nowrap}
+.share:hover{color:var(--ink);border-color:var(--ink-dim)}
+.share:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.share.ok{color:#141716;background:var(--olive);border-color:var(--olive);font-weight:700}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .route{stroke-dasharray:5 4}
 .mk.act circle.dot{stroke:var(--ink);stroke-width:2.5}
@@ -665,10 +673,10 @@ function coastPath(){
 }
 
 /* ============ render ============ */
-let cur=0,act=null;
+let cur=0,act=null,view="day";
 
 function render(i){
-  cur=i;act=null;
+  cur=i;act=null;view="day";
   document.getElementById("view-day").hidden=false;
   document.getElementById("view-book").hidden=true;
   const bb=document.getElementById("book-btn");
@@ -784,6 +792,8 @@ function render(i){
                       : `${D.tracks[0].stops.length} opriri`;
 
   profile(D);
+  dh.querySelector(".tag").appendChild(shareBtn());
+  syncURL();
 }
 
 /* ============ altitude profile ============ */
@@ -847,6 +857,7 @@ function focusStop(ti,si){
     c.setAttribute("r",on?7:4.5);
     c.setAttribute("stroke",on?"var(--ink)":"var(--plate)");
   });
+  syncURL();
 }
 
 /* ============ rail ============ */
@@ -858,7 +869,7 @@ DAYS.forEach((D,i)=>{
   b.innerHTML=`<span class="n">Z${String(D.n).padStart(2,"0")}</span>`+
               `<span class="d">${D.date}</span>`+
               `<span class="w">${D.wd}</span>`;
-  b.addEventListener("click",()=>{render(i);b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})});
+  b.addEventListener("click",()=>{render(i);if(b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})});
   rail.appendChild(b);
 });
 document.addEventListener("keydown",e=>{
@@ -886,6 +897,7 @@ function daysTo(d){
 }
 
 function showBook(){
+  view="book";
   document.getElementById("view-day").hidden=true;
   document.getElementById("view-loc").hidden=true;
   const lb2=document.getElementById("loc-btn");
@@ -898,7 +910,7 @@ function showBook(){
 
   const n=daysTo(TRIP);
   const hd=document.createElement("div");hd.className="bk-head";
-  hd.innerHTML=`<div class="bk-count"><i></i>${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"}</div>`+
+  hd.innerHTML=`<div class="bk-count"><i></i><span id="bk-txt">${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"}</span></div>`+
     `<h2>Ce trebuie rezervat</h2>`+
     `<p>Ordonate după cât de repede dispar, nu după data activității. Primele trei se pot epuiza — restul se pot găsi și mai târziu. Bifele se salvează în browserul tău.</p>`;
   v.appendChild(hd);
@@ -935,10 +947,12 @@ function showBook(){
 
   function countUp(){
     const c=[...v.querySelectorAll(".bk-box")].filter(b=>b.checked).length;
-    const el=v.querySelector(".bk-count");
-    el.innerHTML=`<i></i>${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"} · ${c} din ${total} bifate`;
+    const el=v.querySelector("#bk-txt");
+    el.textContent=`${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"} · ${c} din ${total} bifate`;
   }
   countUp();
+  v.querySelector(".bk-count").appendChild(shareBtn());
+  syncURL();
 }
 
 const LOCS=[{"nm":"Catamaran seara","cat":"apa","lat":28.0836,"lon":-16.7413,"sc":26,"day":5,"note":"Pleacă din Puerto Colón, la 5 minute de vila din San Eugenio. Cere tur de minimum 3 ore cu oprire reală de înot — cele de 2 ore nu ancorează. Delfinii nu sunt garantați de niciun operator.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 5 · Atena 5","cv":5,"info":"1/2 zi","src":"Seara pe ocean cu catamaranul pe langa insula si oprire pentru inot (delfini)","va":[{"nm":"Puerto Colón · Costa Adeje","lat":28.0836,"lon":-16.7413,"no":"Portul folosit în plan. Cel mai aproape de a doua cazare."},{"nm":"Los Gigantes","lat":28.2447,"lon":-16.8408,"no":"Pleacă de sub falezele de 600 m. Priveliște mai dramatică, dar 30 min de drum."},{"nm":"Los Cristianos","lat":28.047,"lon":-16.718,"no":"Mai multe curse pe zi, port mai mare, mai turistic."}]},{"nm":"Jet ski","cat":"apa","lat":28.0836,"lon":-16.7413,"sc":24,"day":9,"note":"Mutat vineri seara, pe doi: Gabi și Robi. Atenție la oră — majoritatea operatorilor închid pe la 19:00, chiar dacă apusul e la 20:18.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 3 · Atena 5","cv":1,"info":"activitate in ziua de plaja","src":"Plimbare pe langa insula pe skijet","va":[{"nm":"Puerto Colón","lat":28.0836,"lon":-16.7413,"no":"Varianta din plan, 5 min de vilă."},{"nm":"Playa de las Américas","lat":28.064,"lon":-16.73,"no":"Alternativă la 10 min, mai multe firme una lângă alta."}]},{"nm":"Buggy","cat":"apa","lat":28.123,"lon":-16.74,"sc":25,"day":9,"note":"Șase persoane egal exact trei buggy-uri, câte doi. Trei simultan cer rezervare, nu se rezolvă la fața locului.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 4 · Robi 5 · Viorel 4 · Atena 5","cv":2,"info":"1/2 zi","src":"Plimbare pe insula cu buggy","va":[{"nm":"Costa Adeje · plecare","lat":28.123,"lon":-16.74,"no":"Traseele urcă spre Ifonche și Arona, pe drumuri de pământ."},{"nm":"Arona · trasee interioare","lat":28.099,"lon":-16.68,"no":"Variantă mai lungă, cu mai mult off-road."}]},{"nm":"Siam Park","cat":"parc","lat":28.0725,"lon":-16.725,"sc":27,"day":3,"note":"Mergeți doar la Siam Night, 20:00–24:00. Sezonul nopților se închide pe 29 august — nu există dată alternativă.","hours":"Zi: 10:00–18:00 · Siam Night 20:00–24:00, 16+","votes":"Gabi 4 · Alex 3 · Ovidiu 5 · Robi 5 · Viorel 5 · Atena 5","cv":4,"info":"1 zi","src":"Syam park (parc acvatic)","va":[]},{"nm":"Loro Parque","cat":"parc","lat":28.4085,"lon":-16.5647,"sc":18,"day":0,"note":"Exclus din plan. Cel mai slab scor din tot tabelul, iar doi oameni l-au marcat drept „doar dacă nu am altă variantă”.","hours":"9:30–17:30","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 3","cv":1,"info":"1/2 zi","src":"Loro Park (zoo)","va":[]},{"nm":"Plaja Benijo","cat":"plaja","lat":28.576,"lon":-16.183,"sc":27,"day":8,"note":"Ancora zilei de nord-est. Apusul de aici e reperul în jurul căruia se construiește tot restul zilei — dacă întârziați, tăiați Santa Cruz, nu Benijo.","hours":null,"votes":"Gabi 5 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 5","cv":3,"info":"","src":"Plaja Beniho","va":[{"nm":"Playa de Benijo","lat":28.576,"lon":-16.183,"no":"Nisip negru, stânci, valuri puternice. Nu e plajă de înot lejer."},{"nm":"Roque de las Bodegas","lat":28.571,"lon":-16.217,"no":"La 5 min, mai adăpostită, cu restaurante de pește."}]},{"nm":"Teide","cat":"munte","lat":28.253,"lon":-16.625,"sc":26,"day":6,"note":"Se face cu tur ghidat, pentru că biletele separate la teleferic sunt epuizate. Vârful cere permis cu procesare de până la 3 luni — practic imposibil acum, dar traseele de la Rambleta sunt libere.","hours":null,"votes":"Gabi 4 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 5","cv":5,"info":"","src":"Teide","va":[{"nm":"Teleferic · La Rambleta","lat":28.253,"lon":-16.625,"no":"3 555 m. De aici pleacă traseele PNT 11 și PNT 12, care nu cer permis."},{"nm":"Roques de García","lat":28.2262,"lon":-16.6295,"no":"Bucla de 3,5 km, circa 1h15. Cea mai fotografiată formațiune din parc."},{"nm":"Narices del Teide","lat":28.245,"lon":-16.68,"no":"Punctul de apus din tur, peste marea de nori."},{"nm":"Parador de las Cañadas","lat":28.2251,"lon":-16.6274,"no":"Singurul loc de masă din caldeiră."}]},{"nm":"Masca","cat":"munte","lat":28.305,"lon":-16.836,"sc":24,"day":7,"note":"Parcarea e minusculă — de asta plecarea e devreme. Drumul TF-436 are vreo 180 de curbe.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 5 · Atena 4","cv":5,"info":"","src":"Masca","va":[{"nm":"Satul Masca","lat":28.305,"lon":-16.836,"no":"Case agățate pe creastă, între două prăpăstii."},{"nm":"Mirador Cruz de Hilda","lat":28.314,"lon":-16.829,"no":"Priveliștea clasică spre sat, cu cafenea."},{"nm":"Barranco de Masca · intrare","lat":28.302,"lon":-16.839,"no":"Coborârea în cheie: rezervare separată, circa 6h, dificultate mare. Din mai 2026 se lucrează la debarcader, deci ieșirea cu barca poate lipsi."}]},{"nm":"Anaga","cat":"munte","lat":28.528,"lon":-16.287,"sc":21,"day":8,"note":"Traseul spre Benijo, nu destinația în sine. Drumurile TF-134 și TF-136 sunt înguste și des în ceață.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 3 · Atena 3","cv":5,"info":"","src":"Anaga","va":[{"nm":"Cruz del Carmen","lat":28.528,"lon":-16.287,"no":"Centrul de vizitare și pădurea de laurisilva. Ceață aproape permanentă."},{"nm":"Mirador Pico del Inglés","lat":28.5253,"lon":-16.26,"no":"1 024 m, punctul cel mai înalt al zilei de nord-est."},{"nm":"Taganana","lat":28.568,"lon":-16.21,"no":"Satul de pe coborâre, între vii și ocean."},{"nm":"Chamorga","lat":28.558,"lon":-16.147,"no":"Capătul drumului în Anaga. Cel mai izolat sat de pe insulă."}]},{"nm":"Los Gigantes","cat":"munte","lat":28.245,"lon":-16.842,"sc":21,"day":7,"note":"Faleze de 600 m. Prind cea mai bună lumină seara, de asta e ultima oprire a zilei de nord-vest.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 5 · Robi 4 · Viorel 4 · Atena 2","cv":5,"info":"","src":"Los Gigantes","va":[{"nm":"Mirador Archipenque","lat":28.247,"lon":-16.839,"no":"Priveliștea de sus spre faleze."},{"nm":"Playa de los Guíos","lat":28.243,"lon":-16.843,"no":"Plaja neagră de la bază. Atena dă 5 aici și 2 la mirador — același loc."}]},{"nm":"Scufundări","cat":"apa","lat":28.0106,"lon":-16.6512,"sc":22,"day":2,"note":"Gabi și Robi. Se face pe 28 august fix pentru că Viorel dă 2 și nu e încă pe insulă. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive.","hours":null,"votes":"Gabi 5 · Alex 3 · Ovidiu 3 · Robi 5 · Viorel 2 · Atena 4","cv":null,"info":"","src":"Scufundari","va":[{"nm":"Las Galletas","lat":28.0106,"lon":-16.6512,"no":"Cea mai bună zonă de diving din sud. 15 min de prima cazare."},{"nm":"El Puertito · Adeje","lat":28.131,"lon":-16.783,"no":"Golf mic, cunoscut pentru broaște țestoase. Bun și pentru snorkelling."},{"nm":"Radazul","lat":28.403,"lon":-16.322,"no":"Pe coasta de est, lângă Bocacangrejo."}]},{"nm":"Punta del Hidalgo","cat":"plaja","lat":28.575,"lon":-16.325,"sc":16,"day":0,"note":"Exclus: Atena dă 1, și nu adaugă nimic peste ce vedeți oricum în Anaga.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 1","cv":null,"info":"","src":"Punta de hidalgo","va":[{"nm":"Piscinele naturale","lat":28.5745,"lon":-16.327,"no":"Bazine betonate în stâncă, la capătul promenadei."}]},{"nm":"Mirador de Chipeque","cat":"mirador","lat":28.374,"lon":-16.4638,"sc":21,"day":0,"note":"Rezervă. Una dintre cele mai bune priveliști spre Teide la apus, dar cerea mașină proprie — iar la Teide mergeți cu tur.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Mirador de Chipeque","va":[]},{"nm":"Mirador 500 escalones","cat":"mirador","lat":28.4901,"lon":-16.4272,"sc":21,"day":0,"note":"Rezervă. Se poate lipi de întoarcerea din ziua de nord-est, dacă plecați devreme din Anaga. Trepte multe în jos, priveliște spre coasta de nord.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Mirador 500 escalones tenerife","va":[]},{"nm":"Ruinas Gordejuela","cat":"mirador","lat":28.3988,"lon":-16.5856,"sc":17,"day":0,"note":"Exclus: Atena dă 2. Fostă stație de pompare pe faleză, foto-stop de 15 minute, cu drum de acces pe jos.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 2","cv":null,"info":"","src":"Ruinas Gordejuela","va":[]},{"nm":"Los Guíos","cat":"plaja","lat":28.243,"lon":-16.843,"sc":21,"day":7,"note":"Plaja neagră de sub falezele Los Gigantes. Atena dă 5 aici — e locul în care rămâne cât restul urcă la mirador.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 4 · Atena 5","cv":null,"info":"","src":"Los Guios","va":[]},{"nm":"Playa de las Teresitas","cat":"plaja","lat":28.509,"lon":-16.187,"sc":21,"day":8,"note":"Nisip adus din Sahara și apă calmă, spre deosebire de restul coastei de nord. Duminica se umple de localnici.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 4 · Atena 4","cv":null,"info":"","src":"Playa Teresitas","va":[]},{"nm":"Bocacangrejo","cat":"plaja","lat":28.4069,"lon":-16.3131,"sc":20,"day":8,"note":"Atena dă 5. Baie rapidă pe drumul spre Santa Cruz, la circa o oră de prima cazare.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Bocacangrejo","va":[]},{"nm":"Piscină naturală","cat":"munte","lat":28.3735,"lon":-16.7661,"sc":21,"day":7,"note":"Bifată la Garachico, în ziua de nord-vest. Se închid când marea e agitată — verifică înainte de drum.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Piscina naturala","va":[{"nm":"El Caletón · Garachico","lat":28.3735,"lon":-16.7661,"no":"Varianta din plan. Bazine formate de lava din erupția de la 1706."},{"nm":"Charco del Viento · La Guancha","lat":28.4007,"lon":-16.674,"no":"Mai sălbatic și mai puțin aglomerat, la 20 min est de Garachico."},{"nm":"Montaña Amarilla · Costa del Silencio","lat":28.0018,"lon":-16.6486,"no":"În sud, la 10 min de prima cazare. Varianta pentru 28 august."},{"nm":"Bajamar","lat":28.554,"lon":-16.367,"no":"Bazine mari betonate, pe coasta de nord-est."}]},{"nm":"Puerto de la Cruz","cat":"oras","lat":28.418,"lon":-16.548,"sc":19,"day":0,"note":"Rezervă. Orașul cel mai plăcut din nord, dar nimeni nu l-a votat activ. Lago Martiánez, piscinele lui César Manrique, sunt principalul motiv.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 3","cv":null,"info":"","src":"Puerto de la cruz","va":[]},{"nm":"Surfing El Médano","cat":"apa","lat":28.0451,"lon":-16.5386,"sc":22,"day":4,"note":"Gabi, Atena și Robi. Vântul e puternic garantat — de asta se face surf aici, dar nu e plajă de lenevit. La 15 min de prima cazare și 40 de a doua, deci trebuie făcut înainte de mutare.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 5 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Surfing in El Medano","va":[{"nm":"El Médano · Playa Grande","lat":28.0451,"lon":-16.5386,"no":"Locul lecției. Cea mai constantă zonă de vânt din insulă."},{"nm":"La Tejita","lat":28.0316,"lon":-16.546,"no":"Plaja lungă de alături, la poalele Montaña Roja."},{"nm":"Playa Honda · Las Américas","lat":28.07,"lon":-16.733,"no":"Alternativă în sud-vest, valuri mai mici, bună pentru începători."}]},{"nm":"Cueva del Viento","cat":"munte","lat":28.352,"lon":-16.704,"sc":21,"day":7,"note":"Tub vulcanic, tur ghidat de 2 ore, grupuri de maximum 15. Pantaloni lungi și adidași obligatoriu. Centrul se închide la 16:00 — confirmă ora ultimului tur.","hours":"9:00–16:00, zilnic","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 5 · Atena 4","cv":null,"info":"","src":"Cueva del viento","va":[]},{"nm":"La Orotava","cat":"oras","lat":28.39,"lon":-16.523,"sc":19,"day":0,"note":"Rezervă. Centru istoric, la 15 min de Puerto de la Cruz. Se putea lega de coborârea pe nord din ziua de Teide, dar turul ghidat nu permite ocolul.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Orotava","va":[]},{"nm":"Mirador Punta de Teno","cat":"mirador","lat":28.343,"lon":-16.921,"sc":20,"day":0,"note":"Tăiat din plan. Din 19 ianuarie 2026 sunt lucrări pe TF-445: acces doar cu autobuzul 369 sau taxi, interzis cu mașina, pe jos și pe bicicletă.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Mirador Punta de Teno","va":[]},{"nm":"Playa El Bollullo","cat":"plaja","lat":28.4175,"lon":-16.5201,"sc":19,"day":0,"note":"Rezervă. Nisip negru sub faleze, lângă Puerto de la Cruz. Accesul se face pe jos, în pantă, și valurile sunt puternice.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Playa el bollulo","va":[]},{"nm":"Monkey Park","cat":"parc","lat":28.0605,"lon":-16.6928,"sc":21,"day":5,"note":"Atena e singura care dă 5. E practic pe traseul dintre cele două cazări, de asta intră în ziua de mutare.","hours":"9:30–16:00","votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 5","cv":null,"info":"","src":"Monkey park","va":[]},{"nm":"Santa Cruz de Tenerife","cat":"oras","lat":28.4682,"lon":-16.2546,"sc":20,"day":8,"note":"Prima oprire lungă din ziua de nord-est. Dacă plecați târziu, e prima care se taie.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 4 · Viorel 3 · Atena 4","cv":null,"info":"","src":"Santacruz de Tenerife","va":[{"nm":"Plaza de España","lat":28.4682,"lon":-16.2546,"no":"Centrul, cu lacul artificial."},{"nm":"Mercado Nuestra Señora de África","lat":28.464,"lon":-16.253,"no":"Piața acoperită, cea mai animată duminica dimineața."},{"nm":"Auditorio de Tenerife","lat":28.459,"lon":-16.248,"no":"Clădirea lui Calatrava, pe faleză."}]},{"nm":"Mirador La Tarta","cat":"mirador","lat":28.3344,"lon":-16.4902,"sc":20,"day":0,"note":"Rezervă. Straturi vulcanice colorate ca un tort, pe TF-24. Cerea mașină proprie la coborârea de la Teide.","hours":null,"votes":"Gabi 3 · Alex 3 · Ovidiu 3 · Robi 3 · Viorel 3 · Atena 5","cv":null,"info":"","src":"mirador la tarta","va":[]}];
@@ -1069,6 +1083,7 @@ function drawLocDetail(){
 }
 
 function showLoc(){
+  view="loc";
   document.getElementById("view-day").hidden=true;
   document.getElementById("view-book").hidden=true;
   document.getElementById("view-loc").hidden=false;
@@ -1077,6 +1092,9 @@ function showLoc(){
   lcBtn.setAttribute("aria-selected","true");
   document.documentElement.style.setProperty("--accent","var(--ochre)");
   locBtnInit();drawLocMarkers();drawLocList();drawLocDetail();
+  const lh=document.querySelector("#view-loc .bk-count");
+  if(lh&&!lh.querySelector(".share"))lh.appendChild(shareBtn());
+  syncURL();
 }
 
 const lcBtn=document.createElement("button");
@@ -1087,7 +1105,105 @@ lcBtn.innerHTML=`<span class="n">28</span><span class="d">Locații</span><span c
 lcBtn.addEventListener("click",showLoc);
 rail.appendChild(lcBtn);
 
-render(0);
+/* ============ adresă partajabilă ============ */
+/* Fiecare tab, zi, oprire și locație are propriul URL. Linkul curent e mereu
+   cel din bara de adrese, deci copierea lui trimite exact ce vezi pe ecran. */
+
+LOCS.forEach(l=>{l.sl=l.nm.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")});
+
+function setURL(p){
+  const q=new URLSearchParams();
+  Object.keys(p).forEach(k=>{if(p[k]!==null&&p[k]!==undefined&&p[k]!=="")q.set(k,p[k])});
+  const qs=q.toString();
+  try{
+    history.replaceState(null,"",qs?"?"+qs:location.pathname);
+  }catch(e){
+    /* file:// nu permite replaceState cu query, cădem pe hash */
+    try{location.replace("#"+qs)}catch(_){}
+  }
+}
+
+function syncURL(){
+  const p={};
+  if(view==="book"){p.tab="rezervari"}
+  else if(view==="loc"){
+    p.tab="locatii";
+    if(locFilter)p.filtru=locFilter;
+    if(locSel!==null){p.loc=LOCS[locSel].sl;if(locVar!==null)p.varianta=locVar+1}
+  }else{
+    p.zi=DAYS[cur].n;
+    if(act){p.traseu=act[0]+1;p.oprire=act[1]+1}
+  }
+  setURL(p);
+}
+
+function readURL(){
+  let raw=location.search.replace(/^\?/,"");
+  if(!raw)raw=location.hash.replace(/^#\??/,"");
+  return new URLSearchParams(raw);
+}
+
+function applyURL(){
+  const q=readURL();
+  const tab=q.get("tab");
+
+  if(tab==="rezervari"){showBook();return}
+
+  if(tab==="locatii"){
+    const f=q.get("filtru");
+    locFilter=(f&&(CATS[f]||f==="off"))?f:null;
+    const sl=q.get("loc");
+    const idx=sl?LOCS.findIndex(l=>l.sl===sl):-1;
+    locSel=idx>=0?idx:null;
+    const vn=parseInt(q.get("varianta"),10);
+    locVar=(locSel!==null&&vn>=1&&vn<=LOCS[locSel].va.length)?vn-1:null;
+    showLoc();return;
+  }
+
+  const zi=parseInt(q.get("zi"),10);
+  let i=DAYS.findIndex(d=>d.n===zi);
+  if(i<0)i=0;
+  render(i);
+  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)");
+  if(bs[i]&&bs[i].scrollIntoView)bs[i].scrollIntoView({inline:"center",block:"nearest"});
+
+  const tr=parseInt(q.get("traseu"),10)-1, op=parseInt(q.get("oprire"),10)-1;
+  const D=DAYS[i];
+  if(tr>=0&&op>=0&&D.tracks[tr]&&D.tracks[tr].stops[op]){
+    focusStop(tr,op);
+    const li=document.querySelector(`#panel .stops li[data-t="${tr}"][data-s="${op}"]`);
+    if(li&&li.scrollIntoView)li.scrollIntoView({block:"center"});
+  }
+}
+
+function shareBtn(){
+  const b=document.createElement("button");
+  b.className="share";b.type="button";b.textContent="copiază link";
+  b.title="Copiază adresa exactă a ecranului ăstuia";
+  b.addEventListener("click",async()=>{
+    const url=location.href;
+    let ok=false;
+    try{await navigator.clipboard.writeText(url);ok=true}
+    catch(e){
+      try{
+        const ta=document.createElement("textarea");
+        ta.value=url;ta.style.position="fixed";ta.style.opacity="0";
+        document.body.appendChild(ta);ta.select();
+        ok=document.execCommand("copy");document.body.removeChild(ta);
+      }catch(_){ok=false}
+    }
+    b.textContent=ok?"copiat":"copiază manual";
+    b.classList.toggle("ok",ok);
+    setTimeout(()=>{b.textContent="copiază link";b.classList.remove("ok")},2000);
+  });
+  return b;
+}
+
+window.addEventListener("popstate",applyURL);
+window.addEventListener("hashchange",applyURL);
+
+applyURL();
 </script>
 </body>
 </html>
