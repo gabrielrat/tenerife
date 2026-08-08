@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenerife 2026 · plan pe zile</title>
+<style>
+:root{
+  --ground:#191D1C;
+  --plate:#202523;
+  --land:#333A36;
+  --land-hi:#3D453F;
+  --hair:rgba(226,222,206,.20);
+  --hair-soft:rgba(226,222,206,.09);
+  --ink:#E7E3D6;
+  --ink-dim:#9AA096;
+  --ink-faint:#666E68;
+  --ochre:#D9A03C;
+  --brick:#C55B48;
+  --teal:#3E9B95;
+  --olive:#93A354;
+  --violet:#8B7BA6;
+  --sky:#5D93CE;
+  --slate:#7E8AA0;
+  --plum:#B0629F;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--hair-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--hair-soft) 1px,transparent 1px);
+  background-size:64px 64px,64px 64px;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 72px}
+
+/* ---------- masthead ---------- */
+.mast{padding:34px 0 20px;border-bottom:1px solid var(--hair)}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 14px;
+}
+.mast h1{
+  font-family:var(--mono);font-weight:700;
+  font-size:clamp(30px,6.2vw,54px);line-height:.98;letter-spacing:-.02em;
+  text-transform:uppercase;margin:0;
+}
+.mast .sheet{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;
+}
+
+/* ---------- day rail ---------- */
+.rail-wrap{position:sticky;top:0;z-index:20;background:var(--ground);border-bottom:1px solid var(--hair)}
+.rail{display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{height:3px}
+.rail::-webkit-scrollbar-thumb{background:var(--hair)}
+.day-btn{
+  flex:0 0 auto;appearance:none;background:none;border:0;
+  border-right:1px solid var(--hair-soft);
+  padding:13px 16px 12px;text-align:left;cursor:pointer;color:var(--ink-dim);
+  font-family:var(--mono);position:relative;min-width:96px;
+  transition:color .18s,background .18s;
+}
+.day-btn:hover{color:var(--ink);background:rgba(226,222,206,.035)}
+.day-btn .n{font-size:10px;letter-spacing:.16em;display:block;color:var(--ink-faint)}
+.day-btn .d{font-size:14px;font-weight:700;letter-spacing:.02em;display:block;margin-top:3px;white-space:nowrap}
+.day-btn .w{font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:2px;color:var(--ink-faint)}
+.day-btn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:transparent}
+.day-btn[aria-selected="true"]{color:var(--ink);background:rgba(226,222,206,.06)}
+.day-btn[aria-selected="true"]::after{background:var(--accent)}
+.day-btn[aria-selected="true"] .n,.day-btn[aria-selected="true"] .w{color:var(--accent)}
+.day-btn:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+
+/* ---------- day head ---------- */
+.dayhead{padding:30px 0 22px;display:grid;gap:14px}
+.dayhead .tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:10px;
+}
+.dayhead .tag i{display:inline-block;width:26px;height:0;border-top:2px solid var(--accent)}
+.dayhead h2{
+  font-family:var(--mono);font-weight:700;text-transform:uppercase;
+  font-size:clamp(22px,4.4vw,38px);line-height:1.02;letter-spacing:-.01em;margin:0;
+}
+.dayhead p{margin:0;max-width:66ch;color:var(--ink-dim);font-size:15px}
+
+/* ---------- roster ---------- */
+.roster{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.roster .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-right:4px}
+.chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:4px 9px;border:1px solid var(--hair);border-radius:2px;color:var(--ink-faint);
+}
+.chip.on{color:var(--ground);background:var(--ink);border-color:var(--ink);font-weight:700}
+.chip.on[data-trk]{background:var(--trk);border-color:var(--trk);color:#141716}
+
+/* ---------- layout ---------- */
+.grid{display:grid;grid-template-columns:1.18fr .82fr;gap:26px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr;gap:22px}}
+
+.plate{
+  background:var(--plate);border:1px solid var(--hair);border-radius:3px;
+  padding:10px 10px 6px;position:relative;
+}
+.plate svg{display:block;width:100%;height:auto}
+.plate .cap{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;justify-content:space-between;gap:12px;padding:4px 4px 6px;
+}
+
+/* ---------- profile ---------- */
+.prof{margin-top:16px;background:var(--plate);border:1px solid var(--hair);border-radius:3px;padding:12px 12px 8px}
+.prof-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;justify-content:space-between;margin-bottom:8px;
+}
+.prof-head b{color:var(--accent);font-weight:700}
+.prof svg{display:block;width:100%;height:auto}
+
+/* ---------- stops ---------- */
+.trk-head{
+  display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding-bottom:8px;
+  border-bottom:1px solid var(--hair);
+}
+.trk-head .bar{width:16px;height:3px;background:var(--trk);flex:0 0 auto;position:relative;top:-3px}
+.trk-head h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:0;font-weight:700}
+.trk-head span{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em}
+.trk{margin-bottom:26px}
+ol.stops{list-style:none;margin:0;padding:0}
+ol.stops li{
+  display:grid;grid-template-columns:58px 1fr;gap:12px;
+  padding:11px 8px 11px 6px;border-bottom:1px solid var(--hair-soft);
+  cursor:pointer;transition:background .15s;
+}
+ol.stops li:hover,ol.stops li.act{background:rgba(226,222,206,.05)}
+ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
+.t{font-family:var(--mono);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:.01em}
+.t small{display:block;font-weight:400;font-size:10px;color:var(--ink-faint);letter-spacing:.08em;margin-top:2px}
+.nm{font-weight:600;font-size:15px;letter-spacing:-.005em}
+.nm em{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--trk);margin-left:8px}
+.no{color:var(--ink-dim);font-size:13.5px;margin-top:3px;line-height:1.45}
+.alt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-top:4px}
+
+/* ---------- notes ---------- */
+.warn{
+  margin-top:6px;border-left:2px solid var(--brick);padding:10px 0 10px 14px;
+  color:var(--ink-dim);font-size:13.5px;
+}
+.warn b{color:var(--ink);font-weight:600}
+.foot{
+  margin-top:38px;padding-top:18px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;gap:26px;flex-wrap:wrap;line-height:1.9;
+}
+
+/* ---------- svg bits ---------- */
+.mk{cursor:pointer}
+.mk circle.hit{fill:transparent}
+.mk-lbl{font-family:var(--mono);font-size:11px;font-weight:700;fill:#141716}
+.geo-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;fill:var(--ink-faint);text-transform:uppercase}
+.base-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--ink-dim)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.route{stroke-dasharray:5 4}
+.mk.act circle.dot{stroke:var(--ink);stroke-width:2.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">Plan de teren · 6 persoane · 2 cazări · 3 mașini</p>
+    <h1>Tenerife<br>27 aug – 5 sep 2026</h1>
+    <div class="sheet">
+      <span>Gabi · Alex · Ovidiu · Robi · Viorel · Atena</span>
+      <span id="sheet-alt">Altitudine 0–3 555 m</span>
+    </div>
+  </header>
+
+  <div class="rail-wrap">
+    <div class="rail" id="rail" role="tablist" aria-label="Zilele vacanței"></div>
+  </div>
+
+  <section class="dayhead" id="dayhead"></section>
+
+  <div class="grid">
+    <div>
+      <div class="plate">
+        <svg id="map" viewBox="0 0 920 800" role="img" aria-label="Harta Tenerife cu traseul zilei"></svg>
+        <div class="cap">
+          <span>Tenerife · schemă de teren</span>
+          <span id="map-cap">—</span>
+        </div>
+      </div>
+      <div class="prof">
+        <div class="prof-head">
+          <span>Profil de altitudine al zilei</span>
+          <span>punct maxim <b id="prof-max">—</b></span>
+        </div>
+        <svg id="prof" viewBox="0 0 920 190" role="img" aria-label="Profilul de altitudine al zilei"></svg>
+      </div>
+    </div>
+    <div id="panel"></div>
+  </div>
+
+  <div class="foot">
+    <span>Traseele sunt schematice — liniile arată ordinea opririlor, nu drumul real</span>
+    <span>Orele sunt ținte, nu obligații</span>
+    <span>Cazări marcate cu pătrat</span>
+  </div>
+</div>
+
+<script>
+/* ============ people ============ */
+const ALL = ["Gabi","Alex","Ovidiu","Robi","Viorel","Atena"];
+
+/* ============ island outline (lat,lon) clockwise ============ */
+const COAST=[
+[28.343,-16.921],[28.356,-16.905],[28.368,-16.884],[28.374,-16.860],[28.376,-16.836],
+[28.372,-16.808],[28.373,-16.783],[28.375,-16.762],[28.379,-16.740],[28.385,-16.718],
+[28.390,-16.694],[28.394,-16.668],[28.397,-16.645],[28.403,-16.620],[28.412,-16.596],
+[28.418,-16.560],[28.422,-16.535],[28.428,-16.515],[28.440,-16.492],[28.455,-16.470],
+[28.472,-16.450],[28.487,-16.432],[28.500,-16.418],[28.515,-16.400],[28.530,-16.383],
+[28.545,-16.365],[28.562,-16.345],[28.575,-16.325],[28.583,-16.300],[28.585,-16.275],
+[28.578,-16.250],[28.572,-16.228],[28.573,-16.205],[28.578,-16.185],[28.577,-16.165],
+[28.570,-16.145],[28.560,-16.135],[28.548,-16.142],[28.535,-16.155],[28.520,-16.170],
+[28.508,-16.185],[28.492,-16.203],[28.478,-16.216],[28.468,-16.235],[28.460,-16.252],
+[28.442,-16.272],[28.425,-16.293],[28.408,-16.312],[28.390,-16.330],[28.372,-16.348],
+[28.350,-16.363],[28.328,-16.375],[28.305,-16.383],[28.270,-16.395],[28.230,-16.408],
+[28.190,-16.425],[28.155,-16.440],[28.120,-16.468],[28.085,-16.495],[28.058,-16.518],
+[28.043,-16.540],[28.030,-16.560],[28.022,-16.578],[28.010,-16.610],[28.001,-16.645],
+[27.998,-16.672],[28.002,-16.690],[28.012,-16.702],[28.030,-16.712],[28.048,-16.718],
+[28.062,-16.730],[28.078,-16.738],[28.092,-16.746],[28.108,-16.760],[28.128,-16.775],
+[28.150,-16.790],[28.172,-16.805],[28.196,-16.822],[28.218,-16.836],[28.238,-16.844],
+[28.250,-16.846],[28.266,-16.855],[28.285,-16.872],[28.305,-16.890],[28.325,-16.906]
+];
+
+/* ============ projection ============ */
+const LO0=-16.975,LO1=-16.075,LA0=27.955,LA1=28.625;
+const KX=Math.cos(28.3*Math.PI/180);
+const W=920,PADX=26,PADY=26;
+const spanX=(LO1-LO0)*KX, spanY=(LA1-LA0);
+const SC=(W-2*PADX)/spanX;
+const H=Math.round(spanY*SC+2*PADY);
+function px(lon){return PADX+(lon-LO0)*KX*SC}
+function py(lat){return PADY+(LA1-lat)*SC}
+
+/* ============ geo reference labels ============ */
+const GEO=[
+ {n:"Teide 3 715",lat:28.272,lon:-16.642,anchor:"middle"},
+ {n:"Anaga",lat:28.545,lon:-16.245,anchor:"middle"},
+ {n:"Teno",lat:28.330,lon:-16.860,anchor:"middle"},
+ {n:"Santa Cruz",lat:28.463,lon:-16.290,anchor:"end"},
+ {n:"Costa Adeje",lat:28.095,lon:-16.760,anchor:"end"},
+ {n:"TFS",lat:28.045,lon:-16.560,anchor:"start"}
+];
+
+/* ============ bases ============ */
+const BASES=[
+ {n:"Wyndham Golf del Sur",short:"Golf del Sur",lat:28.0225,lon:-16.6086,from:0,to:4},
+ {n:"Azure Sky Villa · San Eugenio",short:"San Eugenio",lat:28.0800,lon:-16.7350,from:4,to:9}
+];
+
+/* ============ days ============ */
+const DAYS=[
+{
+ n:1,date:"27 aug",wd:"joi",accent:"var(--slate)",
+ title:"Sosire · aterizare 16:40",
+ lede:"Ziua nu încape nimic în plus. Mașini, check-in, cumpărături înainte să se închidă magazinele, cină în port. Apusul e la 20:32, chiar din Los Abrigos.",
+ people:["Gabi","Alex","Ovidiu","Robi"],
+ tracks:[{name:"Toți patru",color:"var(--slate)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
+  {t:"16:40",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Bagaje plus preluarea a două mașini: în sezon, ghișeele au coadă. Contează 45 de minute, nu 20."},
+  {t:"18:00",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0225,lon:-16.6086,alt:40,no:"Opt minute de la terminal. Cea mai scurtă legătură aeroport–cazare din toată vacanța."},
+  {t:"18:45",d:"1 h",nm:"Mercadona · Las Chafiras",lat:28.0555,lon:-16.6100,alt:90,no:"Se închide la 21:00. Mergeți înainte de cină, nu după."},
+  {t:"20:00",d:"cină",nm:"Los Abrigos",lat:28.0243,lon:-16.5744,alt:10,no:"Portul de pește al sudului. Rezervă masă — e joi de august. Apus 20:32."}
+ ]}]
+},
+{
+ n:2,date:"28 aug",wd:"vineri",accent:"var(--teal)",
+ title:"Split · scufundări și coasta de sud",
+ lede:"Singura zi cu împărțire reală. E aleasă fix acum pentru că Viorel dă 2 la scufundări și nu e încă pe insulă.",
+ people:["Gabi","Alex","Ovidiu","Robi"],
+ tracks:[
+ {name:"Grup scufundări",color:"var(--teal)",people:["Gabi","Robi"],stops:[
+  {t:"09:30",d:"~3 h",nm:"Las Galletas · diving",lat:28.0106,lon:-16.6512,alt:5,no:"Două scufundări. Fără brevet, Discovery Dive de circa 90 de minute. Cea mai bună zonă de diving din sud."},
+  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0243,lon:-16.5744,alt:10,no:"Punct de reunire cu celălalt grup."}
+ ]},
+ {name:"Grup coastă",color:"var(--olive)",people:["Alex","Ovidiu"],stops:[
+  {t:"10:00",d:"2 h",nm:"Montaña Amarilla",lat:28.0018,lon:-16.6486,alt:30,no:"Piscine naturale la baza tufului galben, Costa del Silencio. Zece minute de cazare."},
+  {t:"12:15",d:"1½ h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Plajă lungă la poalele Montaña Roja."},
+  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0243,lon:-16.5744,alt:10,no:"Reunire."}
+ ]}]
+},
+{
+ n:3,date:"29 aug",wd:"sâmbătă",accent:"var(--plum)",
+ title:"Siam Night · ultima din sezon",
+ lede:"Sezonul Siam Night se închide chiar azi. Ziua e ușoară până seara, iar Viorel și Atena vin direct cu mașina lor la parc — marja lor de la aterizare e de 2 h 45.",
+ people:ALL,
+ warn:"Nu există altă dată. Dacă seara asta se anulează, nu vedeți Siam Park în vacanța asta.",
+ tracks:[
+ {name:"Cei patru",color:"var(--plum)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
+  {t:"10:00",d:"dimineața",nm:"Los Cristianos · Playa de las Vistas",lat:28.0505,lon:-16.7180,alt:5,no:"Plajă lejeră. Nimic solid — seara se termină după miezul nopții."},
+  {t:"19:15",d:"drum",nm:"Plecare spre San Eugenio Alto",lat:28.0225,lon:-16.6086,alt:40,no:"25 de minute până la parc."},
+  {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc — nu programa cină."}
+ ]},
+ {name:"Viorel și Atena",color:"var(--sky)",people:["Viorel","Atena"],stops:[
+  {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Bagaje și mașina lor: ieșire pe la 16:30, plecare pe la 17:00."},
+  {t:"17:20",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0225,lon:-16.6086,alt:40,no:"Duș, despachetat rapid, o bere pe terasă."},
+  {t:"19:45",d:"întâlnire",nm:"Parcarea Siam Park",lat:28.0725,lon:-16.7250,alt:90,no:"Punctul de întâlnire al celor șase."}
+ ]}]
+},
+{
+ n:4,date:"30 aug",wd:"duminică",accent:"var(--teal)",
+ title:"El Médano · surfing",
+ lede:"Start târziu, după noaptea de sâmbătă. Cincisprezece minute de cazare — din Costa Adeje ar fi patruzeci, deci ziua asta nu poate fi mutată mai târziu în vacanță.",
+ people:ALL,
+ tracks:[{name:"Toți șase",color:"var(--teal)",people:ALL,stops:[
+  {t:"12:00",d:"2½ h",nm:"El Médano · lecție de surf",lat:28.0451,lon:-16.5386,alt:10,no:"Gabi, Atena și Robi în apă — toți trei dau 5. Alex, Ovidiu și Viorel pe plajă sau în lecție dacă vor. Vântul e puternic garantat: de asta se face surf aici."},
+  {t:"14:30",d:"prânz",nm:"Promenada El Médano",lat:28.0448,lon:-16.5410,alt:8,no:""},
+  {t:"16:00",d:"3 h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Sau urcare pe Montaña Roja: o oră, priveliște peste tot sud-estul."},
+  {t:"17:00",d:"1 h opțional",nm:"Montaña Roja",lat:28.0247,lon:-16.5432,alt:171,no:"Punctul cel mai înalt al zilei."}
+ ]}]
+},
+{
+ n:5,date:"31 aug",wd:"luni",accent:"var(--violet)",
+ title:"Mutare + catamaran",
+ lede:"Ziua e construită ca mutarea să nu consume vacanță: Monkey Park e practic pe traseul dintre cele două cazări, iar catamaranul pleacă la cinci minute de vila nouă.",
+ people:ALL,
+ warn:"Toată ziua atârnă de două ore pe care nu le știi încă: check-out la Wyndham și check-in la vilă. Dacă vila nu primește înainte de 16:00, mută Monkey Park după prânz.",
+ tracks:[{name:"Toți șase",color:"var(--violet)",people:ALL,stops:[
+  {t:"10:30",d:"check-out",nm:"Wyndham Golf del Sur",lat:28.0225,lon:-16.6086,alt:40,no:"Trei mașini pentru șase persoane — bagajele nu sunt o problemă."},
+  {t:"10:50",d:"1 h",nm:"Monkey Park · Guaza",lat:28.0700,lon:-16.6790,alt:100,no:"Cincisprezece minute de cazarea veche, douăzeci de cea nouă. Atena e singura care dă 5."},
+  {t:"12:30",d:"prânz",nm:"Costa Adeje",lat:28.0870,lon:-16.7400,alt:30,no:""},
+  {t:"14:00",d:"check-in",nm:"Azure Sky Villa · San Eugenio",lat:28.0800,lon:-16.7350,alt:80,no:"Despachetat plus cumpărături la Mercadona San Eugenio sau CC Gran Sur."},
+  {t:"17:30",d:"4 h",nm:"Catamaran · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Cinci minute de vilă. Cere tur de minimum 3 ore cu oprire reală de înot. Delfinii nu sunt garantați."}
+ ]}]
+},
+{
+ n:6,date:"1 sep",wd:"marți",accent:"var(--brick)",
+ title:"Teide · tur ghidat, apus și stele",
+ lede:"Turul rezolvă exact problema voastră: biletele separate la teleferic sunt epuizate, dar operatorii au alocare proprie. Dimineața rămâne liberă — recuperare după ziua de mutare.",
+ people:ALL,
+ warn:"Singura activitate din plan pe care nu o poți improviza în ziua respectivă: turul se anulează la vânt puternic. Rezervă acum, ca reprogramarea pe 2, 3 sau 4 septembrie să fie gratuită.",
+ tracks:[{name:"Toți șase · cu transport",color:"var(--brick)",people:ALL,stops:[
+  {t:"15:45",d:"pickup",nm:"Azure Sky Villa · San Eugenio",lat:28.0800,lon:-16.7350,alt:80,no:"Ora variază cu apusul, între 14:15 și 16:30. Un singur punct pentru toți șase — stați la aceeași adresă."},
+  {t:"17:00",d:"oprire",nm:"Parcul Național · panoramă",lat:28.2200,lon:-16.6350,alt:2100,no:"Prima oprire în caldeirea Las Cañadas."},
+  {t:"18:30",d:"1½ h",nm:"Teleferic · La Rambleta",lat:28.2530,lon:-16.6250,alt:3555,no:"Biletul e inclus în tur. Terasele de sus și umbra Teidelui. Vârful cere permis separat, 200 pe zi, procesare până la 3 luni — cere explicit varianta cu permis dacă îl vreți."},
+  {t:"20:25",d:"apus",nm:"Narices del Teide",lat:28.2450,lon:-16.6800,alt:2000,no:"Apusul peste marea de nori."},
+  {t:"21:30",d:"1½ h",nm:"Observație astronomică",lat:28.2280,lon:-16.6280,alt:2150,no:"Telescoape și ghizi Starlight. Nu se improvizează cu mașina proprie."},
+  {t:"00:30",d:"retur",nm:"Azure Sky Villa",lat:28.0800,lon:-16.7350,alt:80,no:"Nimeni nu conduce 1 h 15 la coborâre pe întuneric. Ăsta e al doilea argument al turului."}
+ ]}]
+},
+{
+ n:7,date:"2 sep",wd:"miercuri",accent:"var(--ochre)",
+ title:"Nord-vest · Masca, Garachico, Cueva del Viento",
+ lede:"Cea mai eficientă buclă geografică a insulei, făcută din baza corectă. Start la 09:30, nu la 08:00 — v-ați întors de la Teide după miezul nopții.",
+ people:ALL,
+ tracks:[{name:"Toți șase",color:"var(--ochre)",people:ALL,stops:[
+  {t:"10:20",d:"1½ h",nm:"Masca",lat:28.3050,lon:-16.8360,alt:600,no:"Satul și Mirador Cruz de Hilda. Parcarea e minusculă — la 10:20 mai prindeți loc."},
+  {t:"12:15",d:"1½ h",nm:"Garachico · El Caletón",lat:28.3736,lon:-16.7647,alt:5,no:"Prânz și piscinele naturale. Aici se bifează piscina naturală din tabel."},
+  {t:"14:15",d:"2 h",nm:"Cueva del Viento",lat:28.3600,lon:-16.6980,alt:620,no:"Tur ghidat, grupuri de maximum 15. Pantaloni lungi și adidași sau bocanci, obligatoriu. Cască tot timpul."},
+  {t:"16:30",d:"20 min",nm:"Drago Milenario · Icod",lat:28.3660,lon:-16.7150,alt:235,no:"La doi pași de peșteră."},
+  {t:"18:00",d:"2½ h",nm:"Los Gigantes · Los Guíos",lat:28.2450,lon:-16.8420,alt:10,no:"Falezele de 600 m prind cea mai bună lumină seara, apus la 20:22. Atena dă 2 la Los Gigantes dar 5 la Los Guíos — aceeași locație: ea rămâne pe plajă, restul urcă la mirador."},
+  {t:"21:00",d:"cină",nm:"Puerto de Santiago",lat:28.2380,lon:-16.8390,alt:20,no:"Treizeci de minute până acasă."}
+ ]}]
+},
+{
+ n:8,date:"3 sep",wd:"joi",accent:"var(--olive)",
+ title:"Nord-est · Benijo, Teresitas, Anaga",
+ lede:"Cea mai lungă zi. Fără Cătălin, Anaga a căzut la 21 din 30 — ziua nu mai e pentru Anaga, e pentru Benijo, care are patru voturi de 5. Anaga e traseul frumos până acolo.",
+ people:ALL,
+ warn:"Dacă plecați după 08:30, tăiați Santa Cruz și mergeți direct Teresitas, Anaga, Benijo. Apusul de la Benijo e reperul — tot restul e negociabil.",
+ tracks:[{name:"Toți șase",color:"var(--olive)",people:ALL,stops:[
+  {t:"09:05",d:"40 min",nm:"Bocacangrejo · Radazul",lat:28.4069,lon:-16.3131,alt:20,no:"Baie rapidă în golf. Atena dă 5."},
+  {t:"10:00",d:"1½ h",nm:"Santa Cruz",lat:28.4682,lon:-16.2546,alt:10,no:"Plaza de España, Mercado Nuestra Señora de África, Auditorio."},
+  {t:"12:00",d:"2 h",nm:"Playa de las Teresitas",lat:28.5090,lon:-16.1870,alt:5,no:"Nisip sahariano, apă calmă. Prânz în San Andrés."},
+  {t:"14:30",d:"1 h",nm:"Cruz del Carmen",lat:28.5280,lon:-16.2870,alt:920,no:"Pădurea de laurisilva. Aici începe partea de munte a zilei."},
+  {t:"15:30",d:"30 min",nm:"Mirador Pico del Inglés",lat:28.5253,lon:-16.2600,alt:1024,no:"Punctul cel mai înalt al zilei."},
+  {t:"16:30",d:"tranzit",nm:"Taganana",lat:28.5680,lon:-16.2100,alt:200,no:"Coborâre pe TF-134. Drum îngust, des în ceață — conduce cine e odihnit."},
+  {t:"17:30",d:"3 h",nm:"Benijo",lat:28.5760,lon:-16.1830,alt:20,no:"Plajă, stânci, apus la 20:21. Partea care nu se sacrifică."},
+  {t:"21:00",d:"cină",nm:"Almáciga",lat:28.5745,lon:-16.1750,alt:30,no:"Apoi TF-5 și TF-1, aproape două ore până acasă."}
+ ]}]
+},
+{
+ n:9,date:"4 sep",wd:"vineri",accent:"var(--sky)",
+ title:"Buggy, jet ski, plajă",
+ lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă, și se termină la o oră decentă ca să apucați să împachetați.",
+ people:ALL,
+ tracks:[{name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
+  {t:"09:30",d:"3½ h",nm:"Buggy · Adeje",lat:28.1230,lon:-16.7400,alt:300,no:"Șase persoane egal exact trei buggy-uri, câte doi. Perfect divizibil, nimeni pe dinafară."},
+  {t:"14:00",d:"2 h",nm:"Jet ski · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Toți șase pot merge — nu mai există niciun vot sub 3 de când Cătălin a ieșit din plan."},
+  {t:"16:00",d:"3 h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei."},
+  {t:"19:00",d:"1 h",nm:"Împachetat la vilă",lat:28.0800,lon:-16.7350,alt:80,no:"Mâine dimineață nu mai aveți timp."},
+  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final."}
+ ]}]
+},
+{
+ n:10,date:"5 sep",wd:"sâmbătă",accent:"var(--slate)",
+ title:"Ultima dimineață · decolare 16:45",
+ lede:"Zborul de la 16:45 lasă trei ore și jumătate utile. Traseul de mai jos merge tot spre aeroport, deci nu pierdeți nimic pe drumul înapoi. Închideți vacanța unde ați început-o.",
+ people:ALL,
+ warn:"Predați trei mașini, sâmbătă, în sezon de vârf. Marja e 2 h 30 înainte de zbor, nu 2 h. Nu tăia din ea pentru încă douăzeci de minute pe plajă.",
+ tracks:[{name:"Toți șase",color:"var(--slate)",people:ALL,stops:[
+  {t:"10:30",d:"check-out",nm:"Azure Sky Villa",lat:28.0800,lon:-16.7350,alt:80,no:"Verifică ora exactă. Dacă nu acceptă depozitare, plecați cu bagajele în mașini și nu lăsați nimic la vedere."},
+  {t:"11:15",d:"1¾ h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Ultima baie. Plajă mare, apă bună, cincisprezece minute de terminal."},
+  {t:"13:00",d:"1 h",nm:"Los Abrigos",lat:28.0243,lon:-16.5744,alt:10,no:"Prânz de rămas-bun în portul unde ați luat prima cină."},
+  {t:"14:15",d:"predare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Trei mașini de predat. Decolare la 16:45."}
+ ]}]
+}
+];
+
+/* ============ build map ============ */
+const SVGNS="http://www.w3.org/2000/svg";
+const map=document.getElementById("map");
+map.setAttribute("viewBox",`0 0 ${W} ${H}`);
+function el(t,a){const e=document.createElementNS(SVGNS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+
+(function baseLayer(){
+  const defs=el("defs");
+  const cp=el("clipPath",{id:"isl"});
+  const cpp=el("path",{d:coastPath()});
+  cp.appendChild(cpp);defs.appendChild(cp);map.appendChild(defs);
+
+  const g=el("g",{});
+  // graticule
+  for(let lo=-16.9;lo<-16.05;lo+=0.1){
+    g.appendChild(el("line",{x1:px(lo),y1:0,x2:px(lo),y2:H,stroke:"rgba(226,222,206,.055)","stroke-width":1}));
+  }
+  for(let la=28.0;la<28.65;la+=0.1){
+    g.appendChild(el("line",{x1:0,y1:py(la),x2:W,y2:py(la),stroke:"rgba(226,222,206,.055)","stroke-width":1}));
+  }
+  // land
+  g.appendChild(el("path",{d:coastPath(),fill:"var(--land)",stroke:"rgba(226,222,206,.34)","stroke-width":1.2,"stroke-linejoin":"round"}));
+  // massif shading, clipped to island
+  const gm=el("g",{"clip-path":"url(#isl)"});
+  const massifs=[
+    {lat:28.272,lon:-16.642,rx:0.30,ry:0.16,rot:-18,steps:5}, // Teide / Cañadas
+    {lat:28.545,lon:-16.235,rx:0.13,ry:0.055,rot:-28,steps:3}, // Anaga
+    {lat:28.330,lon:-16.855,rx:0.075,ry:0.05,rot:10,steps:3}   // Teno
+  ];
+  massifs.forEach(m=>{
+    for(let i=m.steps;i>=1;i--){
+      const f=i/m.steps;
+      gm.appendChild(el("ellipse",{
+        cx:px(m.lon),cy:py(m.lat),
+        rx:m.rx*KX*SC*f,ry:m.ry*SC*f,
+        transform:`rotate(${m.rot} ${px(m.lon)} ${py(m.lat)})`,
+        fill:"rgba(226,222,206,.030)",stroke:"rgba(226,222,206,.10)","stroke-width":1
+      }));
+    }
+  });
+  g.appendChild(gm);
+  // Teide peak tick
+  g.appendChild(el("path",{d:`M${px(-16.642)-6},${py(28.272)+5} L${px(-16.642)},${py(28.272)-6} L${px(-16.642)+6},${py(28.272)+5} Z`,fill:"rgba(226,222,206,.45)"}));
+  // geo labels
+  GEO.forEach(o=>{
+    const t=el("text",{x:px(o.lon),y:py(o.lat)+(o.n.startsWith("Teide")?22:4),"text-anchor":o.anchor,class:"geo-lbl"});
+    t.textContent=o.n;g.appendChild(t);
+  });
+  map.appendChild(g);
+  map.appendChild(el("g",{id:"lyr-base"}));
+  map.appendChild(el("g",{id:"lyr-route"}));
+})();
+
+function coastPath(){
+  return COAST.map((p,i)=>`${i?"L":"M"}${px(p[1]).toFixed(1)},${py(p[0]).toFixed(1)}`).join(" ")+" Z";
+}
+
+/* ============ render ============ */
+let cur=0,act=null;
+
+function render(i){
+  cur=i;act=null;
+  const D=DAYS[i];
+  document.documentElement.style.setProperty("--accent",D.accent);
+
+  // rail
+  [...document.querySelectorAll(".day-btn")].forEach((b,k)=>{
+    b.setAttribute("aria-selected",k===i?"true":"false");
+    b.style.setProperty("--accent",DAYS[k].accent);
+  });
+
+  // head
+  const dh=document.getElementById("dayhead");
+  dh.innerHTML="";
+  const tag=document.createElement("div");tag.className="tag";
+  tag.innerHTML=`<i></i>Ziua ${D.n} din 10 · ${D.wd} ${D.date}`;
+  const h2=document.createElement("h2");h2.textContent=D.title;
+  const p=document.createElement("p");p.textContent=D.lede;
+  const ros=document.createElement("div");ros.className="roster";
+  ros.innerHTML=`<span class="lbl">În traseu</span>`;
+  ALL.forEach(n=>{
+    const c=document.createElement("span");
+    const on=D.people.includes(n);
+    c.className="chip"+(on?" on":"");
+    c.textContent=n;
+    if(on){
+      const trk=D.tracks.find(t=>t.people.includes(n));
+      if(trk&&D.tracks.length>1){c.dataset.trk="1";c.style.setProperty("--trk",trk.color)}
+    }else{c.title=n+" nu e pe insulă în ziua asta"}
+    ros.appendChild(c);
+  });
+  dh.append(tag,h2,p,ros);
+
+  // base marker layer
+  const lb=document.getElementById("lyr-base");lb.innerHTML="";
+  BASES.forEach(b=>{
+    const active=i>=b.from&&i<=b.to;
+    const x=px(b.lon),y=py(b.lat);
+    lb.appendChild(el("rect",{x:x-5,y:y-5,width:10,height:10,
+      fill:active?"var(--ink)":"none",stroke:"var(--ink)","stroke-width":1.4,opacity:active?1:.35}));
+    const t=el("text",{x:x+10,y:y+4,class:"base-lbl",opacity:active?.95:.35});
+    t.textContent=b.short;lb.appendChild(t);
+  });
+
+  // routes + markers
+  const lr=document.getElementById("lyr-route");lr.innerHTML="";
+  D.tracks.forEach((trk,ti)=>{
+    const pts=trk.stops.map(s=>[px(s.lon),py(s.lat)]);
+    if(pts.length>1){
+      lr.appendChild(el("polyline",{points:pts.map(p=>p.join(",")).join(" "),
+        fill:"none",stroke:trk.color,"stroke-width":2,"stroke-linejoin":"round",
+        opacity:.85,class:"route"}));
+    }
+    trk.stops.forEach((s,si)=>{
+      const g=el("g",{class:"mk","data-t":ti,"data-s":si,tabindex:"0",role:"button"});
+      g.appendChild(el("circle",{class:"hit",cx:px(s.lon),cy:py(s.lat),r:16}));
+      g.appendChild(el("circle",{class:"dot",cx:px(s.lon),cy:py(s.lat),r:11,
+        fill:trk.color,stroke:"var(--plate)","stroke-width":2}));
+      const t=el("text",{x:px(s.lon),y:py(s.lat)+4,"text-anchor":"middle",class:"mk-lbl"});
+      t.textContent=si+1;g.appendChild(t);
+      const ttl=el("title");ttl.textContent=`${s.t} · ${s.nm}`;g.appendChild(ttl);
+      g.addEventListener("click",()=>focusStop(ti,si));
+      g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();focusStop(ti,si)}});
+      lr.appendChild(g);
+    });
+  });
+
+  // panel
+  const pan=document.getElementById("panel");pan.innerHTML="";
+  if(D.warn){
+    const w=document.createElement("div");w.className="warn";
+    w.innerHTML=`<b>De reținut.</b> ${D.warn}`;pan.appendChild(w);
+  }
+  D.tracks.forEach((trk,ti)=>{
+    const box=document.createElement("div");box.className="trk";
+    box.style.setProperty("--trk",trk.color);
+    const hd=document.createElement("div");hd.className="trk-head";
+    hd.innerHTML=`<span class="bar"></span><h3>${trk.name}</h3><span>${trk.people.join(" · ")}</span>`;
+    const ol=document.createElement("ol");ol.className="stops";
+    trk.stops.forEach((s,si)=>{
+      const li=document.createElement("li");
+      li.dataset.t=ti;li.dataset.s=si;li.tabIndex=0;
+      li.innerHTML=
+        `<div class="t">${s.t}${s.d?`<small>${s.d}</small>`:""}</div>`+
+        `<div><div class="nm">${s.nm}<em>${si+1}</em></div>`+
+        (s.no?`<div class="no">${s.no}</div>`:"")+
+        `<div class="alt">${s.alt} m</div></div>`;
+      li.addEventListener("click",()=>focusStop(ti,si));
+      li.addEventListener("keydown",e=>{if(e.key==="Enter"){focusStop(ti,si)}});
+      ol.appendChild(li);
+    });
+    box.append(hd,ol);pan.appendChild(box);
+  });
+
+  document.getElementById("map-cap").textContent=
+    D.tracks.length>1 ? `${D.tracks.length} trasee · ${D.tracks.reduce((a,t)=>a+t.stops.length,0)} opriri`
+                      : `${D.tracks[0].stops.length} opriri`;
+
+  profile(D);
+}
+
+/* ============ altitude profile ============ */
+function profile(D){
+  const sv=document.getElementById("prof");
+  sv.innerHTML="";
+  const PW=920,PH=190,L=44,R=14,T=16,B=34;
+  const MAXG=3600;
+  const all=D.tracks.flatMap(t=>t.stops);
+  const mx=Math.max(...all.map(s=>s.alt));
+  document.getElementById("prof-max").textContent=
+    `${mx.toLocaleString("ro-RO")} m · ${all.find(s=>s.alt===mx).nm}`;
+
+  // gridlines
+  [0,1000,2000,3000,3555].forEach(v=>{
+    const y=T+(1-v/MAXG)*(PH-T-B);
+    sv.appendChild(el("line",{x1:L,y1:y,x2:PW-R,y2:y,
+      stroke:v===3555?"rgba(226,222,206,.22)":"rgba(226,222,206,.09)",
+      "stroke-width":1,"stroke-dasharray":v===3555?"3 3":"none"}));
+    const t=el("text",{x:L-8,y:y+3.5,"text-anchor":"end",class:"geo-lbl"});
+    t.textContent=v===3555?"3 555":v.toLocaleString("ro-RO");
+    sv.appendChild(t);
+  });
+
+  D.tracks.forEach(trk=>{
+    const n=trk.stops.length;
+    const xs=i=>L+(n===1?(PW-L-R)/2:i*(PW-L-R)/(n-1));
+    const ys=a=>T+(1-a/MAXG)*(PH-T-B);
+    const pts=trk.stops.map((s,i)=>[xs(i),ys(s.alt)]);
+    // area
+    sv.appendChild(el("path",{
+      d:`M${pts[0][0]},${ys(0)} `+pts.map(p=>`L${p[0]},${p[1]}`).join(" ")+` L${pts[n-1][0]},${ys(0)} Z`,
+      fill:trk.color,opacity:.13}));
+    sv.appendChild(el("polyline",{points:pts.map(p=>p.join(",")).join(" "),
+      fill:"none",stroke:trk.color,"stroke-width":2}));
+    trk.stops.forEach((s,i)=>{
+      const g=el("g",{class:"pmk","data-t":D.tracks.indexOf(trk),"data-s":i});
+      g.appendChild(el("circle",{cx:pts[i][0],cy:pts[i][1],r:4.5,fill:trk.color,
+        stroke:"var(--plate)","stroke-width":1.5}));
+      const t=el("text",{x:pts[i][0],y:PH-14,"text-anchor":"middle",class:"geo-lbl"});
+      t.textContent=s.t;g.appendChild(t);
+      const ttl=el("title");ttl.textContent=`${s.nm} · ${s.alt} m`;g.appendChild(ttl);
+      sv.appendChild(g);
+    });
+  });
+}
+
+/* ============ focus a stop ============ */
+function focusStop(ti,si){
+  const same=act&&act[0]===ti&&act[1]===si;
+  act=same?null:[ti,si];
+  document.querySelectorAll("#panel .stops li").forEach(li=>{
+    li.classList.toggle("act",!!act&&+li.dataset.t===act[0]&&+li.dataset.s===act[1]);
+  });
+  document.querySelectorAll("#lyr-route .mk").forEach(g=>{
+    g.classList.toggle("act",!!act&&+g.dataset.t===act[0]&&+g.dataset.s===act[1]);
+  });
+  document.querySelectorAll("#prof .pmk circle").forEach(c=>{
+    const g=c.parentNode;
+    const on=!!act&&+g.dataset.t===act[0]&&+g.dataset.s===act[1];
+    c.setAttribute("r",on?7:4.5);
+    c.setAttribute("stroke",on?"var(--ink)":"var(--plate)");
+  });
+}
+
+/* ============ rail ============ */
+const rail=document.getElementById("rail");
+DAYS.forEach((D,i)=>{
+  const b=document.createElement("button");
+  b.className="day-btn";b.type="button";b.setAttribute("role","tab");
+  b.setAttribute("aria-selected",i===0?"true":"false");
+  b.innerHTML=`<span class="n">Z${String(D.n).padStart(2,"0")}</span>`+
+              `<span class="d">${D.date}</span>`+
+              `<span class="w">${D.wd}</span>`;
+  b.addEventListener("click",()=>{render(i);b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})});
+  rail.appendChild(b);
+});
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,textarea"))return;
+  if(e.key==="ArrowRight"&&cur<DAYS.length-1)document.querySelectorAll(".day-btn")[cur+1].click();
+  if(e.key==="ArrowLeft"&&cur>0)document.querySelectorAll(".day-btn")[cur-1].click();
+});
+
+render(0);
+</script>
+</body>
+</html>
