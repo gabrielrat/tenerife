@@ -168,6 +168,49 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
 .mk-lbl{font-family:var(--mono);font-size:11px;font-weight:700;fill:#141716}
 .geo-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;fill:var(--ink-faint);text-transform:uppercase}
 .base-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--ink-dim)}
+/* ---------- Cătălin: rând independent ---------- */
+.solo{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;
+  border-left:2px dashed var(--st,var(--ink-faint));padding:9px 0 9px 13px;margin-top:4px}
+.solo-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.solo b{font-weight:700;font-size:14.5px}
+.solo-tag{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--st);border:1px solid var(--st);border-radius:2px;padding:2px 7px;white-space:nowrap}
+.solo-no{color:var(--ink-dim);font-size:13.5px;flex:1 1 280px;min-width:0}
+
+/* ---------- tab rezervări ---------- */
+.book-btn{border-left:1px solid var(--hair);min-width:118px}
+.bk-head{padding:30px 0 4px;display:grid;gap:14px;max-width:74ch}
+.bk-head h2{font-family:var(--mono);font-weight:700;text-transform:uppercase;
+  font-size:clamp(22px,4.4vw,38px);line-height:1.02;margin:0}
+.bk-head p{margin:0;color:var(--ink-dim)}
+.bk-count{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brick);display:flex;align-items:center;gap:10px}
+.bk-count i{display:inline-block;width:26px;height:0;border-top:2px solid var(--brick)}
+.bk-grp{margin-top:34px}
+.bk-grp>h3{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  margin:0 0 3px;color:var(--lv);display:flex;align-items:baseline;gap:11px;flex-wrap:wrap}
+.bk-grp>h3 b{font-weight:400;color:var(--ink-faint);letter-spacing:.1em;font-size:11px}
+.bk-grp>p{margin:0 0 12px;font-size:13px;color:var(--ink-faint);max-width:70ch}
+ul.bk{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair)}
+ul.bk li{display:grid;grid-template-columns:24px 1fr 136px;gap:14px;align-items:start;
+  padding:14px 6px;border-bottom:1px solid var(--hair-soft)}
+@media(max-width:640px){ul.bk li{grid-template-columns:24px 1fr;gap:11px}.bk-for{grid-column:2;text-align:left;padding-top:6px}}
+ul.bk li.done{opacity:.42}
+ul.bk li.done .bk-what{text-decoration:line-through}
+.bk-box{appearance:none;-webkit-appearance:none;width:18px;height:18px;margin:3px 0 0;cursor:pointer;
+  border:1.5px solid var(--lv);border-radius:2px;background:none;position:relative}
+.bk-box:checked{background:var(--lv)}
+.bk-box:checked::after{content:"";position:absolute;left:4.5px;top:1px;width:6px;height:10px;
+  border-right:2.5px solid #141716;border-bottom:2.5px solid #141716;transform:rotate(42deg)}
+.bk-box:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.bk-what{font-weight:600;font-size:15.5px}
+.bk-why{color:var(--ink-dim);font-size:13.5px;margin-top:3px}
+.bk-where{font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--ink-faint);margin-top:5px}
+.bk-for{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);text-align:right;padding-top:3px}
+.bk-for b{display:block;color:var(--ink);font-size:12px;letter-spacing:.05em;font-weight:700}
+.bk-note{margin-top:32px;border-left:2px solid var(--hair);padding:3px 0 3px 14px;
+  color:var(--ink-faint);font-size:13px;max-width:74ch;line-height:1.65}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 .route{stroke-dasharray:5 4}
 .mk.act circle.dot{stroke:var(--ink);stroke-width:2.5}
@@ -177,10 +220,11 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
 <div class="wrap">
 
   <header class="mast">
-    <p class="eyebrow">Plan de teren · 6 persoane · 2 cazări · 3 mașini</p>
+    <p class="eyebrow">Plan de teren · 7 în grup · 6 în trasee · 1 pe scooter · 2 cazări</p>
     <h1>Tenerife<br>27 aug – 5 sep 2026</h1>
     <div class="sheet">
       <span>Gabi · Alex · Ovidiu · Robi · Viorel · Atena</span>
+      <span>+ Cătălin · scooter · decide zi de zi</span>
       <span id="sheet-alt">Altitudine 0–3 555 m</span>
     </div>
   </header>
@@ -189,6 +233,7 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
     <div class="rail" id="rail" role="tablist" aria-label="Zilele vacanței"></div>
   </div>
 
+  <div id="view-day">
   <section class="dayhead" id="dayhead"></section>
 
   <div class="grid">
@@ -210,17 +255,80 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
     </div>
     <div id="panel"></div>
   </div>
+  </div>
+
+  <section id="view-book" hidden></section>
 
   <div class="foot">
     <span>Traseele sunt schematice — liniile arată ordinea opririlor, nu drumul real</span>
     <span>Orele sunt ținte, nu obligații</span>
     <span>Cazări marcate cu pătrat</span>
+    <span>Cătălin e pe scooter — traseele nu depind de el</span>
   </div>
 </div>
 
 <script>
 /* ============ people ============ */
 const ALL = ["Gabi","Alex","Ovidiu","Robi","Viorel","Atena"];
+
+/* Cătălin e în grup, dar e pe scooter și decide singur în ce zile vine.
+   Semnalul de mai jos vine din voturile lui, ca să poată alege informat.
+   Traseele nu îl includ niciodată — nimic nu se rupe dacă lipsește. */
+const CAT={
+ 1:{tag:"cum ajunge",  c:"var(--ink-faint)", no:"Ziua e doar logistică. Dacă e deja pe insulă, cina din Los Abrigos e punctul de întâlnire."},
+ 2:{tag:"indiferent",  c:"var(--ink-faint)", no:"Nu a votat scufundările, dă 3 pe coasta de sud. Zi bună de tur propriu cu scooterul."},
+ 3:{tag:"probabil da", c:"var(--olive)",     no:"Dă 4 la Siam Park. Îi trebuie bilet ca tuturor, și e ultima noapte a sezonului — dacă vine, se decide acum, nu pe 29."},
+ 4:{tag:"indiferent",  c:"var(--ink-faint)", no:"Nu a votat surfingul. El Médano e la 15 minute de cazare, poate apărea doar la plajă."},
+ 5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran. Rezervă-i locul odată cu ale voastre — plecarea e din Puerto Colón la 17:30."},
+ 6:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Turul e cu transport și pickup de la vilă, deci îi trebuie loc rezervat — nu poate urca pe scooter după autocar."},
+ 7:{tag:"vine sigur",  c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. TF-436 spre Masca e un traseu de vis pe scooter, dar are vreo 180 de curbe."},
+ 8:{tag:"probabil da", c:"var(--olive)",     no:"Anaga 5, Benijo 3. Atenție: TF-134 și TF-136 sunt înguste și des în ceață, plus aproape 2 ore pe sens. Ține-i un loc liber în mașină."},
+ 9:{tag:"probabil nu", c:"var(--brick)",     no:"Jet ski 1 și buggy 2 — singura zi respinsă explicit. Tur propriu pe scooter: Vilaflor, Ifonche, Arico."},
+ 10:{tag:"de confirmat",c:"var(--ink-faint)",no:"Nu știm dacă pleacă cu voi. Dacă da, scooterul trebuie predat înainte de drumul spre aeroport."}
+};
+
+/* ============ rezervări ============ */
+const TRIP="2026-08-27";
+const BOOK=[
+ {lv:"var(--brick)",h:"Astăzi",sub:"Trei lucruri care se epuizează sau se închid. Restul poate aștepta.",items:[
+  {w:"Siam Night · 6-7 bilete",f:"29 aug",fl:"Z03",
+   y:"Ultima noapte a sezonului 2026. Sezonul se închide chiar în ziua în care ajung Viorel și Atena — nu există dată alternativă, nici mai devreme, nici mai târziu.",u:"siampark.net · doar 16+"},
+  {w:"Tur ghidat Teide · apus și stele",f:"1 sep",fl:"Z06",
+   y:"Include biletul de teleferic, care nu se mai găsește separat. Se anulează la vânt puternic, deci rezervarea devreme îți dă reprogramare gratuită pe 2, 3 sau 4 septembrie.",u:"volcanoteide.com · +1 loc dacă vine Cătălin"},
+  {w:"Cueva del Viento",f:"2 sep",fl:"Z07",
+   y:"Grupuri de maximum 15 persoane și 96,5% ocupare în 2025. Șase locuri în același tur e greu. Dacă nu prinzi ziua asta, mută ziua — nu peștera.",u:"cuevadelviento.net"}
+ ]},
+ {lv:"var(--ochre)",h:"În 2-3 zile",sub:"Se găsesc încă, dar în sezon se închid rapid pentru grupuri.",items:[
+  {w:"Lecție de surf · minimum 3 locuri",f:"30 aug",fl:"Z04",
+   y:"Gabi, Atena și Robi. Weekend de sezon la El Médano, școlile se umplu.",u:"școală în El Médano"},
+  {w:"Catamaran seara",f:"31 aug",fl:"Z05",
+   y:"Cere tur de minimum 3 ore cu oprire reală de înot, nu unul de 2 ore care nu ancorează. Delfinii nu sunt garantați de nimeni.",u:"Puerto Colón · 5 min de vilă"},
+  {w:"Buggy · 3 vehicule",f:"4 sep",fl:"Z09",
+   y:"Șase persoane egal exact trei buggy-uri. Trei simultan cer rezervare, nu se rezolvă la fața locului.",u:"operator în Costa Adeje"},
+  {w:"Masă la Los Abrigos · 4 persoane",f:"27 aug",fl:"Z01",
+   y:"Joi de august în cel mai căutat port de pește din sud, iar voi ajungeți la 20:00 după un zbor.",u:"telefonic"}
+ ]},
+ {lv:"var(--sky)",h:"Săptămâna asta",sub:"Fără presiune de disponibilitate, dar mai bine acum decât în vacanță.",items:[
+  {w:"Scufundări · 2 persoane",f:"28 aug",fl:"Z02",
+   y:"Gabi și Robi. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive — schimbă și prețul, și programul zilei.",u:"centru în Las Galletas"},
+  {w:"Jet ski · 6 locuri",f:"4 sep",fl:"Z09",
+   y:"Se poate și cu o zi-două înainte, e la 5 minute de vilă. Pus aici doar ca să nu se uite.",u:"Puerto Colón"},
+  {w:"Masă la Los Abrigos · prânz",f:"5 sep",fl:"Z10",
+   y:"Sâmbătă la prânz, înainte de zbor. Închideți vacanța unde ați început-o.",u:"telefonic"},
+  {w:"Scooterul lui Cătălin",f:"27-31 aug",fl:"—",
+   y:"Verifică de unde îl ia și dacă închirierea acoperă toată perioada. Fără el, planul lui de zile independente nu există.",u:"închiriere în sud"}
+ ]},
+ {lv:"var(--slate)",h:"De confirmat, nu de plătit",sub:"Informații care structurează zile întregi. Nu costă nimic, dar lipsa lor strică programul.",items:[
+  {w:"Ora de check-out la Wyndham și de check-in la vilă",f:"31 aug",fl:"Z05",
+   y:"Toată ziua de mutare atârnă de ele. Dacă vila nu primește înainte de 16:00, Monkey Park se mută după prânz și catamaranul de la 17:30 devine strâns.",u:"direct la proprietăți"},
+  {w:"Votul lui Alex",f:"toate zilele",fl:"—",
+   y:"Nu a completat nicio poziție din tabel, deci e tratat ca indiferent pe toate 28. La șase persoane, votul lui cântărește 17% din fiecare scor. Dacă are un nu la buggy, se rupe împărțirea de trei vehicule.",u:"un mesaj"},
+  {w:"Ora de check-out la vilă",f:"5 sep",fl:"Z10",
+   y:"Ultima dimineață are trei ore și jumătate utile. Dacă nu acceptă depozitare bagaje, plecați direct cu ele în mașini.",u:"direct la proprietate"},
+  {w:"Permis pentru vârful Teide",f:"1 sep",fl:"Z06",
+   y:"200 de locuri pe zi și procesare de până la 3 luni — pe cont propriu nu se mai prinde. Singura variantă e turul autorizat care include permisul. Planul nu depinde de el.",u:"tenerifeon.es · opțional"}
+ ]}
+];
 
 /* ============ island outline (lat,lon) clockwise ============ */
 const COAST=[
@@ -375,7 +483,7 @@ const DAYS=[
 {
  n:8,date:"3 sep",wd:"joi",accent:"var(--olive)",
  title:"Nord-est · Benijo, Teresitas, Anaga",
- lede:"Cea mai lungă zi. Fără Cătălin, Anaga a căzut la 21 din 30 — ziua nu mai e pentru Anaga, e pentru Benijo, care are patru voturi de 5. Anaga e traseul frumos până acolo.",
+ lede:"Cea mai lungă zi. În votul celor șase, Anaga stă la 21 din 30 — ziua nu mai e pentru Anaga, e pentru Benijo, care are patru voturi de 5. Anaga e traseul frumos până acolo. Cătălin însă dă 5 la Anaga: e una din zilele care merită să-l aducă la masă.",
  people:ALL,
  warn:"Dacă plecați după 08:30, tăiați Santa Cruz și mergeți direct Teresitas, Anaga, Benijo. Apusul de la Benijo e reperul — tot restul e negociabil.",
  tracks:[{name:"Toți șase",color:"var(--olive)",people:ALL,stops:[
@@ -396,7 +504,7 @@ const DAYS=[
  people:ALL,
  tracks:[{name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
   {t:"09:30",d:"3½ h",nm:"Buggy · Adeje",lat:28.1230,lon:-16.7400,alt:300,no:"Șase persoane egal exact trei buggy-uri, câte doi. Perfect divizibil, nimeni pe dinafară."},
-  {t:"14:00",d:"2 h",nm:"Jet ski · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Toți șase pot merge — nu mai există niciun vot sub 3 de când Cătălin a ieșit din plan."},
+  {t:"14:00",d:"2 h",nm:"Jet ski · Puerto Colón",lat:28.0836,lon:-16.7413,alt:5,no:"Toți șase pot merge: niciunul nu dă sub 3. Cătălin dă 1 la jet ski și 2 la buggy — singura zi pe care a respins-o explicit."},
   {t:"16:00",d:"3 h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei."},
   {t:"19:00",d:"1 h",nm:"Împachetat la vilă",lat:28.0800,lon:-16.7350,alt:80,no:"Mâine dimineață nu mai aveți timp."},
   {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final."}
@@ -479,11 +587,15 @@ let cur=0,act=null;
 
 function render(i){
   cur=i;act=null;
+  document.getElementById("view-day").hidden=false;
+  document.getElementById("view-book").hidden=true;
+  const bb=document.getElementById("book-btn");
+  if(bb)bb.setAttribute("aria-selected","false");
   const D=DAYS[i];
   document.documentElement.style.setProperty("--accent",D.accent);
 
   // rail
-  [...document.querySelectorAll(".day-btn")].forEach((b,k)=>{
+  [...document.querySelectorAll(".day-btn:not(.book-btn)")].forEach((b,k)=>{
     b.setAttribute("aria-selected",k===i?"true":"false");
     b.style.setProperty("--accent",DAYS[k].accent);
   });
@@ -509,6 +621,16 @@ function render(i){
     ros.appendChild(c);
   });
   dh.append(tag,h2,p,ros);
+
+  const cd=CAT[D.n];
+  if(cd){
+    const so=document.createElement("div");so.className="solo";
+    so.style.setProperty("--st",cd.c);
+    so.innerHTML=`<span class="solo-lbl">Independent</span>`+
+      `<b>Cătălin</b><span class="solo-tag">${cd.tag}</span>`+
+      `<span class="solo-no">${cd.no}</span>`;
+    dh.appendChild(so);
+  }
 
   // base marker layer
   const lb=document.getElementById("lyr-base");lb.innerHTML="";
@@ -655,9 +777,80 @@ DAYS.forEach((D,i)=>{
 });
 document.addEventListener("keydown",e=>{
   if(e.target.closest("input,textarea"))return;
-  if(e.key==="ArrowRight"&&cur<DAYS.length-1)document.querySelectorAll(".day-btn")[cur+1].click();
-  if(e.key==="ArrowLeft"&&cur>0)document.querySelectorAll(".day-btn")[cur-1].click();
+  const bs=document.querySelectorAll(".day-btn:not(.book-btn)");
+  if(e.key==="ArrowRight"&&cur<DAYS.length-1)bs[cur+1].click();
+  if(e.key==="ArrowLeft"&&cur>0)bs[cur-1].click();
 });
+
+/* ============ tab rezervări ============ */
+const bkBtn=document.createElement("button");
+bkBtn.className="day-btn book-btn";bkBtn.type="button";bkBtn.id="book-btn";
+bkBtn.setAttribute("role","tab");bkBtn.setAttribute("aria-selected","false");
+bkBtn.style.setProperty("--accent","var(--brick)");
+bkBtn.innerHTML=`<span class="n">!</span><span class="d">Rezervări</span><span class="w">de făcut</span>`;
+bkBtn.addEventListener("click",showBook);
+rail.appendChild(bkBtn);
+
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){
+  window.__m=window.__m||{};if(v===undefined)return window.__m[k];window.__m[k]=v}}
+
+function daysTo(d){
+  const a=new Date(),b=new Date(d+"T00:00:00");
+  return Math.ceil((b-a)/864e5);
+}
+
+function showBook(){
+  document.getElementById("view-day").hidden=true;
+  const v=document.getElementById("view-book");v.hidden=false;
+  document.querySelectorAll(".day-btn:not(.book-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  bkBtn.setAttribute("aria-selected","true");
+  document.documentElement.style.setProperty("--accent","var(--brick)");
+  v.innerHTML="";
+
+  const n=daysTo(TRIP);
+  const hd=document.createElement("div");hd.className="bk-head";
+  hd.innerHTML=`<div class="bk-count"><i></i>${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"}</div>`+
+    `<h2>Ce trebuie rezervat</h2>`+
+    `<p>Ordonate după cât de repede dispar, nu după data activității. Primele trei se pot epuiza — restul se pot găsi și mai târziu. Bifele se salvează în browserul tău.</p>`;
+  v.appendChild(hd);
+
+  let total=0,done=0;
+  BOOK.forEach((g,gi)=>{
+    const box=document.createElement("div");box.className="bk-grp";
+    box.style.setProperty("--lv",g.lv);
+    const ul=document.createElement("ul");ul.className="bk";
+    g.items.forEach((it,ii)=>{
+      const key="bk:"+gi+":"+ii;total++;
+      const on=store(key)==="1";if(on)done++;
+      const li=document.createElement("li");if(on)li.classList.add("done");
+      const id=key.replace(/:/g,"-");
+      li.innerHTML=
+        `<input class="bk-box" type="checkbox" id="${id}"${on?" checked":""}>`+
+        `<div><label class="bk-what" for="${id}">${it.w}</label>`+
+        `<div class="bk-why">${it.y}</div><div class="bk-where">${it.u}</div></div>`+
+        `<div class="bk-for">pentru<b>${it.f}</b>${it.fl}</div>`;
+      li.querySelector("input").addEventListener("change",e=>{
+        store(key,e.target.checked?"1":"0");
+        li.classList.toggle("done",e.target.checked);
+        countUp();
+      });
+      ul.appendChild(li);
+    });
+    box.innerHTML=`<h3>${g.h}<b>${g.items.length} lucruri</b></h3><p>${g.sub}</p>`;
+    box.appendChild(ul);v.appendChild(box);
+  });
+
+  const note=document.createElement("div");note.className="bk-note";
+  note.innerHTML="Lista nu conține prețuri, pentru că se schimbă. Conține doar motivul pentru care fiecare lucru e urgent — dacă motivul nu mai e valabil, nici poziția nu mai e.";
+  v.appendChild(note);
+
+  function countUp(){
+    const c=[...v.querySelectorAll(".bk-box")].filter(b=>b.checked).length;
+    const el=v.querySelector(".bk-count");
+    el.innerHTML=`<i></i>${n>0?`Mai sunt ${n} zile până la 27 august`:"Vacanța a început"} · ${c} din ${total} bifate`;
+  }
+  countUp();
+}
 
 render(0);
 </script>
