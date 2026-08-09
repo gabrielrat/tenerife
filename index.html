@@ -1250,32 +1250,35 @@ const TOPT=[
  {id:"ss",nm:"Sunset & Stars",oc:"var(--brick)",pp:182,dur:"8 h",days:"marți · vineri · duminică",
   sub:"Tur complet, cu transport",
   d:"Varianta din planul actual. Ridicare de la vilă între 14:15 și 16:30, teleferic în afara programului public, apus de pe traseul spre Mirador Pico Viejo, cină picnic, apoi observație astronomică cu telescoape la stația de bază. Nota lor: 4,42 din 139 recenzii.",
-  inc:[["y","Transport dus-întors de la cazare"],["y","Teleferic la apus, maximum 90 de persoane"],
-       ["y","Ghid în engleză, spaniolă sau germană"],["y","Cină picnic (variantă vegetariană la cerere)"],
-       ["y","Telescoape și ghizi Starlight"],["n","Băutura de toast"],
-       ["n","Vizita la Observator"],["n","Nu conduce nimeni — dar nici nu opriți unde vreți"]]},
+  inc:[["y","Transport dus-întors de la cazare — nu conduce nimeni"],["y","Teleferic la apus, maximum 90 de persoane"],
+       ["y","Ghid în engleză, spaniolă sau germană"],["y","Cină picnic, cu apă, bere și cafea. Variantă vegetariană la cerere"],
+       ["y","Telescoape și ghizi Starlight"],["n","Paharul festiv de la final se plătește separat"],
+       ["n","Vizita la Observator nu e inclusă și nici nu se poate seara"],["n","Traseul e fix — nu opriți unde vreți pe drum"]]},
  {id:"tbn",nm:"Teide & Stars — fără teleferic",oc:"var(--olive)",pp:75,dur:"6 h 30",days:"mai multe zile pe săptămână",
   sub:"Tur de seară, cu transport",
   d:"Aceeași echipă și aceleași telescoape, dar apusul se vede dintr-un mirador din parc, nu de la 3 555 m. Costă mai puțin de jumătate. Dacă partea care vă interesează sunt stelele, nu altitudinea, asta e varianta cu cel mai bun raport.",
   inc:[["y","Transport dus-întors"],["y","Apus dintr-un mirador din parc"],
        ["y","Telescoape și ghizi Starlight certificați"],["y","Vizită opțională la Observator, la unele variante"],
-       ["n","Teleferic"],["n","Cină"]]},
+       ["n","Fără teleferic — apusul nu se vede de la 3 555 m"],["n","Fără cină inclusă"]]},
  {id:"ccs",nm:"Teleferic la apus — doar biletul",oc:"var(--ochre)",pp:72,dur:"2 h",days:"marți · vineri · duminică",
   sub:"Fără transport, mergeți cu mașinile",
   d:"Urcare cu telecabina în afara orelor publice, plus acces pe traseul spre Mirador Pico Viejo. Atât. Fără ghid, fără cină, fără stele. Parcare gratuită la stația de bază, 220 de locuri. Anulare gratuită cu 24 h înainte, iar dacă vântul oprește telecabina se returnează integral.",
   inc:[["y","Telecabină dus-întors, grup restrâns"],["y","Acces pe traseul Mirador Pico Viejo"],
-       ["y","Parcare gratuită la bază"],["n","Transport"],["n","Ghid"],["n","Observație astronomică"]]},
+       ["y","Parcare gratuită la bază"],["n","Fără transport — mergeți și vă întoarceți cu mașinile"],
+       ["n","Fără ghid"],["n","Fără observație astronomică cu telescoape"]]},
  {id:"day",nm:"Ziua, cu mașinile — fără bilet",oc:"var(--sky)",pp:0,dur:"3–5 h",days:"orice zi",
   sub:"Gratis, doar benzina",
   d:"Traversarea parcului pe TF-21 și TF-38. Roques de García, Llano de Ucanca, Minas de San José, Narices del Teide, miradoarele de pe drum. Exact ce vrea Cătălin: drumul drept printre roci, la lumină. Parcările din parc sunt mici și pline la prânz — recomandarea oficială e să ajungeți după ora 13:00.",
   inc:[["y","Zero cost, opriți unde vreți"],["y","Roques de García: buclă de 3,5 km, circa 1 h 15"],
        ["y","Llano de Ucanca și câmpurile de lavă"],["y","Fără constrângere de zi sau de oră"],
-       ["n","Fără telecabină, dacă nu cumpărați separat"],["n","Conduce cineva, pe drum de munte"]]},
+       ["n","Fără telecabină, dacă nu cumpărați biletul separat"],
+       ["n","Conduce cineva, pe drum de munte cu multe curbe"]]},
  {id:"dayc",nm:"Ziua + telecabină",oc:"var(--violet)",pp:42,dur:"+1 h 30",days:"zilnic, 9:00–17:00",
   sub:"Supliment la varianta cu mașinile",
   d:"Bilet dus-întors la 3 555 m, cumpărat online. Sus aveți circa o oră și traseele PNT 11 Fortaleza și PNT 12 Mirador Pico Viejo, care nu cer permis. Copiii sub 13 ani intră gratuit. Se epuizează în sezon, deci se rezervă din timp.",
   inc:[["y","Dus-întors la La Rambleta, 3 555 m"],["y","Traseele PNT 11 și PNT 12, fără permis"],
-       ["y","Se combină cu ziua de mașină"],["n","Ghid"],["n","Vârful Teide — permis separat"]]},
+       ["y","Se combină cu ziua de mașină"],["n","Fără ghid"],
+       ["n","Fără acces la vârf — permisul se ia separat, cu luni înainte"]]},
  {id:"obs",nm:"Observatorul Teide — vizită ghidată de zi",oc:"var(--teal)",pp:26,dur:"1 h 30",days:"luni–duminică, doar ziua",
   sub:"Cu mașinile voastre, la Izaña",
   d:"Cel mai mare observator solar din lume, la 2 390 m, în Izaña. Se vizitează exclusiv ziua, pentru că e observator de soare și o parte din tur se face afară. Minimum 4 persoane. Trebuie să fiți la poartă cu 30 de minute înainte, iar instalațiile sunt la 2 km de poarta de acces — deci intrați cu mașinile înăuntru.",
@@ -1285,7 +1288,8 @@ const TOPT=[
  {id:"tour",nm:"Tur de zi cu transport și telecabină",oc:"var(--plum)",pp:87,dur:"7 h",days:"zilnic, plecare 8:15",
   sub:"Autocar din Costa Adeje",
   d:"Ridicare pe la 8:15 din Costa Adeje, ghid oficial, opriri la punctele clasice, telecabină inclusă. Util doar dacă nu vreți să conduceți deloc. Cu trei mașini la dispoziție, e greu de justificat față de varianta pe cont propriu.",
-  inc:[["y","Transport și ghid"],["y","Telecabină inclusă"],["n","Mâncare"],["n","Flexibilitate: opriri fixe"]]}
+  inc:[["y","Transport și ghid"],["y","Telecabină inclusă"],["n","Fără mâncare inclusă"],
+       ["n","Fără flexibilitate — opriri fixe, program fix"]]}
 ];
 
 const TSCN=[
@@ -1380,7 +1384,7 @@ function showTeide(){
       '</div>';
 
     h+='<div class="bk-grp" style="--lv:var(--ochre)"><h3>Variantele existente<b>preț de persoană, adult nerezident</b></h3>'+
-       '<p>Prețurile sunt cele publicate în august 2026 și se schimbă. Verifică suma finală înainte de plată.</p></div>';
+       '<p>Prețurile sunt cele publicate în august 2026 și se schimbă. Verifică suma finală înainte de plată. În listele de sub fiecare variantă, <b style="color:var(--olive)">+</b> înseamnă inclus în preț, <b style="color:var(--brick)">−</b> înseamnă că nu e inclus sau că e un dezavantaj.</p></div>';
     TOPT.forEach(o=>{
       h+=`<div class="opt" style="--oc:${o.oc}">`+
          `<div class="opt-h"><h4>${o.nm}</h4>`+
