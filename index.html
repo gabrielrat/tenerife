@@ -1276,6 +1276,12 @@ const TOPT=[
   d:"Bilet dus-întors la 3 555 m, cumpărat online. Sus aveți circa o oră și traseele PNT 11 Fortaleza și PNT 12 Mirador Pico Viejo, care nu cer permis. Copiii sub 13 ani intră gratuit. Se epuizează în sezon, deci se rezervă din timp.",
   inc:[["y","Dus-întors la La Rambleta, 3 555 m"],["y","Traseele PNT 11 și PNT 12, fără permis"],
        ["y","Se combină cu ziua de mașină"],["n","Ghid"],["n","Vârful Teide — permis separat"]]},
+ {id:"obs",nm:"Observatorul Teide — vizită ghidată de zi",oc:"var(--teal)",pp:26,dur:"1 h 30",days:"luni–duminică, doar ziua",
+  sub:"Cu mașinile voastre, la Izaña",
+  d:"Cel mai mare observator solar din lume, la 2 390 m, în Izaña. Se vizitează exclusiv ziua, pentru că e observator de soare și o parte din tur se face afară. Minimum 4 persoane. Trebuie să fiți la poartă cu 30 de minute înainte, iar instalațiile sunt la 2 km de poarta de acces — deci intrați cu mașinile înăuntru.",
+  inc:[["y","Ghid, telescoape solare, explicații despre cercetare"],["y","Se lipește de ziua de zi prin parc"],
+       ["y","Se ține în mai multe limbi, toată săptămâna"],["n","Nu se poate vizita seara sau noaptea"],
+       ["n","Nu e inclus în niciun tur cu telecabină la apus"],["n","Copiii sub 8 ani nu au acces"]]},
  {id:"tour",nm:"Tur de zi cu transport și telecabină",oc:"var(--plum)",pp:87,dur:"7 h",days:"zilnic, plecare 8:15",
   sub:"Autocar din Costa Adeje",
   d:"Ridicare pe la 8:15 din Costa Adeje, ghid oficial, opriri la punctele clasice, telecabină inclusă. Util doar dacă nu vreți să conduceți deloc. Cu trei mașini la dispoziție, e greu de justificat față de varianta pe cont propriu.",
@@ -1297,6 +1303,7 @@ const TSCN=[
       ["plus","Vedeți parcul de două ori, la lumini complet diferite"],
       ["plus","Ziua de zi se poate lipi de 2 septembrie, spre nord-vest"],
       ["plus","Dacă seara se anulează din vânt, tot ați văzut parcul"],
+      ["plus","Ziua de zi poate include și Observatorul Teide, imposibil de prins seara"],
       ["minus","Costul serii rămâne același, 1 274 €"],
       ["minus","Ziua de nord-vest devine mai lungă cu 1 h 30–2 h de drum"]]},
  {id:"c",nm:"C · Split ieftin: ziua cu mașinile + doar telecabina la apus",best:false,tot:72*N,
@@ -1367,7 +1374,7 @@ function showTeide(){
   if(!teideOn){
     teideOn=true;
     let h='<div class="bk-head">'+
-      '<div class="bk-count"><i></i>Decizie deschisă · 6 variante · preț pentru 7 persoane</div>'+
+      '<div class="bk-count"><i></i>Decizie deschisă · 7 variante · preț pentru 7 persoane</div>'+
       '<h2>Teide: ce bilete luăm</h2>'+
       '<p>Planul pe zile nu s-a schimbat. Aici sunt doar datele necesare ca să alegeți: ce există, ce include fiecare variantă, cât costă pentru șapte oameni și dacă ziua de zi încape în drumul spre nord-vest.</p>'+
       '</div>';
@@ -1392,7 +1399,15 @@ function showTeide(){
          x.li.map(([k,t])=>`<li class="${k}">${t}</li>`).join("")+`</ul></div>`;
     });
 
-    h+='<div class="bk-grp" style="--lv:var(--sky)"><h3>Încape ziua de zi în drumul spre nord-vest?<b>2 septembrie</b></h3>'+
+    h+='<div class="bk-grp" style="--lv:var(--teal)"><h3>De ce observatorul nu intră în Sunset &amp; Stars<b>întrebare pusă, răspuns verificat</b></h3></div>'+
+      '<div class="scn"><h4>Trei motive care se adună</h4><ul>'+
+      '<li class="minus"><b>E observator solar, deci se vizitează doar ziua.</b> O parte din tur se desfășoară afară, iar noaptea nu se poate. Turul de seară pleacă la 14:15–16:30 și urcă direct la telecabină — nu are fereastră de zi.</li>'+
+      '<li class="minus"><b>E în alt loc.</b> Observatorul e la Izaña, 2 390 m, intrarea la km 1 pe TF-514, de pe TF-24. Stația telecabinei e pe TF-21 la km 43. Sunt vreo 25 de minute între ele, pe drumuri diferite.</li>'+
+      '<li class="minus"><b>Amândouă cer aceeași după-amiază.</b> De asta se vând ca produse separate: ori telecabină la apus, ori observator plus stele. Astronomic Tour le combină pe ultimele două, dar fără urcarea cu telecabina.</li>'+
+      '<li class="plus"><b>Se rezolvă în ziua de zi.</b> Vizita ghidată de zi se face cu mașinile voastre, luni–duminică. Dacă faceți split, observatorul intră fix acolo, fără să atingeți seara.</li>'+
+      '<li><a class="mlink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=28.29743%2C-16.509841">poarta observatorului pe hartă</a></li>'+
+      '</ul></div>'+
+      '<div class="bk-grp" style="--lv:var(--sky)"><h3>Încape ziua de zi în drumul spre nord-vest?<b>2 septembrie</b></h3>'+
        '<p>Da, dar transformă ziua. Traseul de mai jos urcă prin parc și coboară spre Icod, în loc să meargă pe coastă.</p></div>'+
        '<div class="tblwrap"><table class="rt"><thead><tr><th>Segment</th><th>Timp</th><th>Ce vedeți</th></tr></thead><tbody>'+
        TROUTE.map(r=>`<tr><td>${r[0]}</td><td class="tnum">${r[1]}</td><td>${r[2]}</td></tr>`).join("")+
