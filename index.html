@@ -23,6 +23,7 @@
   --sky:#5D93CE;
   --slate:#7E8AA0;
   --plum:#B0629F;
+  --hot:#FF3B30;
   --mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
@@ -178,11 +179,16 @@ ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
 .solo-no{color:var(--ink-dim);font-size:13.5px;flex:1 1 280px;min-width:0}
 
 /* ---------- tab rezervări ---------- */
-.book-btn{
-  border-left:1px solid var(--hair);min-width:118px;
-  position:sticky;right:0;background:var(--ground);
-  box-shadow:-20px 0 18px -8px var(--ground);
+/* cele doua taburi speciale stau intr-un container fixat pe dreapta.
+   Inainte erau fixate separat, cu decalaje scrise de mana care nu se
+   potriveau cu latimile reale, deci se suprapuneau pe ecrane inguste. */
+.rail-fixed{
+  position:sticky;right:0;flex:0 0 auto;display:flex;
+  background:var(--ground);box-shadow:-22px 0 20px -10px var(--ground);
+  border-left:1px solid var(--hair);
 }
+.rail-fixed .day-btn{min-width:auto;padding:13px 14px 12px;border-right:0}
+.rail-fixed .day-btn+.day-btn{border-left:1px solid var(--hair-soft)}
 .book-btn .n{color:var(--brick);font-weight:700}
 .bk-head{padding:30px 0 4px;display:grid;gap:14px;max-width:74ch}
 .bk-head h2{font-family:var(--mono);font-weight:700;text-transform:uppercase;
@@ -217,9 +223,12 @@ ul.bk li.done .bk-what{text-decoration:line-through}
 .bk-note{margin-top:32px;border-left:2px solid var(--hair);padding:3px 0 3px 14px;
   color:var(--ink-faint);font-size:13px;max-width:74ch;line-height:1.65}
 /* ---------- tab locații ---------- */
-.loc-btn{border-left:1px solid var(--hair);min-width:110px;position:sticky;right:118px;
-  background:var(--ground);box-shadow:-20px 0 18px -8px var(--ground)}
 .loc-btn .n{color:var(--ochre);font-weight:700}
+@media(max-width:520px){
+  .rail-fixed .day-btn .w{display:none}
+  .rail-fixed .day-btn{padding:13px 11px 12px}
+  .rail-fixed .day-btn .d{font-size:13px}
+}
 .lc-filters{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 20px}
 .fchip{appearance:none;background:none;cursor:pointer;font-family:var(--mono);font-size:10.5px;
   letter-spacing:.13em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--hair);
@@ -634,6 +643,19 @@ const DAYS=[
 const SVGNS="http://www.w3.org/2000/svg";
 const map=document.getElementById("map");
 map.setAttribute("viewBox",`0 0 ${W} ${H}`);
+/* Marcaj de selectie: pin rosu aprins, ancorat exact pe coordonata.
+   Forma diferita de cerc, ca sa se distinga si pe alb-negru sau daltonism. */
+function addPin(g,x,y,label){
+  const HOT="var(--hot)";
+  g.appendChild(el("path",{d:`M${x-6},${y-11} L${x},${y} L${x+6},${y-11} Z`,fill:HOT}));
+  g.appendChild(el("circle",{cx:x,cy:y-19,r:11,fill:HOT,stroke:"var(--plate)","stroke-width":2}));
+  if(label!==undefined&&label!==null){
+    const t=el("text",{x:x,y:y-15,"text-anchor":"middle",class:"mk-lbl",fill:"#fff"});
+    t.textContent=label;g.appendChild(t);
+  }else{
+    g.appendChild(el("circle",{cx:x,cy:y-19,r:3.6,fill:"var(--plate)"}));
+  }
+}
 function mapsHref(lat,lon){
   /* doar coordonate: numele ca al doilea parametru "query" era ignorat de Google
      si putea trimite in alt loc. Pinul pe coordonate e mereu exact. */
@@ -873,15 +895,31 @@ function profile(D){
 }
 
 /* ============ focus a stop ============ */
+function repaintStopMarkers(){
+  document.querySelectorAll("#lyr-route .mk").forEach(g=>{
+    const ti=+g.dataset.t, si=+g.dataset.s;
+    const on=!!act&&act[0]===ti&&act[1]===si;
+    const trk=DAYS[cur].tracks[ti], st=trk.stops[si];
+    const x=px(st.lon), y=py(st.lat);
+    [...g.querySelectorAll("circle:not(.hit),path,text")].forEach(n=>n.remove());
+    if(on){
+      addPin(g,x,y,si+1);
+    }else{
+      g.appendChild(el("circle",{class:"dot",cx:x,cy:y,r:11,
+        fill:trk.color,stroke:"var(--plate)","stroke-width":2}));
+      const t=el("text",{x:x,y:y+4,"text-anchor":"middle",class:"mk-lbl"});
+      t.textContent=si+1;g.appendChild(t);
+    }
+  });
+}
+
 function focusStop(ti,si){
   const same=act&&act[0]===ti&&act[1]===si;
   act=same?null:[ti,si];
   document.querySelectorAll("#panel .stops li").forEach(li=>{
     li.classList.toggle("act",!!act&&+li.dataset.t===act[0]&&+li.dataset.s===act[1]);
   });
-  document.querySelectorAll("#lyr-route .mk").forEach(g=>{
-    g.classList.toggle("act",!!act&&+g.dataset.t===act[0]&&+g.dataset.s===act[1]);
-  });
+  repaintStopMarkers();
   document.querySelectorAll("#prof .pmk circle").forEach(c=>{
     const g=c.parentNode;
     const on=!!act&&+g.dataset.t===act[0]&&+g.dataset.s===act[1];
@@ -917,7 +955,6 @@ bkBtn.setAttribute("role","tab");bkBtn.setAttribute("aria-selected","false");
 bkBtn.style.setProperty("--accent","var(--brick)");
 bkBtn.innerHTML=`<span class="n">!</span><span class="d">Rezervări</span><span class="w">de făcut</span>`;
 bkBtn.addEventListener("click",showBook);
-rail.appendChild(bkBtn);
 
 function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){
   window.__m=window.__m||{};if(v===undefined)return window.__m[k];window.__m[k]=v}}
@@ -1034,29 +1071,36 @@ function drawLocMarkers(){
     LOCS[locSel].va.forEach((va,vi)=>{
       const g=el("g",{class:"mk",tabindex:"0",role:"button"});
       g.appendChild(el("circle",{class:"hit",cx:px(va.lon),cy:py(va.lat),r:14}));
-      g.appendChild(el("circle",{cx:px(va.lon),cy:py(va.lat),r:8,
-        fill:"var(--plate)",stroke:CATS[LOCS[locSel].cat].c,"stroke-width":2.2,
-        "stroke-dasharray":locVar===vi?"none":"3 2"}));
-      const t=el("text",{x:px(va.lon),y:py(va.lat)+3.5,"text-anchor":"middle",
-        class:"mk-lbl",fill:CATS[LOCS[locSel].cat].c,"font-size":"9"});
-      t.textContent=vi+1;g.appendChild(t);
+      if(locVar===vi){
+        addPin(g,px(va.lon),py(va.lat),vi+1);
+      }else{
+        g.appendChild(el("circle",{cx:px(va.lon),cy:py(va.lat),r:8,
+          fill:"var(--plate)",stroke:CATS[LOCS[locSel].cat].c,"stroke-width":2.2,
+          "stroke-dasharray":"3 2"}));
+        const t=el("text",{x:px(va.lon),y:py(va.lat)+3.5,"text-anchor":"middle",
+          class:"mk-lbl",fill:CATS[LOCS[locSel].cat].c,"font-size":"9"});
+        t.textContent=vi+1;g.appendChild(t);
+      }
       const ti=el("title");ti.textContent=va.nm;g.appendChild(ti);
       g.addEventListener("click",()=>{locVar=(locVar===vi?null:vi);showLoc()});
       lyrLoc.appendChild(g);
     });
   }
-  vis.forEach(l=>{
+  const ordered=vis.slice().sort((a,b)=>
+    (LOCS.indexOf(a)===locSel?1:0)-(LOCS.indexOf(b)===locSel?1:0));
+  ordered.forEach(l=>{
     const i=LOCS.indexOf(l), on=locSel===i;
     const g=el("g",{class:"mk",tabindex:"0",role:"button"});
     g.appendChild(el("circle",{class:"hit",cx:px(l.lon),cy:py(l.lat),r:15}));
-    if(l.cat==="cazare"){
-      const sz=on?11:8;
-      g.appendChild(el("rect",{x:px(l.lon)-sz/2,y:py(l.lat)-sz/2,width:sz,height:sz,
-        fill:"var(--ink)",stroke:on?"var(--ink)":"var(--plate)","stroke-width":on?2.5:1.5}));
+    if(on){
+      addPin(g,px(l.lon),py(l.lat));
+    }else if(l.cat==="cazare"){
+      g.appendChild(el("rect",{x:px(l.lon)-4,y:py(l.lat)-4,width:8,height:8,
+        fill:"var(--ink)",stroke:"var(--plate)","stroke-width":1.5}));
     }else{
-      g.appendChild(el("circle",{cx:px(l.lon),cy:py(l.lat),r:on?10:6.5,
+      g.appendChild(el("circle",{cx:px(l.lon),cy:py(l.lat),r:6.5,
         fill:l.day?CATS[l.cat].c:"var(--plate)",
-        stroke:on?"var(--ink)":CATS[l.cat].c,"stroke-width":on?2.5:1.8}));
+        stroke:CATS[l.cat].c,"stroke-width":1.8}));
     }
     const ti=el("title");ti.textContent=l.nm+(l.stay?" · "+l.stay:(l.day?" · ziua "+l.day:" · în afara planului"));
     g.appendChild(ti);
@@ -1145,7 +1189,11 @@ lcBtn.setAttribute("role","tab");lcBtn.setAttribute("aria-selected","false");
 lcBtn.style.setProperty("--accent","var(--ochre)");
 lcBtn.innerHTML=`<span class="n">28</span><span class="d">Locații</span><span class="w">toate</span>`;
 lcBtn.addEventListener("click",showLoc);
-rail.appendChild(lcBtn);
+
+const railFixed=document.createElement("div");
+railFixed.className="rail-fixed";
+railFixed.append(lcBtn,bkBtn);
+rail.appendChild(railFixed);
 
 /* ============ adresă partajabilă ============ */
 /* Fiecare tab, zi, oprire și locație are propriul URL. Linkul curent e mereu
