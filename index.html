@@ -457,10 +457,12 @@ const BOOK=[
    y:"Gabi și Robi. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive — schimbă și prețul, și programul zilei.",u:"centru în Las Galletas"},
   {w:"Jet ski · 2 locuri, seara",f:"4 sep",fl:"Z09",
    y:"Gabi și Robi, în jur de 18:00. Aici contează ora, nu disponibilitatea: majoritatea operatorilor din Puerto Colón închid pe la 19:00, deci cere explicit ultima ieșire a zilei.",u:"Puerto Colón · 5 min de vilă"},
-  {w:"Masă la Los Abrigos · prânz",f:"5 sep",fl:"Z10",
-   y:"Sâmbătă la prânz, înainte de zbor. Închideți vacanța unde ați început-o.",u:"telefonic"},
-  {w:"Scooterul lui Cătălin",f:"27-31 aug",fl:"—",
-   y:"Verifică de unde îl ia și dacă închirierea acoperă toată perioada. Fără el, planul lui de zile independente nu există.",u:"închiriere în sud"}
+  {w:"Bolt pentru Alex, dimineața plecării",f:"5 sep",fl:"Z10",
+   y:"Zborul lui e la 10:35, deci pleacă din vilă pe la 07:45. Cu Bolt, restul grupului nu pierde dimineața pe o cursă dus-întors de 50 de minute. Nu se rezervă din timp, dar merită stabilit dinainte cine se ocupă.",u:"aplicația Bolt"},
+  {w:"Masă la Los Abrigos · prânz pentru 4",f:"5 sep",fl:"Z10",
+   y:"Doar Gabi, Robi, Viorel și Atena — ceilalți trei zboară mai devreme. Sâmbătă la 13:30, după ce lăsați pe Cătălin și Ovidiu la terminal.",u:"telefonic"},
+  {w:"Scooterul lui Cătălin",f:"28 aug – 5 sep",fl:"—",
+   y:"Ajunge pe insulă abia la 01:15 pe 28, cu Bolt de la aeroport, deci scooterul se ia cel devreme vineri dimineața. Verifică de unde îl ia, dacă acoperă toată perioada și până la ce oră îl predă pe 5 septembrie, înainte de zborul de la 15:40.",u:"închiriere în sud"}
  ]},
  {lv:"var(--slate)",h:"De confirmat, nu de plătit",sub:"Informații care structurează zile întregi. Nu costă nimic, dar lipsa lor strică programul.",items:[
   {w:"Cere check-in devreme la vilă sau depozitare bagaje la Wyndham",f:"31 aug",fl:"Z05",
@@ -523,25 +525,27 @@ const BASES=[
 const DAYS=[
 {
  n:1,date:"27 aug",wd:"joi",accent:"var(--slate)",
- title:"Sosire · aterizare 16:40",
- lede:"Ziua nu încape nimic în plus. Mașini, check-in, cumpărături înainte să se închidă magazinele, cină în port. Apusul e la 20:32, chiar din Los Abrigos.",
- people:["Gabi","Alex","Ovidiu","Robi"],
- tracks:[{name:"Toți patru",color:"var(--slate)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
-  {t:"16:40",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Bagaje plus preluarea a două mașini: în sezon, ghișeele au coadă. Contează 45 de minute, nu 20."},
-  {t:"18:00",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Opt minute de la terminal, cea mai scurtă legătură aeroport–cazare din vacanță. Check-in-ul e de la 16:00, iar voi ajungeți pe la 18:00 — fără probleme."},
-  {t:"18:45",d:"1 h",nm:"Mercadona · Las Chafiras",lat:28.0500,lon:-16.6118,alt:90,no:"Se închide la 21:00. Mergeți înainte de cină, nu după."},
-  {t:"20:00",d:"cină",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Portul de pește al sudului. Atenție: Restaurante Los Abrigos, cel care dă numele satului, e închis miercuri și joi — iar voi ajungeți joi. Sunt și altele în port, dar rezervă din timp. Apus la 20:32."}
+ title:"Sosire · trei oameni, o mașină",
+ lede:"Aterizați trei la 16:40: Gabi, Robi și Alex. Ovidiu și Cătălin vin abia la 01:15 noaptea, cu Bolt de la aeroport, deci nu trebuie să-i așteptați și nu conduce nimeni noaptea. Ziua nu încape nimic în plus.",
+ people:["Gabi","Robi","Alex"],
+ tracks:[{name:"Gabi, Robi, Alex",color:"var(--slate)",people:["Gabi","Robi","Alex"],stops:[
+  {t:"16:40",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Preluarea primei mașini, pe numele lui Gabi și Robi. În sezon, ghișeele de rent-a-car au coadă: contează 45 de minute, nu 20. A doua mașină vine abia sâmbătă, odată cu Viorel și Atena."},
+  {t:"18:00",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Opt minute de la terminal, cea mai scurtă legătură aeroport–cazare din vacanță. Check-in de la 16:00, voi ajungeți pe la 18:00."},
+  {t:"18:45",d:"1 h",nm:"Mercadona · Las Chafiras",lat:28.0500,lon:-16.6118,alt:90,no:"Se închide la 21:00. Mergeți înainte de cină, nu după. Luați și pentru Ovidiu și Cătălin, care ajung noaptea."},
+  {t:"20:00",d:"cină",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Portul de pește al sudului. Atenție: Restaurante Los Abrigos, cel care dă numele satului, e închis miercuri și joi — iar voi ajungeți joi. Sunt și altele în port. Apus la 20:32."},
+  {t:"01:15",d:"noaptea",nm:"Ovidiu și Cătălin aterizează",lat:28.0445,lon:-16.5725,alt:64,no:"Vin cu Bolt direct la cazare, opt minute de drum. Nu se trezește nimeni, nu conduce nimeni. Lăsați o cheie sau vorbiți cu recepția, care e non-stop."}
  ]}]
 },
 {
  n:2,date:"28 aug",wd:"vineri",accent:"var(--teal)",
  title:"Split · scufundări și coasta de sud",
- lede:"Singura zi cu împărțire reală. E aleasă fix acum pentru că Viorel dă 2 la scufundări și nu e încă pe insulă.",
+ lede:"Singura zi cu împărțire reală. E aleasă fix acum pentru că Viorel dă 2 la scufundări și nu e încă pe insulă. Ovidiu a aterizat însă la 01:15 azi-noapte, deci dimineața lui e negociabilă.",
  people:["Gabi","Alex","Ovidiu","Robi"],
+ warn:"Aveți o singură mașină până sâmbătă. Split-ul funcționează oricum, pentru că Las Galletas și Montaña Amarilla sunt la zece minute una de alta: mașina lasă scafandrii la centru, Alex și Ovidiu merg mai departe și se întorc să-i ia.",
  tracks:[
  {name:"Grup scufundări",color:"var(--teal)",people:["Gabi","Robi"],stops:[
   {t:"09:30",d:"~3 h",nm:"Las Galletas · diving",lat:28.0073,lon:-16.6570,alt:5,no:"Două scufundări. Fără brevet, Discovery Dive de circa 90 de minute. Cea mai bună zonă de diving din sud."},
-  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Punct de reunire cu celălalt grup."}
+  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Punct de reunire. Alex și Ovidiu vin cu mașina și îi iau pe scafandri de la centru."}
  ]},
  {name:"Grup coastă",color:"var(--olive)",people:["Alex","Ovidiu"],stops:[
   {t:"10:00",d:"2 h",nm:"Montaña Amarilla",lat:28.0110,lon:-16.6360,alt:30,no:"Piscine naturale la baza tufului galben, Costa del Silencio. Zece minute de cazare."},
@@ -562,7 +566,7 @@ const DAYS=[
   {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"Bilete luate pentru toți șapte, Cătălin inclus. 20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc — nu programa cină."}
  ]},
  {name:"Viorel și Atena",color:"var(--sky)",people:["Viorel","Atena"],stops:[
-  {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Bagaje și mașina lor: ieșire pe la 16:30, plecare pe la 17:00."},
+  {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Aici se preia a doua mașină, pe numele lor. Din momentul ăsta grupul are două mașini — până azi ați avut una singură."},
   {t:"17:20",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Duș, despachetat rapid, o bere pe terasă."},
   {t:"19:45",d:"întâlnire",nm:"Parcarea Siam Park",lat:28.0725,lon:-16.7250,alt:90,no:"Punctul de întâlnire al celor șase."}
  ]}]
@@ -586,7 +590,7 @@ const DAYS=[
  people:ALL,
  warn:"Șase ore fără bază. Merită să ceri vilei check-in devreme, sau Wyndhamului depozitare bagaje după check-out — oricare din ele scurtează fereastra. Dacă nu se poate, nu lăsa nimic la vedere în mașini pe parcarea de la plajă.",
  tracks:[{name:"Toți șase",color:"var(--violet)",people:ALL,stops:[
-  {t:"08:45",d:"1¼ h",nm:"Împachetat și încărcat mașinile",lat:28.0286,lon:-16.6091,alt:40,no:"Trei mașini, șase oameni, bagaje pentru zece zile. Începeți devreme: check-out-ul e la 10:00 fix."},
+  {t:"08:45",d:"1¼ h",nm:"Împachetat și încărcat mașinile",lat:28.0286,lon:-16.6091,alt:40,no:"Două mașini, șase oameni, bagaje pentru zece zile — plus bagajul lui Cătălin, care nu încape pe scooter. E mai strâmt decât pare. Începeți devreme: check-out-ul e la 10:00 fix."},
   {t:"10:00",d:"check-out",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Check-out până la 10:00. Întreabă la recepție dacă țin bagajele câteva ore — ar rezolva jumătate din problema zilei."},
   {t:"10:30",d:"1¼ h",nm:"Monkey Park · Guaza",lat:28.0605,lon:-16.6928,alt:100,no:"Deschis 9:30–16:00, practic pe traseul dintre cele două cazări. O oră ajunge. Atena e singura care dă 5."},
   {t:"12:15",d:"1½ h",nm:"Prânz în Los Cristianos",lat:28.0505,lon:-16.7180,alt:5,no:"Promenada e umbrită și are unde parca. De aici începe timpul de omorât."},
@@ -662,15 +666,26 @@ const DAYS=[
 },
 {
  n:10,date:"5 sep",wd:"sâmbătă",accent:"var(--slate)",
- title:"Ultima dimineață · decolare 16:45",
- lede:"Check-out-ul la 11:00 și zborul de la 16:45 vă lasă trei ore utile. Traseul de mai jos merge tot spre aeroport, deci nu pierdeți nimic pe drumul înapoi. Închideți vacanța unde ați început-o.",
+ title:"Ultima dimineață · trei plecări diferite",
+ lede:"Cea mai fragmentată zi din vacanță. Alex zboară la 10:35, Cătălin și Ovidiu la 15:40, iar Gabi, Robi, Viorel și Atena la 16:45. Nu se poate face un program comun — dar se poate face unul care să nu piardă dimineața.",
  people:ALL,
- warn:"Predați trei mașini, sâmbătă, în sezon de vârf. Marja e 2 h 30 înainte de zbor, nu 2 h. Nu tăia din ea pentru încă douăzeci de minute pe plajă.",
- tracks:[{name:"Toți șase",color:"var(--slate)",people:ALL,stops:[
-  {t:"11:00",d:"check-out",nm:"Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Check-out până la 11:00, cu o oră mai mult decât la prima cazare. Plecați cu bagajele în mașini și nu lăsați nimic la vedere pe parcarea de la plajă."},
-  {t:"11:40",d:"1½ h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Ultima baie. Plajă mare, apă bună, cincisprezece minute de terminal."},
-  {t:"13:10",d:"50 min",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Prânz de rămas-bun în portul unde ați luat prima cină."},
-  {t:"14:15",d:"predare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Trei mașini de predat. Decolare la 16:45."}
+ warn:"Alex pleacă cu Bolt, nu cu mașina. Altfel cineva conduce dus-întors la 08:00 și pierde toată dimineața pentru o cursă de 25 de minute. Bolt de la San Eugenio la TFS costă mult mai puțin decât dimineața pierdută.",
+ tracks:[
+ {name:"Alex · zbor 10:35",color:"var(--brick)",people:["Alex"],stops:[
+  {t:"07:45",d:"Bolt",nm:"Plecare din Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Cheamă Bolt cu 10 minute înainte. Drumul spre TFS ia circa 25 de minute la ora aia."},
+  {t:"08:35",d:"check-in",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Două ore înainte de decolare. Zbor la 10:35."}
+ ]},
+ {name:"Restul · dimineața liberă",color:"var(--slate)",people:["Gabi","Robi","Ovidiu","Viorel","Atena"],stops:[
+  {t:"11:00",d:"check-out",nm:"Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Check-out până la 11:00. Plecați cu bagajele în mașini și nu lăsați nimic la vedere pe parcarea de la plajă."},
+  {t:"11:45",d:"1 h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Ultima baie. Cincisprezece minute de terminal, deci e alegerea sigură pentru o zi cu ceas."},
+  {t:"13:00",d:"drum",nm:"Spre aeroport",lat:28.0445,lon:-16.5725,alt:64,no:"Plecare din La Tejita. Mașina cu Cătălin și Ovidiu trebuie să fie la terminal la 13:40."}
+ ]},
+ {name:"Cătălin și Ovidiu · zbor 15:40",color:"var(--olive)",people:["Ovidiu"],stops:[
+  {t:"13:20",d:"check-in",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Două ore și douăzeci înainte de decolare. Aici se predă și prima mașină. Cătălin predă scooterul separat, verifică unde și până la ce oră."}
+ ]},
+ {name:"Gabi, Robi, Viorel, Atena · zbor 16:45",color:"var(--sky)",people:["Gabi","Robi","Viorel","Atena"],stops:[
+  {t:"13:30",d:"1 h 15",nm:"Prânz în Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"După ce lăsați pe ceilalți la terminal, mai aveți timp. Los Abrigos e la opt minute de aeroport, cu mașina lui Viorel. Închideți vacanța în portul unde ați luat prima cină."},
+  {t:"14:50",d:"predare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Se predă a doua mașină. Decolare la 16:45."}
  ]}]
 }
 ];
@@ -1287,7 +1302,7 @@ const TOPT=[
        ["n","Nu e inclus în niciun tur cu telecabină la apus"],["n","Copiii sub 8 ani nu au acces"]]},
  {id:"tour",nm:"Tur de zi cu transport și telecabină",oc:"var(--plum)",pp:87,dur:"7 h",days:"zilnic, plecare 8:15",
   sub:"Autocar din Costa Adeje",
-  d:"Ridicare pe la 8:15 din Costa Adeje, ghid oficial, opriri la punctele clasice, telecabină inclusă. Util doar dacă nu vreți să conduceți deloc. Cu trei mașini la dispoziție, e greu de justificat față de varianta pe cont propriu.",
+  d:"Ridicare pe la 8:15 din Costa Adeje, ghid oficial, opriri la punctele clasice, telecabină inclusă. Util doar dacă nu vreți să conduceți deloc. Cu două mașini la dispoziție, e greu de justificat față de varianta pe cont propriu.",
   inc:[["y","Transport și ghid"],["y","Telecabină inclusă"],["n","Fără mâncare inclusă"],
        ["n","Fără flexibilitate — opriri fixe, program fix"]]}
 ];
