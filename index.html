@@ -222,6 +222,40 @@ ul.bk li.done .bk-what{text-decoration:line-through}
 .bk-for b{display:block;color:var(--ink);font-size:12px;letter-spacing:.05em;font-weight:700}
 .bk-note{margin-top:32px;border-left:2px solid var(--hair);padding:3px 0 3px 14px;
   color:var(--ink-faint);font-size:13px;max-width:74ch;line-height:1.65}
+/* ---------- tab Teide ---------- */
+.teide-btn .n{color:var(--brick);font-weight:700}
+.opt{border:1px solid var(--hair);border-left:3px solid var(--oc);border-radius:3px;
+  background:var(--plate);padding:16px 17px 14px;margin-bottom:12px}
+.opt-h{display:flex;justify-content:space-between;gap:14px;align-items:baseline;flex-wrap:wrap}
+.opt-h h4{margin:0;font-size:17px;letter-spacing:-.01em}
+.opt-p{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--oc);white-space:nowrap;text-align:right}
+.opt-p small{display:block;font-weight:400;font-size:10px;color:var(--ink-faint);letter-spacing:.06em}
+.opt-m{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);margin:6px 0 10px;display:flex;gap:14px;flex-wrap:wrap}
+.opt p{margin:0 0 10px;color:var(--ink-dim);font-size:14px;line-height:1.55}
+.opt-inc{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;margin-top:8px}
+@media(max-width:620px){.opt-inc{grid-template-columns:1fr}}
+.opt-inc div{font-size:13px;color:var(--ink-dim);padding:3px 0 3px 17px;position:relative;line-height:1.4}
+.opt-inc div.y::before{content:"+";position:absolute;left:2px;color:var(--olive);font-weight:700}
+.opt-inc div.n::before{content:"\2212";position:absolute;left:2px;color:var(--brick);font-weight:700}
+.scn{border:1px solid var(--hair);border-radius:3px;padding:17px;margin-bottom:12px;background:var(--plate)}
+.scn.best{border-color:var(--olive);box-shadow:inset 3px 0 0 var(--olive)}
+.scn h4{margin:0 0 3px;font-size:16.5px}
+.scn .tot{font-family:var(--mono);font-size:12px;color:var(--ochre);font-weight:700;letter-spacing:.05em}
+.scn ul{margin:10px 0 0;padding:0;list-style:none}
+.scn li{font-size:13.5px;color:var(--ink-dim);padding:5px 0 5px 16px;position:relative;line-height:1.5}
+.scn li::before{content:"";position:absolute;left:0;top:12px;width:7px;height:1.5px;background:var(--ink-faint)}
+.scn li.plus::before{background:var(--olive)}
+.scn li.minus::before{background:var(--brick)}
+.tblwrap{overflow-x:auto;margin:14px 0 4px;border:1px solid var(--hair);border-radius:3px}
+table.rt{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+table.rt th,table.rt td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--hair-soft)}
+table.rt th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:400;background:rgba(226,222,206,.03)}
+table.rt td{color:var(--ink-dim)}
+table.rt td:first-child{color:var(--ink);font-weight:600}
+table.rt tr:last-child td{border-bottom:0}
+
 /* ---------- tab locații ---------- */
 .loc-btn .n{color:var(--ochre);font-weight:700}
 @media(max-width:520px){
@@ -344,6 +378,8 @@ ul.lc li.on{box-shadow:inset 3px 0 0 var(--fc)}
   </div>
   </div>
 
+  <section id="view-teide" hidden></section>
+
   <section id="view-loc" hidden>
     <div class="bk-head">
       <div class="bk-count" style="color:var(--ochre)"><i style="border-color:var(--ochre)"></i>28 din tabel + 2 cazări · 13 cu variante · 108 detalii de teren</div>
@@ -399,8 +435,8 @@ const CAT={
 const TRIP="2026-08-27";
 const BOOK=[
  {lv:"var(--brick)",h:"Astăzi",sub:"Trei lucruri care se epuizează sau se închid. Restul poate aștepta.",items:[
-  {w:"Siam Night · 6-7 bilete",f:"29 aug",fl:"Z03",
-   y:"Ultima noapte a sezonului 2026. Sezonul se închide chiar în ziua în care ajung Viorel și Atena — nu există dată alternativă, nici mai devreme, nici mai târziu.",u:"siampark.net · doar 16+"},
+  {w:"Siam Night · 7 bilete — REZOLVAT",f:"29 aug",fl:"Z03",
+   y:"Biletele sunt luate pentru toți șapte, Cătălin inclus. Era ultima noapte a sezonului 2026, deci nu exista plan B — bine că s-a închis subiectul.",u:"siampark.net · 16+"},
   {w:"Tur ghidat Teide · apus și stele",f:"1 sep",fl:"Z06",
    y:"Include biletul de teleferic, care nu se mai găsește separat. Se anulează la vânt puternic, deci rezervarea devreme îți dă reprogramare gratuită pe 2, 3 sau 4 septembrie.",u:"volcanoteide.com · +1 loc dacă vine Cătălin"},
   {w:"Cueva del Viento",f:"2 sep",fl:"Z07",
@@ -523,7 +559,7 @@ const DAYS=[
  {name:"Cei patru",color:"var(--plum)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
   {t:"10:00",d:"dimineața",nm:"Los Cristianos · Playa de las Vistas",lat:28.0505,lon:-16.7180,alt:5,no:"Plajă lejeră. Nimic solid — seara se termină după miezul nopții."},
   {t:"19:15",d:"drum",nm:"Plecare spre San Eugenio Alto",lat:28.0286,lon:-16.6091,alt:40,no:"25 de minute până la parc."},
-  {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc — nu programa cină."}
+  {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"Bilete luate pentru toți șapte, Cătălin inclus. 20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc — nu programa cină."}
  ]},
  {name:"Viorel și Atena",color:"var(--sky)",people:["Viorel","Atena"],stops:[
   {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Bagaje și mașina lor: ieșire pe la 16:30, plecare pe la 17:00."},
@@ -738,11 +774,15 @@ function render(i){
   if(lcb)lcb.setAttribute("aria-selected","false");
   const lcv=document.getElementById("view-loc");
   if(lcv)lcv.hidden=true;
+  const tdv=document.getElementById("view-teide");
+  if(tdv)tdv.hidden=true;
+  const tdb=document.getElementById("teide-btn");
+  if(tdb)tdb.setAttribute("aria-selected","false");
   const D=DAYS[i];
   document.documentElement.style.setProperty("--accent",D.accent);
 
   // rail
-  [...document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)")].forEach((b,k)=>{
+  [...document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)")].forEach((b,k)=>{
     b.setAttribute("aria-selected",k===i?"true":"false");
     b.style.setProperty("--accent",DAYS[k].accent);
   });
@@ -943,7 +983,7 @@ DAYS.forEach((D,i)=>{
 });
 document.addEventListener("keydown",e=>{
   if(e.target.closest("input,textarea"))return;
-  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)");
+  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)");
   if(e.key==="ArrowRight"&&cur<DAYS.length-1)bs[cur+1].click();
   if(e.key==="ArrowLeft"&&cur>0)bs[cur-1].click();
 });
@@ -967,11 +1007,14 @@ function daysTo(d){
 function showBook(){
   view="book";
   document.getElementById("view-day").hidden=true;
+  document.getElementById("view-teide").hidden=true;
+  const tdb2=document.getElementById("teide-btn");
+  if(tdb2)tdb2.setAttribute("aria-selected","false");
   document.getElementById("view-loc").hidden=true;
   const lb2=document.getElementById("loc-btn");
   if(lb2)lb2.setAttribute("aria-selected","false");
   const v=document.getElementById("view-book");v.hidden=false;
-  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
   bkBtn.setAttribute("aria-selected","true");
   document.documentElement.style.setProperty("--accent","var(--brick)");
   v.innerHTML="";
@@ -1171,9 +1214,12 @@ function drawLocDetail(){
 function showLoc(){
   view="loc";
   document.getElementById("view-day").hidden=true;
+  document.getElementById("view-teide").hidden=true;
+  const tdb3=document.getElementById("teide-btn");
+  if(tdb3)tdb3.setAttribute("aria-selected","false");
   document.getElementById("view-book").hidden=true;
   document.getElementById("view-loc").hidden=false;
-  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
   bkBtn.setAttribute("aria-selected","false");
   lcBtn.setAttribute("aria-selected","true");
   document.documentElement.style.setProperty("--accent","var(--ochre)");
@@ -1194,6 +1240,189 @@ const railFixed=document.createElement("div");
 railFixed.className="rail-fixed";
 railFixed.append(lcBtn,bkBtn);
 rail.appendChild(railFixed);
+
+
+/* ============ Teide: date pentru decizie ============ */
+/* Preturi de pe volcanoteide.com si de la revanzatori oficiali, adult nerezident,
+   verificate in august 2026. Se schimba, deci verifica inainte de plata. */
+const N=7;
+const TOPT=[
+ {id:"ss",nm:"Sunset & Stars",oc:"var(--brick)",pp:182,dur:"8 h",days:"marți · vineri · duminică",
+  sub:"Tur complet, cu transport",
+  d:"Varianta din planul actual. Ridicare de la vilă între 14:15 și 16:30, teleferic în afara programului public, apus de pe traseul spre Mirador Pico Viejo, cină picnic, apoi observație astronomică cu telescoape la stația de bază. Nota lor: 4,42 din 139 recenzii.",
+  inc:[["y","Transport dus-întors de la cazare"],["y","Teleferic la apus, maximum 90 de persoane"],
+       ["y","Ghid în engleză, spaniolă sau germană"],["y","Cină picnic (variantă vegetariană la cerere)"],
+       ["y","Telescoape și ghizi Starlight"],["n","Băutura de toast"],
+       ["n","Vizita la Observator"],["n","Nu conduce nimeni — dar nici nu opriți unde vreți"]]},
+ {id:"tbn",nm:"Teide & Stars — fără teleferic",oc:"var(--olive)",pp:75,dur:"6 h 30",days:"mai multe zile pe săptămână",
+  sub:"Tur de seară, cu transport",
+  d:"Aceeași echipă și aceleași telescoape, dar apusul se vede dintr-un mirador din parc, nu de la 3 555 m. Costă mai puțin de jumătate. Dacă partea care vă interesează sunt stelele, nu altitudinea, asta e varianta cu cel mai bun raport.",
+  inc:[["y","Transport dus-întors"],["y","Apus dintr-un mirador din parc"],
+       ["y","Telescoape și ghizi Starlight certificați"],["y","Vizită opțională la Observator, la unele variante"],
+       ["n","Teleferic"],["n","Cină"]]},
+ {id:"ccs",nm:"Teleferic la apus — doar biletul",oc:"var(--ochre)",pp:72,dur:"2 h",days:"marți · vineri · duminică",
+  sub:"Fără transport, mergeți cu mașinile",
+  d:"Urcare cu telecabina în afara orelor publice, plus acces pe traseul spre Mirador Pico Viejo. Atât. Fără ghid, fără cină, fără stele. Parcare gratuită la stația de bază, 220 de locuri. Anulare gratuită cu 24 h înainte, iar dacă vântul oprește telecabina se returnează integral.",
+  inc:[["y","Telecabină dus-întors, grup restrâns"],["y","Acces pe traseul Mirador Pico Viejo"],
+       ["y","Parcare gratuită la bază"],["n","Transport"],["n","Ghid"],["n","Observație astronomică"]]},
+ {id:"day",nm:"Ziua, cu mașinile — fără bilet",oc:"var(--sky)",pp:0,dur:"3–5 h",days:"orice zi",
+  sub:"Gratis, doar benzina",
+  d:"Traversarea parcului pe TF-21 și TF-38. Roques de García, Llano de Ucanca, Minas de San José, Narices del Teide, miradoarele de pe drum. Exact ce vrea Cătălin: drumul drept printre roci, la lumină. Parcările din parc sunt mici și pline la prânz — recomandarea oficială e să ajungeți după ora 13:00.",
+  inc:[["y","Zero cost, opriți unde vreți"],["y","Roques de García: buclă de 3,5 km, circa 1 h 15"],
+       ["y","Llano de Ucanca și câmpurile de lavă"],["y","Fără constrângere de zi sau de oră"],
+       ["n","Fără telecabină, dacă nu cumpărați separat"],["n","Conduce cineva, pe drum de munte"]]},
+ {id:"dayc",nm:"Ziua + telecabină",oc:"var(--violet)",pp:42,dur:"+1 h 30",days:"zilnic, 9:00–17:00",
+  sub:"Supliment la varianta cu mașinile",
+  d:"Bilet dus-întors la 3 555 m, cumpărat online. Sus aveți circa o oră și traseele PNT 11 Fortaleza și PNT 12 Mirador Pico Viejo, care nu cer permis. Copiii sub 13 ani intră gratuit. Se epuizează în sezon, deci se rezervă din timp.",
+  inc:[["y","Dus-întors la La Rambleta, 3 555 m"],["y","Traseele PNT 11 și PNT 12, fără permis"],
+       ["y","Se combină cu ziua de mașină"],["n","Ghid"],["n","Vârful Teide — permis separat"]]},
+ {id:"tour",nm:"Tur de zi cu transport și telecabină",oc:"var(--plum)",pp:87,dur:"7 h",days:"zilnic, plecare 8:15",
+  sub:"Autocar din Costa Adeje",
+  d:"Ridicare pe la 8:15 din Costa Adeje, ghid oficial, opriri la punctele clasice, telecabină inclusă. Util doar dacă nu vreți să conduceți deloc. Cu trei mașini la dispoziție, e greu de justificat față de varianta pe cont propriu.",
+  inc:[["y","Transport și ghid"],["y","Telecabină inclusă"],["n","Mâncare"],["n","Flexibilitate: opriri fixe"]]}
+];
+
+const TSCN=[
+ {id:"a",nm:"A · Totul într-o seară, ca acum",best:false,tot:182*N,
+  sub:"Sunset & Stars pentru toți 7, marți 1 septembrie",
+  li:[["plus","O singură zi consumată, dimineața rămâne liberă"],
+      ["plus","Nimeni nu conduce noaptea pe TF-21"],
+      ["plus","Cină inclusă, deci nu mai organizați masa"],
+      ["minus","1 274 € pentru șapte. Cea mai scumpă linie din tot bugetul"],
+      ["minus","Cătălin nu vede drumul printre roci la lumină"],
+      ["minus","Dacă bate vântul, telecabina cade și primiți înapoi doar 72 € din 182"]]},
+ {id:"b",nm:"B · Split: ziua cu mașinile + seara completă",best:true,tot:182*N,
+  sub:"Zi separată prin parc, gratis, plus Sunset & Stars marți seara",
+  li:[["plus","Cătălin primește exact ce cere, fără cost suplimentar"],
+      ["plus","Vedeți parcul de două ori, la lumini complet diferite"],
+      ["plus","Ziua de zi se poate lipi de 2 septembrie, spre nord-vest"],
+      ["plus","Dacă seara se anulează din vânt, tot ați văzut parcul"],
+      ["minus","Costul serii rămâne același, 1 274 €"],
+      ["minus","Ziua de nord-vest devine mai lungă cu 1 h 30–2 h de drum"]]},
+ {id:"c",nm:"C · Split ieftin: ziua cu mașinile + doar telecabina la apus",best:false,tot:72*N,
+  sub:"Zi prin parc, plus biletul de apus, cu mașinile voastre",
+  li:[["plus","504 € în loc de 1 274 €. Economie de 770 €"],
+      ["plus","Aceeași telecabină, același traseu, același apus de la 3 555 m"],
+      ["plus","Opriți unde vreți la urcare și la coborâre"],
+      ["minus","Fără stele cu telescoape, fără ghid, fără cină"],
+      ["minus","Cineva conduce 1 h 15 înapoi, pe întuneric, după o zi lungă"],
+      ["minus","Tot marți, vineri sau duminică"]]},
+ {id:"d",nm:"D · Split mediu: ziua cu mașinile + seara fără teleferic",best:false,tot:75*N,
+  sub:"Zi prin parc, plus turul de seară cu stele, fără telecabină",
+  li:[["plus","525 € în loc de 1 274 €, cu transport inclus"],
+      ["plus","Stelele și telescoapele rămân, adică partea greu de improvizat"],
+      ["plus","Nimeni nu conduce noaptea"],
+      ["minus","Apusul se vede dintr-un mirador, nu de la 3 555 m"],
+      ["minus","Fără umbra Teidelui proiectată pe ocean, care e argumentul telecabinei"]]},
+ {id:"e",nm:"E · Doar ziua, fără seară",best:false,tot:42*N,
+  sub:"Traversarea parcului plus telecabină de zi",
+  li:[["plus","294 € pentru toți șapte, sau 0 € fără telecabină"],
+      ["plus","Se lipește complet de ziua de nord-vest, fără zi consumată"],
+      ["plus","Zero risc de anulare de seară"],
+      ["minus","Ratați apusul și cerul, care sunt motivul pentru care Teide e pe primul loc la voturi"],
+      ["minus","Ovidiu, Viorel și Atena dau 5 la Teide — merită mai mult de o trecere"]]}
+];
+
+const TROUTE=[
+ ["Costa Adeje → Chío (TF-1, TF-38)","40 min","Ieșirea din sud, prin Guía de Isora"],
+ ["Chío → Boca Tauce (TF-38)","25 min","Drumul drept printre câmpurile de lavă, pe lângă Narices del Teide"],
+ ["Boca Tauce → Roques de García (TF-21)","10 min","Llano de Ucanca pe stânga, câmpia de pietre a caldeirei"],
+ ["Oprire Roques de García","1 h 15","Bucla de 3,5 km. Sau 15 min, doar mirador-ul"],
+ ["Roques → stația telecabinei","8 min","Aici se adaugă 1 h 30 dacă luați și telecabina de zi"],
+ ["Telecabină → El Portillo (TF-21)","20 min","Minas de San José: câmpuri de piatră ponce ocru"],
+ ["El Portillo → Icod de los Vinos (TF-21, TF-5)","55 min","Coborârea prin pădurea de pin canarian"],
+ ["TOTAL până la Icod, cu opriri","3 h 30 – 5 h","Față de 1 h 05 pe traseul direct de coastă"]
+];
+
+const TFACT=[
+ {h:"Codul vestimentar poate să vă blocheze la poartă",
+  t:"Pentru orice activitate cu telecabina, accesul e refuzat celor în pantaloni scurți, tricou cu mânecă scurtă, sandale, papuci de plajă sau încălțăminte cu talpă plată. Se cer pantofi închiși de munte sau sport, cu talpă antiderapantă. Într-o vacanță la plajă, în septembrie, ăsta e riscul practic numărul unu — nu se dau banii înapoi dacă vă refuză."},
+ {h:"Apusul cu telecabină merge doar marți, vineri și duminică",
+  t:"Atât Sunset & Stars, cât și biletul simplu de apus. În fereastra voastră asta înseamnă 30 august, 1 septembrie sau 4 septembrie. Ziua de nord-vest, 2 septembrie, e miercuri — deci acolo intră doar varianta de zi."},
+ {h:"Vântul anulează telecabina des",
+  t:"La Sunset & Stars, dacă telecabina nu merge, apusul se vede de la Mirador Chío sau de la Roques de García și vi se returnează 72 € din 182 de persoană. La biletul simplu de apus se returnează integral. E o diferență importantă: turul scump vă lasă cu 110 € cheltuiți pe o seară care nu mai include partea de sus."},
+ {h:"Diferența de temperatură e de 20 de grade",
+  t:"30 °C în Costa Adeje pot însemna 9 °C la 3 555 m, iar după apus scade și mai mult. Straturi, geacă de vânt, mănuși dacă aveți. Nu e exagerare, e recenzia repetată de toată lumea."},
+ {h:"Sus aveți cam o oră, indiferent de bilet",
+  t:"Timpul la stația superioară e limitat. Traseele PNT 11 Fortaleza și PNT 12 Mirador Pico Viejo iau 10–15 minute pe sens și nu cer permis. Vârful propriu-zis, PNT 10 Telesforo Bravo, cere permis separat: 200 de locuri pe zi, procesare de până la 3 luni, plus ecotaxă. La 19 zile nu se mai prinde pe cont propriu."},
+ {h:"Parcarea din parc e mică și intenționat nemărită",
+  t:"Recomandarea oficială pentru cine vine cu mașina e să ajungă după ora 13:00, când pleacă primul val. Stația telecabinei are 220 de locuri gratuite, dar se umple. Pentru ziua cu mașinile, plecarea la 9:30 sau după 13:00 sunt ferestrele bune."}
+];
+
+let teideOn=false;
+
+function showTeide(){
+  view="teide";
+  document.getElementById("view-day").hidden=true;
+  document.getElementById("view-book").hidden=true;
+  document.getElementById("view-loc").hidden=true;
+  const v=document.getElementById("view-teide");v.hidden=false;
+  document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)")
+    .forEach(b=>b.setAttribute("aria-selected","false"));
+  bkBtn.setAttribute("aria-selected","false");
+  lcBtn.setAttribute("aria-selected","false");
+  tdBtn.setAttribute("aria-selected","true");
+  document.documentElement.style.setProperty("--accent","var(--brick)");
+
+  if(!teideOn){
+    teideOn=true;
+    let h='<div class="bk-head">'+
+      '<div class="bk-count"><i></i>Decizie deschisă · 6 variante · preț pentru 7 persoane</div>'+
+      '<h2>Teide: ce bilete luăm</h2>'+
+      '<p>Planul pe zile nu s-a schimbat. Aici sunt doar datele necesare ca să alegeți: ce există, ce include fiecare variantă, cât costă pentru șapte oameni și dacă ziua de zi încape în drumul spre nord-vest.</p>'+
+      '</div>';
+
+    h+='<div class="bk-grp" style="--lv:var(--ochre)"><h3>Variantele existente<b>preț de persoană, adult nerezident</b></h3>'+
+       '<p>Prețurile sunt cele publicate în august 2026 și se schimbă. Verifică suma finală înainte de plată.</p></div>';
+    TOPT.forEach(o=>{
+      h+=`<div class="opt" style="--oc:${o.oc}">`+
+         `<div class="opt-h"><h4>${o.nm}</h4>`+
+         `<div class="opt-p">${o.pp?o.pp+" € / pers":"gratis"}<small>${o.pp?(o.pp*N).toLocaleString("ro-RO")+" € pentru 7":"doar benzina"}</small></div></div>`+
+         `<div class="opt-m"><span>${o.sub}</span><span>${o.dur}</span><span>${o.days}</span></div>`+
+         `<p>${o.d}</p><div class="opt-inc">`+
+         o.inc.map(([k,t])=>`<div class="${k}">${t}</div>`).join("")+
+         `</div></div>`;
+    });
+
+    h+='<div class="bk-grp" style="--lv:var(--olive)"><h3>Cele cinci scenarii<b>ce iese din combinații</b></h3>'+
+       '<p>Ideea ta de split apare ca B, C și D. Diferența dintre ele e cât de mult din seară păstrați.</p></div>';
+    TSCN.forEach(x=>{
+      h+=`<div class="scn${x.best?" best":""}">`+
+         `<h4>${x.nm}</h4><div class="tot">${x.tot.toLocaleString("ro-RO")} € pentru 7 · ${x.sub}</div><ul>`+
+         x.li.map(([k,t])=>`<li class="${k}">${t}</li>`).join("")+`</ul></div>`;
+    });
+
+    h+='<div class="bk-grp" style="--lv:var(--sky)"><h3>Încape ziua de zi în drumul spre nord-vest?<b>2 septembrie</b></h3>'+
+       '<p>Da, dar transformă ziua. Traseul de mai jos urcă prin parc și coboară spre Icod, în loc să meargă pe coastă.</p></div>'+
+       '<div class="tblwrap"><table class="rt"><thead><tr><th>Segment</th><th>Timp</th><th>Ce vedeți</th></tr></thead><tbody>'+
+       TROUTE.map(r=>`<tr><td>${r[0]}</td><td class="tnum">${r[1]}</td><td>${r[2]}</td></tr>`).join("")+
+       '</tbody></table></div>'+
+       '<div class="bk-note">Verdictul meu: încape, dar nu în aceeași zi cu Masca, Cueva del Viento și Garachico. Ziua aia are deja șase opriri și se termină la Los Gigantes pe apus. Dacă adaugi traversarea parcului, ori tai peștera, ori ajungi la Los Gigantes pe întuneric. Varianta mai curată e ziua de zi lipită de <b>4 septembrie dimineața</b>, care e liberă până la buggy, sau ca zi proprie în locul uneia dintre cele ușoare.</div>';
+
+    h+='<div class="bk-grp" style="--lv:var(--brick)"><h3>Șase lucruri de știut înainte<b>toate verificate pe site-ul oficial</b></h3></div>';
+    TFACT.forEach(f=>{
+      h+=`<div class="scn"><h4>${f.h}</h4><ul><li>${f.t}</li></ul></div>`;
+    });
+
+    h+='<div class="bk-note">Surse: volcanoteide.com pentru variantele oficiale și regulile de acces, plus revânzătorii oficiali pentru prețurile turului de zi și al celui de seară fără telecabină. '+
+       'Rezervările se fac exclusiv online, la toate variantele. Anularea e gratuită cu 48 h înainte la Sunset &amp; Stars și cu 24 h la biletul simplu de apus.</div>';
+
+    v.innerHTML=h;
+  }
+  const th=v.querySelector(".bk-count");
+  if(th&&!th.querySelector(".share"))th.appendChild(shareBtn());
+  syncURL();
+}
+
+const tdBtn=document.createElement("button");
+tdBtn.className="day-btn teide-btn";tdBtn.type="button";tdBtn.id="teide-btn";
+tdBtn.setAttribute("role","tab");tdBtn.setAttribute("aria-selected","false");
+tdBtn.style.setProperty("--accent","var(--brick)");
+tdBtn.innerHTML='<span class="n">?</span><span class="d">Teide</span><span class="w">decizie</span>';
+tdBtn.addEventListener("click",showTeide);
+/* butonul se adauga aici, nu la crearea containerului: railFixed exista deja,
+   dar tdBtn e declarat cu const mai jos in fisier decat railFixed. */
+railFixed.prepend(tdBtn);
 
 /* ============ adresă partajabilă ============ */
 /* Fiecare tab, zi, oprire și locație are propriul URL. Linkul curent e mereu
@@ -1216,7 +1445,8 @@ function setURL(p){
 
 function syncURL(){
   const p={};
-  if(view==="book"){p.tab="rezervari"}
+  if(view==="teide"){p.tab="teide"}
+  else if(view==="book"){p.tab="rezervari"}
   else if(view==="loc"){
     p.tab="locatii";
     if(locFilter)p.filtru=locFilter;
@@ -1238,6 +1468,7 @@ function applyURL(){
   const q=readURL();
   const tab=q.get("tab");
 
+  if(tab==="teide"){showTeide();return}
   if(tab==="rezervari"){showBook();return}
 
   if(tab==="locatii"){
@@ -1255,7 +1486,7 @@ function applyURL(){
   let i=DAYS.findIndex(d=>d.n===zi);
   if(i<0)i=0;
   render(i);
-  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn)");
+  const bs=document.querySelectorAll(".day-btn:not(.book-btn):not(.loc-btn):not(.teide-btn)");
   if(bs[i]&&bs[i].scrollIntoView)bs[i].scrollIntoView({inline:"center",block:"nearest"});
 
   const tr=parseInt(q.get("traseu"),10)-1, op=parseInt(q.get("oprire"),10)-1;
