@@ -420,9 +420,9 @@ const ALL = ["Gabi","Alex","Ovidiu","Robi","Viorel","Atena"];
    Traseele nu îl includ niciodată — nimic nu se rupe dacă lipsește. */
 const CAT={
  1:{tag:"cum ajunge",  c:"var(--ink-faint)", no:"Ziua e doar logistică. Dacă e deja pe insulă, cina din Los Abrigos e punctul de întâlnire."},
- 2:{tag:"indiferent",  c:"var(--ink-faint)", no:"Nu a votat scufundările, dă 3 pe coasta de sud. Zi bună de tur propriu cu scooterul."},
- 3:{tag:"probabil da", c:"var(--olive)",     no:"Dă 4 la Siam Park. Îi trebuie bilet ca tuturor, și e ultima noapte a sezonului — dacă vine, se decide acum, nu pe 29."},
- 4:{tag:"indiferent",  c:"var(--ink-faint)", no:"Nu a votat surfingul. El Médano e la 15 minute de cazare, poate apărea doar la plajă."},
+ 2:{tag:"a fost",      c:"var(--teal)",      no:"A aterizat la 01:15 și a venit la Las Américas cu ceilalți. Prima zi pe insulă."},
+ 3:{tag:"vine tot",    c:"var(--teal)",      no:"E rezervat la scufundări cu ceilalți și are bilet la Siam Night. Cea mai plină zi a lui."},
+ 4:{tag:"vine sigur",  c:"var(--teal)",      no:"E în lecția de surf de la 11:00, alături de Gabi, Robi, Alex și Atena."},
  5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran. Rezervă-i locul odată cu ale voastre — plecarea e din Puerto Colón la 17:30."},
  6:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Turul e cu transport și pickup de la vilă, deci îi trebuie loc rezervat — nu poate urca pe scooter după autocar."},
  7:{tag:"vine sigur",  c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. TF-436 spre Masca e un traseu de vis pe scooter, dar are vreo 180 de curbe."},
@@ -443,8 +443,8 @@ const BOOK=[
    y:"Grupuri de maximum 15 persoane și 96,5% ocupare în 2025. Șase locuri în același tur e greu. Dacă nu prinzi ziua asta, mută ziua — nu peștera.",u:"cuevadelviento.net"}
  ]},
  {lv:"var(--ochre)",h:"În 2-3 zile",sub:"Se găsesc încă, dar în sezon se închid rapid pentru grupuri.",items:[
-  {w:"Lecție de surf · minimum 3 locuri",f:"30 aug",fl:"Z04",
-   y:"Gabi, Atena și Robi. Weekend de sezon la El Médano, școlile se umplu.",u:"școală în El Médano"},
+  {w:"Lecție de surf · 5 locuri — REZERVAT",f:"30 aug",fl:"Z04",
+   y:"Gabi, Robi, Alex, Atena și Cătălin, la 11:00. Viorel și Ovidiu nu participă.",u:"școală în El Médano"},
   {w:"Catamaran seara",f:"31 aug",fl:"Z05",
    y:"Cere tur de minimum 3 ore cu oprire reală de înot, nu unul de 2 ore care nu ancorează. Delfinii nu sunt garantați de nimeni.",u:"Puerto Colón · 5 min de vilă"},
   {w:"Buggy · 3 vehicule",f:"4 sep",fl:"Z09",
@@ -453,10 +453,10 @@ const BOOK=[
    y:"Joi de august în cel mai căutat port de pește din sud, iar voi ajungeți la 20:00 după un zbor.",u:"telefonic"}
  ]},
  {lv:"var(--sky)",h:"Săptămâna asta",sub:"Fără presiune de disponibilitate, dar mai bine acum decât în vacanță.",items:[
-  {w:"Scufundări · 2 persoane",f:"28 aug",fl:"Z02",
-   y:"Gabi și Robi. Confirmă întâi dacă aveți brevet sau faceți Discovery Dive — schimbă și prețul, și programul zilei. Ziua de 28 august e aleasă bine și din perspectiva regulii de altitudine: 18 ore fără avion sau telecabină după două scufundări, iar voi aveți patru zile până la Teide.",u:"centru în Las Galletas"},
-  {w:"Jet ski · 2 locuri, seara",f:"4 sep",fl:"Z09",
-   y:"Gabi și Robi, în jur de 18:00. Aici contează ora, nu disponibilitatea: majoritatea operatorilor din Puerto Colón închid pe la 19:00, deci cere explicit ultima ieșire a zilei.",u:"Puerto Colón · 5 min de vilă"},
+  {w:"Scufundări la Big Fish — FĂCUT",f:"29 aug",fl:"Z03",
+   y:"15:00, pentru toți cei ajunși, în Los Cristianos. Teide e pe 1 septembrie, deci regula de 18 ore fără altitudine e acoperită cu marjă de două zile.",u:"Big Fish Dive Center"},
+  {w:"Jet ski — FĂCUT",f:"29 aug",fl:"Z03",
+   y:"Gabi și Robi, la 9:30 la Puerto Colón Jetski. Dacă mai vrea cineva, Atena dă 5 și nu a prins ieșirea asta.",u:"Puerto Colón"},
   {w:"Bolt pentru Alex, dimineața plecării",f:"5 sep",fl:"Z10",
    y:"Zborul lui e la 10:35, deci pleacă din vilă pe la 07:45. Cu Bolt, restul grupului nu pierde dimineața pe o cursă dus-întors de 50 de minute. Nu se rezervă din timp, dar merită stabilit dinainte cine se ocupă.",u:"aplicația Bolt"},
   {w:"Masă la Los Abrigos · prânz pentru 4",f:"5 sep",fl:"Z10",
@@ -538,49 +538,53 @@ const DAYS=[
 },
 {
  n:2,date:"28 aug",wd:"vineri",accent:"var(--teal)",
- title:"Split · scufundări și coasta de sud",
- lede:"Singura zi cu împărțire reală. E aleasă fix acum pentru că Viorel dă 2 la scufundări și nu e încă pe insulă. Ovidiu a aterizat însă la 01:15 azi-noapte, deci dimineața lui e negociabilă.",
+ title:"Las Américas · masă și baie",
+ lede:"Ziua a ieșit altfel decât era planificată. Ovidiu și Cătălin au aterizat la 01:15 noaptea, deci nimeni nu s-a grăbit dimineața. Toți cei ajunși au mers la Las Américas: masă și baie în ocean. Scufundările s-au mutat pe 29.",
  people:["Gabi","Alex","Ovidiu","Robi"],
- warn:"Aveți o singură mașină până sâmbătă. Split-ul funcționează oricum, pentru că Las Galletas și Montaña Amarilla sunt la zece minute una de alta: mașina lasă scafandrii la centru, Alex și Ovidiu merg mai departe și se întorc să-i ia.",
- tracks:[
- {name:"Grup scufundări",color:"var(--teal)",people:["Gabi","Robi"],stops:[
-  {t:"09:30",d:"~3 h",nm:"Las Galletas · diving",lat:28.0073,lon:-16.6570,alt:5,no:"Două scufundări, deci intră la regula de 18 ore fără altitudine. Voi zburați pe 5 septembrie și urcați pe Teide pe 1 — opt, respectiv patru zile mai târziu. Marjă uriașă, nicio problemă. Fără brevet, Discovery Dive de circa 90 de minute, care intră la aceeași regulă."},
-  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Punct de reunire. Alex și Ovidiu vin cu mașina și îi iau pe scafandri de la centru."}
- ]},
- {name:"Grup coastă",color:"var(--olive)",people:["Alex","Ovidiu"],stops:[
-  {t:"10:00",d:"2 h",nm:"Montaña Amarilla",lat:28.0110,lon:-16.6360,alt:30,no:"Piscine naturale la baza tufului galben, Costa del Silencio. Zece minute de cazare."},
-  {t:"12:15",d:"1½ h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Plajă lungă la poalele Montaña Roja."},
-  {t:"14:00",d:"prânz",nm:"Los Abrigos",lat:28.0282,lon:-16.5924,alt:10,no:"Reunire."}
+ tracks:[{name:"Toți cei ajunși",color:"var(--teal)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
+  {t:"01:15",d:"noaptea",nm:"Ovidiu și Cătălin au ajuns",lat:28.0286,lon:-16.6091,alt:40,no:"Cu Bolt de la TFS, opt minute de drum. Grupul e la cinci — Viorel și Atena vin mâine la 16:00."},
+  {t:"prânz",d:"masă",nm:"Playa de las Américas",lat:28.0620,lon:-16.7342,alt:5,no:"Promenada are terase pe toată lungimea. Partea dinspre sud e cu pietriș; partea bună, cu facilități și șezlonguri la circa 6 €, e spre nord."},
+  {t:"după masă",d:"baie",nm:"Baie în ocean",lat:28.0620,lon:-16.7342,alt:5,no:"Prima baie a vacanței. Las Américas e la circa 25 de minute de Golf del Sur."}
  ]}]
 },
 {
  n:3,date:"29 aug",wd:"sâmbătă",accent:"var(--plum)",
- title:"Siam Night · ultima din sezon",
- lede:"Sezonul Siam Night se închide chiar azi. Ziua e ușoară până seara, iar Viorel și Atena vin direct cu mașina lor la parc — marja lor de la aterizare e de 2 h 45.",
+ title:"Jet ski, scufundări, Siam Night",
+ lede:"Cea mai încărcată zi din vacanță: jet ski dimineața, scufundări după-amiaza, masă, apoi patru ore în parc până la miezul nopții. Viorel și Atena aterizează la 16:00 și prind exact Siam Night.",
  people:ALL,
- warn:"Nu există altă dată. Dacă seara asta se anulează, nu vedeți Siam Park în vacanța asta.",
+ warn:"Scufundările la 15:00 pornesc ceasul de altitudine de azi. Teide e pe 1 septembrie, adică peste două zile — marjă suficientă. Dar dacă cineva se mai scufundă, nu în ajunul zilei de Teide.",
  tracks:[
- {name:"Cei patru",color:"var(--plum)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
-  {t:"10:00",d:"dimineața",nm:"Los Cristianos · Playa de las Vistas",lat:28.0505,lon:-16.7180,alt:5,no:"Plajă lejeră. Nimic solid — seara se termină după miezul nopții."},
-  {t:"19:15",d:"drum",nm:"Plecare spre San Eugenio Alto",lat:28.0286,lon:-16.6091,alt:40,no:"25 de minute până la parc."},
-  {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"Bilete luate pentru toți șapte, Cătălin inclus. 20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc — nu programa cină."}
+ {name:"Jet ski · doi",color:"var(--sky)",people:["Gabi","Robi"],stops:[
+  {t:"09:30",d:"1 h",nm:"Puerto Colón Jetski",lat:28.0778,lon:-16.7359,alt:5,no:"Rezervat pentru Gabi și Robi. Safari cu ghid pe barcă și oprire de înot la jumătate. Fotografiile se plătesc separat, în jur de 20 €. Deschis 9:00–18:00."}
  ]},
- {name:"Viorel și Atena",color:"var(--sky)",people:["Viorel","Atena"],stops:[
-  {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Aici se preia a doua mașină, pe numele lor. Din momentul ăsta grupul are două mașini — până azi ați avut una singură."},
-  {t:"17:20",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Duș, despachetat rapid, o bere pe terasă."},
-  {t:"19:45",d:"întâlnire",nm:"Parcarea Siam Park",lat:28.0725,lon:-16.7250,alt:90,no:"Punctul de întâlnire al celor șase."}
+ {name:"Scufundări · cei ajunși",color:"var(--teal)",people:["Gabi","Alex","Ovidiu","Robi"],stops:[
+  {t:"15:00",d:"~3 h",nm:"Big Fish Dive Center · Los Cristianos",lat:28.0503,lon:-16.7204,alt:10,no:"Rezervat pentru toți cei ajunși. 4,8 din peste 1 000 de recenzii, iar cele de Discover Scuba sunt foarte bune. Transportul de la cazare se poate organiza prin ei. Deschis 9:00–17:00."},
+  {t:"~18:00",d:"masă",nm:"Terasă lângă centru",lat:28.0503,lon:-16.7204,alt:10,no:"Promenada din Los Cristianos e la câțiva pași de centrul de scufundări."}
+ ]},
+ {name:"Viorel și Atena",color:"var(--violet)",people:["Viorel","Atena"],stops:[
+  {t:"16:00",d:"aterizare",nm:"Aeroport TFS",lat:28.0445,lon:-16.5725,alt:64,no:"Aici se preia a doua mașină. Ratează scufundările cu o oră — dar Viorel dă oricum 2 la scufundări, deci nu pierde ce voia."},
+  {t:"17:20",d:"check-in",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Duș, despachetat rapid, apoi direct spre parc."}
+ ]},
+ {name:"Toți șapte · Siam Night",color:"var(--plum)",people:ALL,stops:[
+  {t:"20:00",d:"4 h",nm:"Siam Night",lat:28.0725,lon:-16.7250,alt:90,no:"Bilete pentru toți șapte, Cătălin inclus. 20:00–21:00 toboganele mari cât e lumină. 21:00–22:00 a doua rundă și Mai Thai River. De la 22:00, Wave Palace cu DJ. Mâncarea se rezolvă în parc."}
  ]}]
 },
 {
  n:4,date:"30 aug",wd:"duminică",accent:"var(--teal)",
- title:"El Médano · surfing",
- lede:"Start târziu, după noaptea de sâmbătă. Cincisprezece minute de cazare — din Costa Adeje ar fi patruzeci, deci ziua asta nu poate fi mutată mai târziu în vacanță.",
+ title:"Surf la 11:00 · fără Viorel și Ovidiu",
+ lede:"Lecția e rezervată pentru cinci: Gabi, Robi, Alex, Atena și Cătălin. Viorel și Ovidiu stau pe plajă sau rămân la piscină. Cincisprezece minute de cazare — din Costa Adeje ar fi patruzeci, deci ziua asta trebuia să fie înainte de mutare.",
  people:ALL,
- tracks:[{name:"Toți șase",color:"var(--teal)",people:ALL,stops:[
-  {t:"12:00",d:"2½ h",nm:"El Médano · lecție de surf",lat:28.0451,lon:-16.5386,alt:10,no:"Gabi, Atena și Robi în apă — toți trei dau 5. Alex, Ovidiu și Viorel pe plajă sau în lecție dacă vor. Vântul e puternic garantat: de asta se face surf aici."},
-  {t:"14:30",d:"prânz",nm:"Promenada El Médano",lat:28.0448,lon:-16.5410,alt:8,no:""},
-  {t:"16:00",d:"3 h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Sau urcare pe Montaña Roja: o oră, priveliște peste tot sud-estul."},
-  {t:"17:00",d:"1 h opțional",nm:"Montaña Roja",lat:28.0247,lon:-16.5432,alt:171,no:"Punctul cel mai înalt al zilei."}
+ tracks:[
+ {name:"Lecția de surf · cinci",color:"var(--teal)",people:["Gabi","Robi","Alex","Atena"],stops:[
+  {t:"11:00",d:"2½ h",nm:"El Médano · lecție de surf",lat:28.0451,lon:-16.5386,alt:10,no:"Rezervat. Gabi, Robi, Alex și Atena, plus Cătălin. Vântul e puternic garantat — de asta se face surf aici, dar nu e plajă de lenevit. Toalete, dușuri și vestiare în piațeta centrală."}
+ ]},
+ {name:"Viorel și Ovidiu",color:"var(--slate)",people:["Viorel","Ovidiu"],stops:[
+  {t:"11:00",d:"liber",nm:"Plajă la El Médano",lat:28.0448,lon:-16.5410,alt:8,no:"Plaja din fața pieței e adăpostită și bună de înot, spre deosebire de capătul dinspre Montaña Roja unde bate vântul. Sau rămân la piscina de la Wyndham."}
+ ]},
+ {name:"Toți șapte, după",color:"var(--sky)",people:ALL,stops:[
+  {t:"13:30",d:"prânz",nm:"Promenada El Médano",lat:28.0448,lon:-16.5410,alt:8,no:"Reunire după lecție."},
+  {t:"15:30",d:"3 h",nm:"La Tejita",lat:28.0316,lon:-16.5460,alt:10,no:"Plaja lungă de alături, la poalele Montaña Roja."},
+  {t:"17:00",d:"1 h opțional",nm:"Montaña Roja",lat:28.0247,lon:-16.5432,alt:171,no:"O oră de urcare, priveliște peste tot sud-estul. Punctul cel mai înalt al zilei."}
  ]}]
 },
 {
@@ -648,20 +652,16 @@ const DAYS=[
 },
 {
  n:9,date:"4 sep",wd:"vineri",accent:"var(--sky)",
- title:"Buggy, plajă, jet ski la apus",
- lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă. Jet ski-ul s-a mutat seara și a rămas pe doi — restul grupului stă pe plajă și se reunesc toți la cină.",
+ title:"Buggy și plajă",
+ lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă. Jet ski-ul s-a făcut deja pe 29 august, deci ziua e mai lejeră decât era planificată.",
  people:ALL,
- warn:"Atena dă 5 la jet ski, la fel ca Robi. Dacă rămâne pe doi, ea e singura cu notă maximă care nu intră — merită întrebată înainte să rezervi. Separat: dacă cineva vrea o a doua scufundare, azi e ultima zi posibilă și doar dimineața. Zborul lui Alex e la 10:35 mâine, iar regula cere 18 ore de la ultima scufundare — o ieșire care se termină după-amiaza îl pune sub limită.",
+ warn:"Atena dă 5 la jet ski și nu a prins ieșirea de pe 29, când era doar pentru Gabi și Robi. Dacă vrea, se poate face din nou azi — Puerto Colón e la șapte minute. Separat: dacă cineva vrea o a doua scufundare, azi e ultima zi posibilă și doar dimineața, pentru că zborul lui Alex e la 10:35 mâine iar regula cere 18 ore.",
  tracks:[
  {name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
   {t:"09:30",d:"3½ h",nm:"Buggy · Adeje",lat:28.1230,lon:-16.7400,alt:300,no:"Șase persoane egal exact trei buggy-uri, câte doi. Perfect divizibil, nimeni pe dinafară."},
-  {t:"14:00",d:"4½ h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei. Ziua se lungește pe plajă acum că jet ski-ul e seara."},
+  {t:"14:00",d:"4½ h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei. Ziua se lungește pe plajă acum că jet ski-ul s-a făcut deja."},
   {t:"18:30",d:"1 h",nm:"Împachetat la vilă",lat:28.0807,lon:-16.7212,alt:80,no:"Mâine dimineață nu mai aveți timp."},
   {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final, cu toți șase."}
- ]},
- {name:"Jet ski · doi",color:"var(--teal)",people:["Gabi","Robi"],stops:[
-  {t:"18:00",d:"1½ h",nm:"Jet ski · Puerto Colón",lat:28.0794,lon:-16.7380,alt:5,no:"Gabi și Robi. Apusul e la 20:18, dar majoritatea operatorilor din Puerto Colón închid pe la 19:00 — cere ultima ieșire a zilei și confirmă ora exactă la rezervare, nu la fața locului."},
-  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Reunire cu restul grupului."}
  ]}]
 },
 {
