@@ -423,7 +423,7 @@ const CAT={
  2:{tag:"a fost",      c:"var(--teal)",      no:"A aterizat la 01:15 și a venit la Las Américas cu ceilalți. Prima zi pe insulă."},
  3:{tag:"vine tot",    c:"var(--teal)",      no:"E rezervat la scufundări cu ceilalți și are bilet la Siam Night. Cea mai plină zi a lui."},
  4:{tag:"vine sigur",  c:"var(--teal)",      no:"E în lecția de surf de la 11:00, alături de Gabi, Robi, Alex și Atena."},
- 5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran. Rezervă-i locul odată cu ale voastre — plecarea e din Puerto Colón la 17:30."},
+ 5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran, plecarea e la 17:00 din Puerto Colón. Bagajul lui nu încape pe scooter, deci merge în mașini la mutare."},
  6:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Turul e cu transport și pickup de la vilă, deci îi trebuie loc rezervat — nu poate urca pe scooter după autocar."},
  7:{tag:"vine sigur",  c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. TF-436 spre Masca e un traseu de vis pe scooter, dar are vreo 180 de curbe."},
  8:{tag:"probabil da", c:"var(--olive)",     no:"Anaga 5, Benijo 3. Atenție: TF-134 și TF-136 sunt înguste și des în ceață, plus aproape 2 ore pe sens. Ține-i un loc liber în mașină."},
@@ -445,7 +445,7 @@ const BOOK=[
  {lv:"var(--ochre)",h:"În 2-3 zile",sub:"Se găsesc încă, dar în sezon se închid rapid pentru grupuri.",items:[
   {w:"Lecție de surf · 5 locuri — REZERVAT",f:"30 aug",fl:"Z04",
    y:"Ika Ika, Playa de las Américas, ora 11:00. Gabi, Robi, Alex, Atena și Cătălin. Viorel și Ovidiu nu participă. Echipamentul, dușurile și dulapurile sunt incluse.",u:"Ika Ika Surf School"},
-  {w:"Catamaran seara",f:"31 aug",fl:"Z05",
+  {w:"Catamaran — REZERVAT, ora 17:00",f:"31 aug",fl:"Z05",
    y:"Cere tur de minimum 3 ore cu oprire reală de înot, nu unul de 2 ore care nu ancorează. Delfinii nu sunt garantați de nimeni.",u:"Puerto Colón · 5 min de vilă"},
   {w:"Buggy · 3 vehicule",f:"4 sep",fl:"Z09",
    y:"Șase persoane egal exact trei buggy-uri. Trei simultan cer rezervare, nu se rezolvă la fața locului.",u:"operator în Costa Adeje"},
@@ -590,18 +590,21 @@ const DAYS=[
 },
 {
  n:5,date:"31 aug",wd:"luni",accent:"var(--violet)",
- title:"Mutare + catamaran",
- lede:"Cea mai delicată zi din vacanță, și nu din cauza drumului. Între check-out la 10:00 și check-in la 16:00 sunt șase ore în care nu aveți unde sta, cu toate bagajele în mașini. Ziua e construită ca fereastra aia să fie plăcută, nu pierdută.",
+ title:"Mutare, urgențe și catamaran",
+ lede:"Ziua s-a rupt în două fără să fie planificată așa. Gabi și Alex au făcut a doua lecție de surf la Las Américas, iar restul au mers cu Robi la urgențe pentru o lovitură deasupra ochiului, de la surful de ieri. Check-in la 16:00, catamaran la 17:00.",
  people:ALL,
- warn:"Șase ore fără bază. Merită să ceri vilei check-in devreme, sau Wyndhamului depozitare bagaje după check-out — oricare din ele scurtează fereastra. Dacă nu se poate, nu lăsa nimic la vedere în mașini pe parcarea de la plajă.",
- tracks:[{name:"Toți șase",color:"var(--violet)",people:ALL,stops:[
-  {t:"08:45",d:"1¼ h",nm:"Împachetat și încărcat mașinile",lat:28.0286,lon:-16.6091,alt:40,no:"Două mașini, șase oameni, bagaje pentru zece zile — plus bagajul lui Cătălin, care nu încape pe scooter. E mai strâmt decât pare. Începeți devreme: check-out-ul e la 10:00 fix."},
-  {t:"10:00",d:"check-out",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Check-out până la 10:00. Întreabă la recepție dacă țin bagajele câteva ore — ar rezolva jumătate din problema zilei."},
-  {t:"10:30",d:"1¼ h",nm:"Monkey Park · Guaza",lat:28.0605,lon:-16.6928,alt:100,no:"Deschis 9:30–16:00, practic pe traseul dintre cele două cazări. O oră ajunge. Atena e singura care dă 5."},
-  {t:"12:15",d:"1½ h",nm:"Prânz în Los Cristianos",lat:28.0505,lon:-16.7180,alt:5,no:"Promenada e umbrită și are unde parca. De aici începe timpul de omorât."},
-  {t:"13:45",d:"2 h",nm:"Playa de las Vistas",lat:28.0490,lon:-16.7230,alt:5,no:"Fereastra moartă. Plaja are dușuri și vestiare, ca să nu ajungeți la vilă transpirați după o dimineață de cărat bagaje. Nu lăsați nimic la vedere în mașini."},
-  {t:"16:00",d:"check-in",nm:"Azure Sky Villa · San Eugenio",lat:28.0807,lon:-16.7212,alt:80,no:"Check-in de la 16:00. Despachetat rapid — nu apucați și cumpărături dacă vreți catamaranul la 17:30."},
-  {t:"17:30",d:"4 h",nm:"Catamaran · Puerto Colón",lat:28.0794,lon:-16.7380,alt:5,no:"Șapte minute de vilă. Cere tur de minimum 3 ore cu oprire reală de înot. Delfinii nu sunt garantați. Cumpărăturile se fac mâine dimineață, care e liberă până la 15:45."}
+ warn:"Dacă Robi are copci sau benzi adezive, oprirea de înot de la catamaran e de evitat — apa sărată pe o rană proaspătă nu ajută. Poate sta pe punte fără probleme. Indicațiile medicului bat orice e scris aici. Și mâine e Teide, la 3 555 m: dacă a fost mai mult decât o tăietură, întreabă medicul dacă e ok pentru altitudine.",
+ tracks:[
+ {name:"Surf · doi",color:"var(--teal)",people:["Gabi","Alex"],stops:[
+  {t:"dimineața",d:"lecție",nm:"Ika Ika Surf School",lat:28.0609,lon:-16.7339,alt:5,no:"A doua lecție, după cea de ieri. Paseo Guadalajara 40, pe promenada din Las Américas. La zece minute de noua cazare, deci mult mai la îndemână de acum înainte."}
+ ]},
+ {name:"Urgențe · cu Robi",color:"var(--brick)",people:["Robi","Ovidiu","Viorel","Atena"],stops:[
+  {t:"dimineața",d:"—",nm:"Urgențe · lovitură deasupra ochiului",lat:28.0736,lon:-16.7264,alt:60,no:"De la surful de ieri. E printre cele mai frecvente accidentări la surf: placa se întoarce în val și lovește în zona feței. Cere instrucțiunile scrise la externare — contează pentru catamaranul de azi și pentru Teide de mâine."}
+ ]},
+ {name:"Toți șapte",color:"var(--violet)",people:ALL,stops:[
+  {t:"10:00",d:"check-out",nm:"Wyndham Golf del Sur",lat:28.0286,lon:-16.6091,alt:40,no:"Check-out până la 10:00, cu bagajele în mașini pentru toată ziua."},
+  {t:"16:00",d:"check-in",nm:"Azure Sky Villa · San Eugenio",lat:28.0807,lon:-16.7212,alt:80,no:"O oră până la catamaran. Descărcat și schimbat, nimic altceva — cumpărăturile se fac mâine dimineață, care e liberă până la plecarea spre Teide."},
+  {t:"17:00",d:"~4 h",nm:"Catamaran · Puerto Colón",lat:28.0794,lon:-16.7380,alt:5,no:"Șapte minute de vilă, dar majoritatea operatorilor cer prezența cu 20–30 de minute înainte. Rămân sub 30 de minute de la check-in — un mesaj către operator că veniți direct de la cazare ar fi util. Delfinii nu sunt garantați de nimeni."}
  ]}]
 },
 {
@@ -609,7 +612,7 @@ const DAYS=[
  title:"Teide · tur ghidat, apus și stele",
  lede:"Turul rezolvă exact problema voastră: biletele separate la teleferic sunt epuizate, dar operatorii au alocare proprie. Dimineața rămâne liberă — recuperare după ziua de mutare.",
  people:ALL,
- warn:"Singura activitate din plan pe care nu o poți improviza în ziua respectivă: turul se anulează la vânt puternic. Rezervă acum, ca reprogramarea pe 2, 3 sau 4 septembrie să fie gratuită. Și încă ceva: 3 555 m înseamnă mai multă altitudine decât o cabină de avion, deci regula de după scufundări se aplică și aici. Scufundările voastre sunt pe 28 august, deci sunteți acoperiți cu patru zile — dar dacă cineva vrea o a doua scufundare, nu în ajunul zilei de Teide.",
+ warn:"Dacă Robi a fost la urgențe ieri cu o lovitură la cap, întreabă medicul înainte de 3 555 m — amețeala și greața la altitudine se confundă ușor cu altceva. Separat: e singura activitate din plan pe care nu o poți improviza în ziua respectivă, pentru că turul se anulează la vânt puternic. Rezervă acum, ca reprogramarea pe 2, 3 sau 4 septembrie să fie gratuită. Și încă ceva: 3 555 m înseamnă mai multă altitudine decât o cabină de avion, deci regula de după scufundări se aplică și aici. Scufundările voastre sunt pe 28 august, deci sunteți acoperiți cu patru zile — dar dacă cineva vrea o a doua scufundare, nu în ajunul zilei de Teide.",
  tracks:[{name:"Toți șase · cu transport",color:"var(--brick)",people:ALL,stops:[
   {t:"15:45",d:"pickup",nm:"Azure Sky Villa · San Eugenio",lat:28.0807,lon:-16.7212,alt:80,no:"Ora variază cu apusul, între 14:15 și 16:30. Un singur punct pentru toți șase — stați la aceeași adresă."},
   {t:"17:00",d:"oprire",nm:"Parcul Național · panoramă",lat:28.2200,lon:-16.6350,alt:2100,no:"Prima oprire în caldeirea Las Cañadas."},
