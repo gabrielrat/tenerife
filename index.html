@@ -424,8 +424,8 @@ const CAT={
  3:{tag:"vine tot",    c:"var(--teal)",      no:"E rezervat la scufundări cu ceilalți și are bilet la Siam Night. Cea mai plină zi a lui."},
  4:{tag:"vine sigur",  c:"var(--teal)",      no:"E în lecția de surf de la 11:00, alături de Gabi, Robi, Alex și Atena."},
  5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran, plecarea e la 17:00 din Puerto Colón. Bagajul lui nu încape pe scooter, deci merge în mașini la mutare."},
- 6:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Turul e cu transport și pickup de la vilă, deci îi trebuie loc rezervat — nu poate urca pe scooter după autocar."},
- 7:{tag:"vine sigur",  c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. TF-436 spre Masca e un traseu de vis pe scooter, dar are vreo 180 de curbe."},
+ 6:{tag:"a fost",      c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. Ziua asta a fost făcută pentru el."},
+ 7:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Dacă mergeți cu mașinile, poate urca și el pe scooter — dar la 2 000 m e frig, chiar și în septembrie."},
  8:{tag:"probabil da", c:"var(--olive)",     no:"Anaga 5, Benijo 3. Atenție: TF-134 și TF-136 sunt înguste și des în ceață, plus aproape 2 ore pe sens. Ține-i un loc liber în mașină."},
  9:{tag:"probabil nu", c:"var(--brick)",     no:"Jet ski 1 și buggy 2 — singura zi respinsă explicit. Tur propriu pe scooter: Vilaflor, Ifonche, Arico."},
  10:{tag:"de confirmat",c:"var(--ink-faint)",no:"Nu știm dacă pleacă cu voi. Dacă da, scooterul trebuie predat înainte de drumul spre aeroport."}
@@ -437,9 +437,9 @@ const BOOK=[
  {lv:"var(--brick)",h:"Astăzi",sub:"Trei lucruri care se epuizează sau se închid. Restul poate aștepta.",items:[
   {w:"Siam Night · 7 bilete — REZOLVAT",f:"29 aug",fl:"Z03",
    y:"Biletele sunt luate pentru toți șapte, Cătălin inclus. Era ultima noapte a sezonului 2026, deci nu exista plan B — bine că s-a închis subiectul.",u:"siampark.net · 16+"},
-  {w:"Tur ghidat Teide · apus și stele",f:"1 sep",fl:"Z06",
-   y:"Include biletul de teleferic, care nu se mai găsește separat. Se anulează la vânt puternic, deci rezervarea devreme îți dă reprogramare gratuită pe 2, 3 sau 4 septembrie.",u:"volcanoteide.com · +1 loc dacă vine Cătălin"},
-  {w:"Cueva del Viento",f:"2 sep",fl:"Z07",
+  {w:"Bilet telecabină de zi · 7 locuri",f:"2 sep",fl:"Z07",
+   y:"Miercuri nu există telecabină la apus — merge doar marți, vineri și duminică. Rămâne varianta de zi, 9:00–17:00, în jur de 42 € de persoană, rezervată online. Cod vestimentar strict, altfel vă refuză la poartă.",u:"volcanoteide.com · +1 loc dacă vine Cătălin"},
+  {w:"Cueva del Viento — nefăcut",f:"—",fl:"—",
    y:"Grupuri de maximum 15 persoane și 96,5% ocupare în 2025. Șase locuri în același tur e greu. Dacă nu prinzi ziua asta, mută ziua — nu peștera.",u:"cuevadelviento.net"}
  ]},
  {lv:"var(--ochre)",h:"În 2-3 zile",sub:"Se găsesc încă, dar în sezon se închid rapid pentru grupuri.",items:[
@@ -609,32 +609,31 @@ const DAYS=[
 },
 {
  n:6,date:"1 sep",wd:"marți",accent:"var(--brick)",
- title:"Teide · tur ghidat, apus și stele",
- lede:"Turul rezolvă exact problema voastră: biletele separate la teleferic sunt epuizate, dar operatorii au alocare proprie. Dimineața rămâne liberă — recuperare după ziua de mutare.",
+ title:"Masca, Teno, Garachico, Los Gigantes",
+ lede:"Ziua de nord-vest s-a mutat de pe 2 pe 1 septembrie. Masca și miradoarele de pe TF-436, prânz sus în Teno la El Rincón La Abu, piscinele naturale din Garachico, apus la Los Gigantes, apoi cumpărături pe drum spre casă.",
  people:ALL,
- warn:"Dacă Robi a fost la urgențe ieri cu o lovitură la cap, întreabă medicul înainte de 3 555 m — amețeala și greața la altitudine se confundă ușor cu altceva. Separat: e singura activitate din plan pe care nu o poți improviza în ziua respectivă, pentru că turul se anulează la vânt puternic. Rezervă acum, ca reprogramarea pe 2, 3 sau 4 septembrie să fie gratuită. Și încă ceva: 3 555 m înseamnă mai multă altitudine decât o cabină de avion, deci regula de după scufundări se aplică și aici. Scufundările voastre sunt pe 28 august, deci sunteți acoperiți cu patru zile — dar dacă cineva vrea o a doua scufundare, nu în ajunul zilei de Teide.",
- tracks:[{name:"Toți șase · cu transport",color:"var(--brick)",people:ALL,stops:[
-  {t:"15:45",d:"pickup",nm:"Azure Sky Villa · San Eugenio",lat:28.0807,lon:-16.7212,alt:80,no:"Ora variază cu apusul, între 14:15 și 16:30. Un singur punct pentru toți șase — stați la aceeași adresă."},
-  {t:"17:00",d:"oprire",nm:"Parcul Național · panoramă",lat:28.2200,lon:-16.6350,alt:2100,no:"Prima oprire în caldeirea Las Cañadas."},
-  {t:"18:30",d:"1½ h",nm:"Teleferic · La Rambleta",lat:28.2530,lon:-16.6250,alt:3555,no:"Biletul e inclus în tur. Terasele de sus și umbra Teidelui. Vârful cere permis separat, 200 pe zi, procesare până la 3 luni — cere explicit varianta cu permis dacă îl vreți."},
-  {t:"20:25",d:"apus",nm:"Narices del Teide",lat:28.2450,lon:-16.6800,alt:2000,no:"Apusul peste marea de nori."},
-  {t:"21:30",d:"1½ h",nm:"Observație astronomică",lat:28.2280,lon:-16.6280,alt:2150,no:"Telescoape și ghizi Starlight. Nu se improvizează cu mașina proprie."},
-  {t:"00:30",d:"retur",nm:"Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Nimeni nu conduce 1 h 15 la coborâre pe întuneric. Ăsta e al doilea argument al turului."}
+ tracks:[{name:"Toți șapte",color:"var(--ochre)",people:ALL,stops:[
+  {t:"dimineața",d:"drum",nm:"Miradoare pe TF-436",lat:28.3129,lon:-16.8457,alt:900,no:"Cruz de Hilda și Cherfe, pe drumul spre sat. TF-436 are vreo 180 de curbe, deci opririle sunt binevenite."},
+  {t:"~11:00",d:"1½ h",nm:"Masca",lat:28.3054,lon:-16.8399,alt:600,no:"Satul agățat între două prăpăstii, la 600 m. Coborârea în barranco cere rezervare separată și se face doar miercuri–sâmbătă, cu autobuz obligatoriu din Santiago del Teide și bilet de barcă la ieșire."},
+  {t:"prânz",d:"masă",nm:"El Rincón La Abu · El Palmar",lat:28.3400,lon:-16.8511,alt:700,no:"TF-436 km 64, sus în masivul Teno. 4,7 din peste 1 600 de recenzii, porții mari, mai mult local decât turistic. Deschis 10:00–17:00, dar închis miercuri și joi — azi a fost marți, deci bine nimerit."},
+  {t:"după-amiază",d:"2 h",nm:"Piscinele naturale El Caletón · Garachico",lat:28.3735,lon:-16.7661,alt:5,no:"Bazine formate din lava erupției de la 1706, care a distrus portul orașului. Gratuite, dar se închid când marea e agitată."},
+  {t:"~20:25",d:"apus",nm:"Los Gigantes",lat:28.2404,lon:-16.8370,alt:200,no:"Mirador Archipenque, deasupra falezelor de până la 800 m. Lumina de seară e momentul în care merită."},
+  {t:"seara",d:"cumpărături",nm:"Mercadona",lat:28.0790,lon:-16.7280,alt:70,no:"Aprovizionarea amânată de la ziua mutării. Se închid la 21:00."}
  ]}]
 },
 {
  n:7,date:"2 sep",wd:"miercuri",accent:"var(--ochre)",
- title:"Nord-vest · Masca, Garachico, Cueva del Viento",
- lede:"Cea mai eficientă buclă geografică a insulei, făcută din baza corectă. Start la 09:30, nu la 08:00 — v-ați întors de la Teide după miezul nopții.",
+ title:"Teide · mâine, dar miercuri schimbă opțiunile",
+ lede:"Zilele s-au inversat: nord-vestul s-a făcut ieri, Teide vine acum. Problema e că miercuri nu există nici telecabină la apus, nici turul Sunset & Stars — ambele merg doar marți, vineri și duminică. Deci mâine e zi de zi, nu de seară.",
  people:ALL,
- warn:"Cueva del Viento se închide la 16:00. Peștera a urcat la prânz și Garachico a coborât după ea — în ordinea inversă rămâneați fără ultima intrare. Confirmă ora exactă a turului la rezervare.",
- tracks:[{name:"Toți șase",color:"var(--ochre)",people:ALL,stops:[
-  {t:"10:20",d:"1½ h",nm:"Masca",lat:28.3054,lon:-16.8399,alt:600,no:"Satul și Mirador Cruz de Hilda. Parcarea e minusculă — la 10:20 mai prindeți loc, iar la prânz se fac cozi de mașini pe un drum unde două abia trec. Cafeneaua de la mirador e închisă vineri și sâmbătă; voi mergeți miercuri, deci e deschisă."},
-  {t:"12:00",d:"2 h",nm:"Cueva del Viento",lat:28.3520,lon:-16.7040,alt:620,no:"Tur ghidat, grupuri de maximum 15. Centrul se închide la 16:00, deci turul e mutat la prânz — la 14:15 rămâneați fără ultima intrare. Pantaloni lungi și adidași sau bocanci, obligatoriu."},
-  {t:"14:15",d:"25 min",nm:"Drago Milenario · Icod",lat:28.3665,lon:-16.7222,alt:235,no:"La zece minute de peșteră."},
-  {t:"15:00",d:"2 h",nm:"Garachico · El Caletón",lat:28.3735,lon:-16.7661,alt:5,no:"Prânz târziu și piscinele naturale. Aici se bifează piscina naturală din tabel. Se închid când marea e agitată."},
-  {t:"18:00",d:"2½ h",nm:"Los Gigantes · Los Guíos",lat:28.2475,lon:-16.8403,alt:10,no:"Falezele de 600 m prind cea mai bună lumină seara, apus la 20:22. Atena dă 2 la Los Gigantes dar 5 la Los Guíos — aceeași locație: ea rămâne pe plajă, restul urcă la mirador."},
-  {t:"21:00",d:"cină",nm:"Puerto de Santiago",lat:28.2380,lon:-16.8390,alt:20,no:"Treizeci de minute până acasă."}
+ warn:"Dacă vreți apusul de la 3 555 m cu stele, singura zi rămasă e vineri 4 septembrie — care e acum ziua de buggy. Altfel, mâine faceți versiunea de zi: traversarea parcului e gratuită, telecabina de zi merge zilnic 9:00–17:00 și costă în jur de 42 € de persoană. Se rezervă online și se epuizează în sezon.",
+ tracks:[{name:"Toți șapte",color:"var(--brick)",people:ALL,stops:[
+  {t:"~10:00",d:"1 h 15",nm:"Urcare pe TF-38 spre Boca Tauce",lat:28.2280,lon:-16.6900,alt:2000,no:"Drumul drept printre câmpurile de lavă, pe lângă Narices del Teide. Exact partea pe care o voia Cătălin la lumină."},
+  {t:"~11:30",d:"1 h 15",nm:"Roques de García",lat:28.2262,lon:-16.6295,alt:2100,no:"Bucla de 3,5 km, cea mai fotografiată formațiune din parc. Sau doar mirador-ul, dacă e cald."},
+  {t:"~13:00",d:"prânz",nm:"Parador de las Cañadas",lat:28.2251,lon:-16.6274,alt:2150,no:"Singurul loc de masă din caldeiră."},
+  {t:"~14:30",d:"1 h 30",nm:"Telecabină · La Rambleta",lat:28.2530,lon:-16.6250,alt:3555,no:"Doar cu bilet luat online, 9:00–17:00. Sus aveți cam o oră, plus traseele PNT 11 și PNT 12, care nu cer permis. Cod vestimentar strict: fără pantaloni scurți, mânecă scurtă sau sandale, și pantofi închiși cu talpă profilată — altfel vă refuză la poartă."},
+  {t:"~16:30",d:"1 h",nm:"Minas de San José",lat:28.2620,lon:-16.6050,alt:2250,no:"Câmpuri de piatră ponce ocru, pe TF-21 spre El Portillo. Cea mai bună lumină e după-amiaza târziu."},
+  {t:"opțional",d:"1 h 30",nm:"Observatorul Teide · Izaña",lat:28.2974,lon:-16.5098,alt:2390,no:"Vizite ghidate doar ziua, pentru că e observator solar. Minimum 4 persoane, prezența cu 30 de minute înainte la poartă, rezervare separată. E pe TF-24, alt drum decât telecabina."}
  ]}]
 },
 {
