@@ -94,6 +94,14 @@ body{
 }
 .dayhead p{margin:0;max-width:66ch;color:var(--ink-dim);font-size:15px}
 
+/* ---------- poză de zi ---------- */
+.dayphoto{margin:4px 0 0;border:1px solid var(--hair);border-radius:3px;overflow:hidden;
+  background:var(--plate);max-width:560px}
+.dayphoto img{display:block;width:100%;height:auto}
+.dayphoto figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-faint);padding:9px 11px;
+  border-top:1px solid var(--hair-soft)}
+
 /* ---------- roster ---------- */
 .roster{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
 .roster .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-right:4px}
@@ -519,6 +527,8 @@ const DAYS=[
 {
  n:7,date:"2 sep",wd:"miercuri",accent:"var(--ochre)",
  title:"Teide fără bilete, apoi Anaga și Benijo",
+ photo:{src:"anaga.webp",alt:"Toți șapte pe coasta Anaga, cu oceanul și falezele în spate",
+        cap:"Toți șapte · coasta Anaga · 2 septembrie"},
  lede:"Miercuri a confirmat exact ce era de bănuit: telecabina nu avea bilete. Ziua s-a transformat într-o traversare a insulei — de la Teide spre nord-est, prin Anaga, până la Benijo. Seara, grătar pe terasa vilei.",
  people:ALL,
  tracks:[{name:"Toți șapte",color:"var(--brick)",people:ALL,stops:[
@@ -715,6 +725,13 @@ function render(i){
     ros.appendChild(c);
   });
   dh.append(tag,h2,p,ros);
+
+  if(D.photo){
+    const f=document.createElement("figure");f.className="dayphoto";
+    f.innerHTML=`<img src="${D.photo.src}" alt="${D.photo.alt}" loading="lazy">`+
+                `<figcaption>${D.photo.cap}</figcaption>`;
+    dh.appendChild(f);
+  }
 
 
   // base marker layer
