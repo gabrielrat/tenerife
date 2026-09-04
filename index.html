@@ -97,6 +97,7 @@ body{
 /* ---------- poză de zi ---------- */
 .dayphoto{margin:4px 0 0;border:1px solid var(--hair);border-radius:3px;overflow:hidden;
   background:var(--plate);max-width:560px}
+.dayphoto.portret{max-width:340px}
 .dayphoto img{display:block;width:100%;height:auto}
 .dayphoto figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-faint);padding:9px 11px;
@@ -467,6 +468,9 @@ const DAYS=[
 {
  n:4,date:"30 aug",wd:"duminică",accent:"var(--teal)",
  title:"Surf la Las Américas, apoi Hospiten",
+ photo:{src:"hospiten.webp",portret:true,
+        alt:"Robi în sala de așteptare de la Hospiten, cu banda de sutură deasupra sprâncenei",
+        cap:"Robi la Hospiten, cu banda deja pusă · 30 august"},
  lede:"Lecția a fost la Ika Ika, pe promenada din Playa de las Américas. Cinci în apă: Gabi, Robi, Alex, Atena și Cătălin. Robi a încasat o lovitură deasupra ochiului. Gabi i-a închis rana cu benzi de sutură din farmacie înainte de prânz, apoi au mers împreună la Hospiten, în timp ce restul au continuat spre Playa del Duque.",
  people:ALL,
  warn:"Placa întoarsă de val e cea mai frecventă accidentare la surf, și lovește aproape mereu în zona feței. Distanța față de ceilalți din apă e singura protecție la lecțiile de începători. Lecția practică a zilei: benzile de sutură dintr-o farmacie spaniolă costă câțiva euro și au rezolvat mai mult decât două spitale.",
@@ -513,6 +517,9 @@ const DAYS=[
 {
  n:6,date:"1 sep",wd:"marți",accent:"var(--brick)",
  title:"Masca, Teno, Garachico, Los Gigantes",
+ photo:{src:"masca.webp",
+        alt:"Grupul pe drumul de deasupra barrancoului Masca, cu pereții cheii și oceanul în fundal",
+        cap:"Deasupra barrancoului Masca · 1 septembrie"},
  lede:"Ziua de nord-vest s-a mutat de pe 2 pe 1 septembrie. Masca și miradoarele de pe TF-436, prânz sus în Teno la El Rincón La Abu, piscinele naturale din Garachico, apus la Los Gigantes, apoi cumpărături pe drum spre casă.",
  people:ALL,
  tracks:[{name:"Toți șapte",color:"var(--ochre)",people:ALL,stops:[
@@ -728,6 +735,7 @@ function render(i){
 
   if(D.photo){
     const f=document.createElement("figure");f.className="dayphoto";
+    if(D.photo.portret)f.classList.add("portret");
     f.innerHTML=`<img src="${D.photo.src}" alt="${D.photo.alt}" loading="lazy">`+
                 `<figcaption>${D.photo.cap}</figcaption>`;
     dh.appendChild(f);
