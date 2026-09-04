@@ -95,9 +95,11 @@ body{
 .dayhead p{margin:0;max-width:66ch;color:var(--ink-dim);font-size:15px}
 
 /* ---------- poză de zi ---------- */
-.dayphoto{margin:4px 0 0;border:1px solid var(--hair);border-radius:3px;overflow:hidden;
-  background:var(--plate);max-width:560px}
-.dayphoto.portret{max-width:340px}
+.dayphotos{display:grid;gap:10px;margin:4px 0 0;max-width:560px}
+.dayphotos.multi{max-width:740px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.dayphoto{border:1px solid var(--hair);border-radius:3px;overflow:hidden;
+  background:var(--plate);margin:0;align-self:start}
+.dayphotos:not(.multi) .dayphoto.portret{max-width:340px}
 .dayphoto img{display:block;width:100%;height:auto}
 .dayphoto figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-faint);padding:9px 11px;
@@ -534,8 +536,11 @@ const DAYS=[
 {
  n:7,date:"2 sep",wd:"miercuri",accent:"var(--ochre)",
  title:"Teide fără bilete, apoi Anaga și Benijo",
- photo:{src:"anaga.webp",alt:"Toți șapte pe coasta Anaga, cu oceanul și falezele în spate",
-        cap:"Toți șapte · coasta Anaga · 2 septembrie"},
+ photos:[
+  {src:"anaga.webp",alt:"Toți șapte pe coasta Anaga, cu oceanul și falezele în spate",
+   cap:"Toți șapte · coasta Anaga"},
+  {src:"benijo-ulita.webp",portret:true,alt:"Grupul pe ulița din Benijo, cu oceanul la capătul drumului",
+   cap:"Pe uliță în Benijo, spre cafenea"}],
  lede:"Miercuri a confirmat exact ce era de bănuit: telecabina nu avea bilete. Ziua s-a transformat într-o traversare a insulei — de la Teide spre nord-est, prin Anaga, până la Benijo. Seara, grătar pe terasa vilei.",
  people:ALL,
  tracks:[{name:"Toți șapte",color:"var(--brick)",people:ALL,stops:[
@@ -549,6 +554,11 @@ const DAYS=[
 {
  n:8,date:"3 sep",wd:"joi",accent:"var(--olive)",
  title:"Teide pentru cinci, Teresitas pentru doi",
+ photos:[
+  {src:"teide-foto.webp",alt:"Poza oficială Volcano Teide: cinci persoane la Roques de García, cu vârful în spate",
+   cap:"Cei cinci care au urcat cu telecabina · poza oficială, cumpărată jos"},
+  {src:"teide-luneta.webp",portret:true,alt:"Priveliște prin lunetă spre poteca din caldeiră, cu trei siluete mici pe drum",
+   cap:"Cei coborâți spre lavă, văzuți prin lunetă de sus"}],
  lede:"Ziua s-a rupt în două: cinci au urcat pe Teide cu telecabina, apoi câmpurile de lavă și Los Guíos. Gabi și Robi au mers la Teresitas, plajă și relaxare — cea mai bună variantă pentru cineva care era la urgențe acum trei zile. Reuniune seara la jacuzzi.",
  people:ALL,
  tracks:[
@@ -733,12 +743,18 @@ function render(i){
   });
   dh.append(tag,h2,p,ros);
 
-  if(D.photo){
-    const f=document.createElement("figure");f.className="dayphoto";
-    if(D.photo.portret)f.classList.add("portret");
-    f.innerHTML=`<img src="${D.photo.src}" alt="${D.photo.alt}" loading="lazy">`+
-                `<figcaption>${D.photo.cap}</figcaption>`;
-    dh.appendChild(f);
+  const ph=D.photos||(D.photo?[D.photo]:null);
+  if(ph){
+    const wrap=document.createElement("div");
+    wrap.className="dayphotos"+(ph.length>1?" multi":"");
+    ph.forEach(p=>{
+      const f=document.createElement("figure");f.className="dayphoto";
+      if(p.portret)f.classList.add("portret");
+      f.innerHTML=`<img src="${p.src}" alt="${p.alt}" loading="lazy">`+
+                  `<figcaption>${p.cap}</figcaption>`;
+      wrap.appendChild(f);
+    });
+    dh.appendChild(wrap);
   }
 
 
