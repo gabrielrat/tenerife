@@ -425,32 +425,24 @@ const CAT={
  4:{tag:"vine sigur",  c:"var(--teal)",      no:"E în lecția de surf de la 11:00, alături de Gabi, Robi, Alex și Atena."},
  5:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la catamaran, plecarea e la 17:00 din Puerto Colón. Bagajul lui nu încape pe scooter, deci merge în mașini la mutare."},
  6:{tag:"a fost",      c:"var(--teal)",      no:"Masca 5 și Los Gigantes 5, cele mai mari note ale lui. Ziua asta a fost făcută pentru el."},
- 7:{tag:"vine sigur",  c:"var(--teal)",      no:"Dă 5 la Teide. Dacă mergeți cu mașinile, poate urca și el pe scooter — dar la 2 000 m e frig, chiar și în septembrie."},
- 8:{tag:"probabil da", c:"var(--olive)",     no:"Anaga 5, Benijo 3. Atenție: TF-134 și TF-136 sunt înguste și des în ceață, plus aproape 2 ore pe sens. Ține-i un loc liber în mașină."},
- 9:{tag:"probabil nu", c:"var(--brick)",     no:"Jet ski 1 și buggy 2 — singura zi respinsă explicit. Tur propriu pe scooter: Vilaflor, Ifonche, Arico."},
- 10:{tag:"de confirmat",c:"var(--ink-faint)",no:"Nu știm dacă pleacă cu voi. Dacă da, scooterul trebuie predat înainte de drumul spre aeroport."}
+ 7:{tag:"a fost",      c:"var(--teal)",      no:"Traversarea insulei, de la Teide până la Benijo, apoi grătarul de seară."},
+ 8:{tag:"a fost",      c:"var(--teal)",      no:"A urcat pe Teide cu grupul, apoi Llano de Ucanca și Los Guíos."},
+ 9:{tag:"a fost",      c:"var(--teal)",      no:"La Siam Park cu Gabi, Alex și Robi. Dă 1 la Loro Parque, deci alegerea era clară."},
+ 10:{tag:"pleacă",      c:"var(--olive)",     no:"Zbor la 15:40, împreună cu Ovidiu. Scooterul trebuie predat dimineața — nu are mașină, deci cineva trebuie să-l ia de acolo."}
 };
 
 /* ============ rezervări ============ */
 const TRIP="2026-09-05";
 const BOOK=[
- {lv:"var(--brick)",h:"Diseară",sub:"Amândouă se închid dacă amâni. Prima e pentru mâine, a doua decide cum arată vineri.",items:[
-  {w:"Bilet telecabină de zi · 7 locuri",f:"2 sep",fl:"Z07",
-   y:"Miercuri nu există telecabină la apus — merge doar marți, vineri și duminică. Rămâne varianta de zi, 9:00–17:00, în jur de 42 € de persoană, doar online. Se epuizează în sezon. Cod vestimentar strict: pantaloni lungi, mâneci, pantofi închiși cu talpă profilată, altfel vă refuză la poartă.",u:"volcanoteide.com"},
-  {w:"Decizie: apus și stele vineri, sau deloc",f:"4 sep",fl:"Z09",
-   y:"Vineri e ultima zi din vacanță în care merge telecabina la apus. Dacă vreți varianta cu stele, se rezervă acum și se suprapune peste ziua de buggy — ridicarea e între 14:15 și 16:30, iar întoarcerea pe la 00:30, în noaptea dinaintea plecării. Dacă nu, mâine e singura urcare pe Teide.",u:"volcanoteide.com · vezi tabul Teide"}
- ]},
- {lv:"var(--ochre)",h:"Zilele următoare",sub:"Nimic nu se epuizează, dar toate cer un telefon sau un mesaj.",items:[
-  {w:"Buggy · 3 vehicule",f:"4 sep",fl:"Z09",
-   y:"Șase persoane egal exact trei buggy-uri. Trei simultan cer rezervare, nu se rezolvă la fața locului.",u:"operator în Costa Adeje"},
+ {lv:"var(--brick)",h:"Mâine dimineață",sub:"Ultima zi are trei plecări diferite. Astea sunt singurele lucruri rămase.",items:[
+  {w:"Bolt pentru Alex",f:"5 sep",fl:"Z10",
+   y:"Zborul lui e la 10:35, deci pleacă din vilă pe la 07:45. Cu Bolt, restul grupului nu pierde dimineața pe o cursă dus-întors de 50 de minute. Stabiliți diseară cine se ocupă.",u:"aplicația Bolt"},
   {w:"Predarea scooterului lui Cătălin",f:"5 sep",fl:"Z10",
-   y:"Zborul lui e la 15:40 și nu are mașină. Verifică unde și până la ce oră se predă — dacă e undeva în sud și nu la aeroport, trebuie dus cineva după el.",u:"firma de închiriere"},
-  {w:"Bolt pentru Alex, dimineața plecării",f:"5 sep",fl:"Z10",
-   y:"Zborul lui e la 10:35, deci pleacă din vilă pe la 07:45. Cu Bolt, restul grupului nu pierde dimineața pe o cursă dus-întors de 50 de minute. Stabiliți dinainte cine se ocupă.",u:"aplicația Bolt"},
+   y:"Zborul lui e la 15:40 și nu are mașină. Dacă predarea e undeva în sud și nu la aeroport, trebuie dus cineva după el — și asta se potrivește cu drumul de la 13:00.",u:"firma de închiriere"},
   {w:"Masă la Los Abrigos · prânz pentru 4",f:"5 sep",fl:"Z10",
    y:"Doar Gabi, Robi, Viorel și Atena — ceilalți trei zboară mai devreme. Sâmbătă la 13:30, după ce lăsați pe Cătălin și Ovidiu la terminal.",u:"telefonic"},
-  {w:"Jet ski pentru Atena, dacă vrea",f:"4 sep",fl:"Z09",
-   y:"Dă 5 la jet ski și nu a prins ieșirea de pe 29, care era doar pentru Gabi și Robi. Puerto Colón e la șapte minute de vilă și se poate cu o zi înainte.",u:"Puerto Colón · opțional"}
+  {w:"Predarea celor două mașini",f:"5 sep",fl:"Z10",
+   y:"Una la 13:20, cealaltă la 14:50, ambele la TFS. Sâmbătă în sezon de vârf, ghișeele au coadă — de asta marja e 2 h 30 înainte de zbor, nu 2 h. Verificați nivelul de combustibil cerut în contract.",u:"la aeroport"}
  ]}
 ];
 
@@ -603,48 +595,49 @@ const DAYS=[
 },
 {
  n:7,date:"2 sep",wd:"miercuri",accent:"var(--ochre)",
- title:"Teide · mâine, dar miercuri schimbă opțiunile",
- lede:"Zilele s-au inversat: nord-vestul s-a făcut ieri, Teide vine acum. Problema e că miercuri nu există nici telecabină la apus, nici turul Sunset & Stars — ambele merg doar marți, vineri și duminică. Deci mâine e zi de zi, nu de seară.",
+ title:"Teide fără bilete, apoi Anaga și Benijo",
+ lede:"Miercuri a confirmat exact ce era de bănuit: telecabina nu avea bilete. Ziua s-a transformat într-o traversare a insulei — de la Teide spre nord-est, prin Anaga, până la Benijo. Seara, grătar pe terasa vilei.",
  people:ALL,
- warn:"Dacă vreți apusul de la 3 555 m cu stele, singura zi rămasă e vineri 4 septembrie — care e acum ziua de buggy. Altfel, mâine faceți versiunea de zi: traversarea parcului e gratuită, telecabina de zi merge zilnic 9:00–17:00 și costă în jur de 42 € de persoană. Se rezervă online și se epuizează în sezon.",
  tracks:[{name:"Toți șapte",color:"var(--brick)",people:ALL,stops:[
-  {t:"~10:00",d:"1 h 15",nm:"Urcare pe TF-38 spre Boca Tauce",lat:28.2280,lon:-16.6900,alt:2000,no:"Drumul drept printre câmpurile de lavă, pe lângă Narices del Teide. Exact partea pe care o voia Cătălin la lumină."},
-  {t:"~11:30",d:"1 h 15",nm:"Roques de García",lat:28.2262,lon:-16.6295,alt:2100,no:"Bucla de 3,5 km, cea mai fotografiată formațiune din parc. Sau doar mirador-ul, dacă e cald."},
-  {t:"~13:00",d:"prânz",nm:"Parador de las Cañadas",lat:28.2251,lon:-16.6274,alt:2150,no:"Singurul loc de masă din caldeiră."},
-  {t:"~14:30",d:"1 h 30",nm:"Telecabină · La Rambleta",lat:28.2530,lon:-16.6250,alt:3555,no:"Doar cu bilet luat online, 9:00–17:00. Sus aveți cam o oră, plus traseele PNT 11 și PNT 12, care nu cer permis. Cod vestimentar strict: fără pantaloni scurți, mânecă scurtă sau sandale, și pantofi închiși cu talpă profilată — altfel vă refuză la poartă."},
-  {t:"~16:30",d:"1 h",nm:"Minas de San José",lat:28.2620,lon:-16.6050,alt:2250,no:"Câmpuri de piatră ponce ocru, pe TF-21 spre El Portillo. Cea mai bună lumină e după-amiaza târziu."},
-  {t:"opțional",d:"1 h 30",nm:"Observatorul Teide · Izaña",lat:28.2974,lon:-16.5098,alt:2390,no:"Vizite ghidate doar ziua, pentru că e observator solar. Minimum 4 persoane, prezența cu 30 de minute înainte la poartă, rezervare separată. E pe TF-24, alt drum decât telecabina."}
+  {t:"dimineața",d:"—",nm:"Teide · fără bilete la telecabină",lat:28.2530,lon:-16.6250,alt:2356,no:"Se epuizează online cu zile înainte, iar la fața locului rar mai rămâne ceva. Miercuri oricum nu exista varianta de apus — merge doar marți, vineri și duminică."},
+  {t:"după-amiază",d:"drum",nm:"Anaga",lat:28.5308,lon:-16.2802,alt:920,no:"Traversare de la centrul insulei spre nord-est, pe TF-24 și prin La Laguna. Pădurea de laurisilva și ceața obișnuită a masivului."},
+  {t:"seara",d:"cafea",nm:"Casa Paca · Benijo",lat:28.5727,lon:-16.1873,alt:60,no:"4,5 din peste 1 600 de recenzii. Bar de familie ținut de o doamnă în vârstă, cu terasă acoperită și vedere spre plajă. Se comandă la bar și se strânge masa singur. Porții mari, mâncare canariană adevărată — caracatiță, papas arrugadas, brânză la grătar."},
+  {t:"~21:00",d:"cumpărături",nm:"Mercadona",lat:28.0790,lon:-16.7280,alt:70,no:"Pe drum spre casă, pentru grătar."},
+  {t:"noaptea",d:"grătar",nm:"Terasa vilei",lat:28.0807,lon:-16.7212,alt:80,no:"Prima seară în care vila a fost folosită ca vilă, nu doar ca loc de dormit."}
  ]}]
 },
 {
  n:8,date:"3 sep",wd:"joi",accent:"var(--olive)",
- title:"Nord-est · Benijo, Teresitas, Anaga",
- lede:"Cea mai lungă zi. În votul celor șase, Anaga stă la 21 din 30 — ziua nu mai e pentru Anaga, e pentru Benijo, care are patru voturi de 5. Anaga e traseul frumos până acolo. Cătălin însă dă 5 la Anaga: e una din zilele care merită să-l aducă la masă.",
+ title:"Teide pentru cinci, Teresitas pentru doi",
+ lede:"Ziua s-a rupt în două: cinci au urcat pe Teide cu telecabina, apoi câmpurile de lavă și Los Guíos. Gabi și Robi au mers la Teresitas, plajă și relaxare — cea mai bună variantă pentru cineva care era la urgențe acum trei zile. Reuniune seara la jacuzzi.",
  people:ALL,
- warn:"Dacă plecați după 08:30, tăiați Santa Cruz și mergeți direct Teresitas, Anaga, Benijo. Apusul de la Benijo e reperul — tot restul e negociabil.",
- tracks:[{name:"Toți șase",color:"var(--olive)",people:ALL,stops:[
-  {t:"09:05",d:"40 min",nm:"Bocacangrejo · Radazul",lat:28.4069,lon:-16.3131,alt:20,no:"Baie rapidă în golf. Atena dă 5."},
-  {t:"10:00",d:"1½ h",nm:"Santa Cruz",lat:28.4671,lon:-16.2472,alt:10,no:"Plaza de España, Mercado Nuestra Señora de África, Auditorio."},
-  {t:"12:00",d:"2 h",nm:"Playa de las Teresitas",lat:28.5090,lon:-16.1870,alt:5,no:"Nisip sahariano, apă calmă. Prânz în San Andrés."},
-  {t:"14:30",d:"1 h",nm:"Cruz del Carmen",lat:28.5308,lon:-16.2802,alt:920,no:"Pădurea de laurisilva. Centrul de vizitare se închide la 15:00, deci prindeți doar ultima jumătate de oră — dacă vreți harta de trasee pe hârtie, intrați primii. Pădurea rămâne accesibilă oricum, iar semnalul de telefon e aproape inexistent în masiv."},
-  {t:"15:30",d:"30 min",nm:"Mirador Pico del Inglés",lat:28.5253,lon:-16.2600,alt:1024,no:"Punctul cel mai înalt al zilei."},
-  {t:"16:30",d:"tranzit",nm:"Taganana",lat:28.5680,lon:-16.2100,alt:200,no:"Coborâre pe TF-134. Drum îngust, des în ceață — conduce cine e odihnit."},
-  {t:"17:30",d:"3 h",nm:"Benijo",lat:28.5721,lon:-16.1925,alt:20,no:"Plajă, stânci, apus la 20:21. Partea care nu se sacrifică."},
-  {t:"21:00",d:"cină",nm:"Almáciga",lat:28.5745,lon:-16.1750,alt:30,no:"Apoi TF-5 și TF-1, aproape două ore până acasă."}
+ tracks:[
+ {name:"Teide și vestul · cinci",color:"var(--brick)",people:["Alex","Ovidiu","Viorel","Atena"],stops:[
+  {t:"dimineața",d:"1½ h",nm:"Telecabină · La Rambleta",lat:28.2530,lon:-16.6250,alt:3555,no:"De data asta cu bilete. 3 555 m, cu traseele PNT 11 și PNT 12 care nu cer permis. Diferență de 20 de grade față de coastă."},
+  {t:"după-amiază",d:"1 h",nm:"Llano de Ucanca · câmpurile de lavă",lat:28.2113,lon:-16.6351,alt:2050,no:"Câmpie deschisă la baza Teidelui, 4,8 din peste 1 600 de recenzii. Mai puțin aglomerată decât restul parcului, și unul dintre cele mai bune locuri de privit cerul noaptea."},
+  {t:"seara",d:"2 h",nm:"Playa de los Guíos · Los Gigantes",lat:28.2475,lon:-16.8403,alt:5,no:"Plaja neagră de la baza falezelor. Coborâre de la 3 555 m la nivelul mării în aceeași zi."}
+ ]},
+ {name:"Gabi și Robi · zi ușoară",color:"var(--sky)",people:["Gabi","Robi"],stops:[
+  {t:"ziua",d:"relaxare",nm:"Playa de las Teresitas",lat:28.5090,lon:-16.1870,alt:5,no:"Nisip adus din Sahara și dig submarin care taie valurile — singura plajă calmă de pe coasta de nord. Alegerea corectă pentru o rană proaspătă deasupra ochiului: fără altitudine, fără val."}
+ ]},
+ {name:"Toți șapte, seara",color:"var(--violet)",people:ALL,stops:[
+  {t:"seara",d:"jacuzzi",nm:"Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Reuniune după două trasee complet diferite."}
  ]}]
 },
 {
  n:9,date:"4 sep",wd:"vineri",accent:"var(--sky)",
- title:"Buggy și plajă",
- lede:"Ultima zi întreagă, deliberat ușoară. Totul la cinci-zece minute de vilă. Jet ski-ul s-a făcut deja pe 29 august, deci ziua e mai lejeră decât era planificată.",
+ title:"Două parcuri, două grupuri",
+ lede:"Ultima zi întreagă s-a împărțit între cele două parcuri mari ale insulei. Buggy-ul nu s-a mai făcut. Seara, povești pe terasă — ultima înainte de plecare.",
  people:ALL,
- warn:"Atena dă 5 la jet ski și nu a prins ieșirea de pe 29, când era doar pentru Gabi și Robi. Dacă vrea, se poate face din nou azi — Puerto Colón e la șapte minute. Separat: dacă cineva vrea o a doua scufundare, azi e ultima zi posibilă și doar dimineața, pentru că zborul lui Alex e la 10:35 mâine iar regula cere 18 ore.",
  tracks:[
- {name:"Toți șase",color:"var(--sky)",people:ALL,stops:[
-  {t:"09:30",d:"3½ h",nm:"Buggy · Adeje",lat:28.1230,lon:-16.7400,alt:300,no:"Șase persoane egal exact trei buggy-uri, câte doi. Perfect divizibil, nimeni pe dinafară."},
-  {t:"14:00",d:"4½ h",nm:"Playa Fañabé",lat:28.0885,lon:-16.7420,alt:5,no:"Sau Del Duque, sau piscina vilei. Ziua se lungește pe plajă acum că jet ski-ul s-a făcut deja."},
-  {t:"18:30",d:"1 h",nm:"Împachetat la vilă",lat:28.0807,lon:-16.7212,alt:80,no:"Mâine dimineață nu mai aveți timp."},
-  {t:"20:30",d:"cină",nm:"La Caleta",lat:28.1163,lon:-16.7770,alt:20,no:"Satul de pescari, zece minute. Cina de final, cu toți șase."}
+ {name:"Loro Parque · trei",color:"var(--plum)",people:["Ovidiu","Viorel","Atena"],stops:[
+  {t:"ziua",d:"~6 h",nm:"Loro Parque · Puerto de la Cruz",lat:28.4085,lon:-16.5647,alt:30,no:"Ironia votului: a ieșit ultimul din 28 de activități, cu 18 din 30, iar Cătălin i-a dat 1. Trei oameni au mers oricum și au avut dreptate să încerce — are peste 100 000 de recenzii și 4,6. O oră și un sfert de drum până în nord."}
+ ]},
+ {name:"Siam Park · patru",color:"var(--sky)",people:["Gabi","Alex","Robi"],stops:[
+  {t:"ziua",d:"~7 h",nm:"Siam Park",lat:28.0725,lon:-16.7250,alt:90,no:"A doua oară în parc, prima ziua. Cinci minute de vilă. După Siam Night din 29 august, de data asta cu toate atracțiile deschise și cu lumină."}
+ ]},
+ {name:"Toți șapte, seara",color:"var(--violet)",people:ALL,stops:[
+  {t:"seara",d:"terasă",nm:"Azure Sky Villa",lat:28.0807,lon:-16.7212,alt:80,no:"Ultima seară. Mâine plecările sunt la 10:35, 15:40 și 16:45."}
  ]}]
 },
 {
@@ -1020,7 +1013,7 @@ function showBook(){
   const n=daysTo(TRIP);
   const hd=document.createElement("div");hd.className="bk-head";
   hd.innerHTML=`<div class="bk-count"><i></i><span id="bk-txt">${n>0?`Mai sunt ${n} zile până la plecare`:"Ultima zi"}</span></div>`+
-    `<h2>Ce a mai rămas de decis</h2>`+
+    `<h2>Ce a mai rămas de făcut</h2>`+
     `<p>Doar ce mai are nevoie de o decizie. Tot ce e deja rezervat sau consumat a fost scos din listă. Bifele se salvează în browserul tău.</p>`;
   v.appendChild(hd);
 
@@ -1376,9 +1369,9 @@ function showTeide(){
   if(!teideOn){
     teideOn=true;
     let h='<div class="bk-head">'+
-      '<div class="bk-count"><i></i>Decizie deschisă · 7 variante · preț pentru 7 persoane</div>'+
-      '<h2>Teide: ce bilete luăm</h2>'+
-      '<p>Planul pe zile nu s-a schimbat. Aici sunt doar datele necesare ca să alegeți: ce există, ce include fiecare variantă, cât costă pentru șapte oameni și dacă ziua de zi încape în drumul spre nord-vest.</p>'+
+      '<div class="bk-count" style="color:var(--olive)"><i style="border-color:var(--olive)"></i>Decizie închisă · s-a mers cu telecabina de zi pe 3 septembrie</div>'+
+      '<h2>Teide: cum s-a decis</h2>'+
+      '<p>Miercuri nu erau bilete, joi cinci dintre voi au urcat cu telecabina de zi. Apusul cu stele nu s-a mai făcut. Datele de mai jos rămân aici ca referință pentru data viitoare.</p>'+
       '</div>';
 
     h+='<div class="bk-grp" style="--lv:var(--ochre)"><h3>Variantele existente<b>preț de persoană, adult nerezident</b></h3>'+
