@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tenerife</title>
+<style>
+:root{
+  --ground:#191D1C;
+  --plate:#202523;
+  --land:#333A36;
+  --land-hi:#3D453F;
+  --hair:rgba(226,222,206,.20);
+  --hair-soft:rgba(226,222,206,.09);
+  --ink:#E7E3D6;
+  --ink-dim:#9AA096;
+  --ink-faint:#666E68;
+  --ochre:#D9A03C;
+  --brick:#C55B48;
+  --teal:#3E9B95;
+  --olive:#93A354;
+  --violet:#8B7BA6;
+  --sky:#5D93CE;
+  --slate:#7E8AA0;
+  --plum:#B0629F;
+  --hot:#FF3B30;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    linear-gradient(var(--hair-soft) 1px,transparent 1px),
+    linear-gradient(90deg,var(--hair-soft) 1px,transparent 1px);
+  background-size:64px 64px,64px 64px;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px 72px}
+
+/* ---------- masthead ---------- */
+.mast{padding:34px 0 20px;border-bottom:1px solid var(--hair)}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 14px;
+}
+.mast h1{
+  font-family:var(--mono);font-weight:700;
+  font-size:clamp(30px,6.2vw,54px);line-height:.98;letter-spacing:-.02em;
+  text-transform:uppercase;margin:0;
+}
+.mast .sheet{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin-top:14px;display:flex;gap:18px;flex-wrap:wrap;
+}
+
+/* ---------- day rail ---------- */
+.rail-wrap{position:sticky;top:0;z-index:20;background:var(--ground);border-bottom:1px solid var(--hair)}
+.rail{display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.rail::-webkit-scrollbar{height:3px}
+.rail::-webkit-scrollbar-thumb{background:var(--hair)}
+.day-btn{
+  flex:0 0 auto;appearance:none;background:none;border:0;
+  border-right:1px solid var(--hair-soft);
+  padding:13px 16px 12px;text-align:left;cursor:pointer;color:var(--ink-dim);
+  font-family:var(--mono);position:relative;min-width:96px;
+  transition:color .18s,background .18s;
+}
+.day-btn:hover{color:var(--ink);background:rgba(226,222,206,.035)}
+.day-btn .n{font-size:10px;letter-spacing:.16em;display:block;color:var(--ink-faint)}
+.day-btn .d{font-size:14px;font-weight:700;letter-spacing:.02em;display:block;margin-top:3px;white-space:nowrap}
+.day-btn .w{font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:2px;color:var(--ink-faint)}
+.day-btn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:transparent}
+.day-btn[aria-selected="true"]{color:var(--ink);background:rgba(226,222,206,.06)}
+.day-btn[aria-selected="true"]::after{background:var(--accent)}
+.day-btn[aria-selected="true"] .n,.day-btn[aria-selected="true"] .w{color:var(--accent)}
+.day-btn:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+
+/* ---------- day head ---------- */
+.dayhead{padding:30px 0 22px;display:grid;gap:14px}
+.dayhead .tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:10px;
+}
+.dayhead .tag i{display:inline-block;width:26px;height:0;border-top:2px solid var(--accent)}
+.dayhead h2{
+  font-family:var(--mono);font-weight:700;text-transform:uppercase;
+  font-size:clamp(22px,4.4vw,38px);line-height:1.02;letter-spacing:-.01em;margin:0;
+}
+.dayhead p{margin:0;max-width:66ch;color:var(--ink-dim);font-size:15px}
+
+/* ---------- poză de zi ---------- */
+.dayphotos{display:grid;gap:10px;margin:4px 0 0;max-width:560px}
+.dayphotos.multi{max-width:740px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.dayphoto{border:1px solid var(--hair);border-radius:3px;overflow:hidden;
+  background:var(--plate);margin:0;align-self:start}
+.dayphotos:not(.multi) .dayphoto.portret{max-width:340px}
+.dayphoto img{display:block;width:100%;height:auto}
+.dayphoto figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-faint);padding:9px 11px;
+  border-top:1px solid var(--hair-soft)}
+
+/* ---------- roster ---------- */
+.roster{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.roster .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-right:4px}
+.chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  padding:4px 9px;border:1px solid var(--hair);border-radius:2px;color:var(--ink-faint);
+}
+.chip.on{color:var(--ground);background:var(--ink);border-color:var(--ink);font-weight:700}
+.chip.on[data-trk]{background:var(--trk);border-color:var(--trk);color:#141716}
+
+/* ---------- layout ---------- */
+.grid{display:grid;grid-template-columns:1.18fr .82fr;gap:26px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr;gap:22px}}
+
+.plate{
+  background:var(--plate);border:1px solid var(--hair);border-radius:3px;
+  padding:10px 10px 6px;position:relative;
+}
+.plate svg{display:block;width:100%;height:auto}
+.plate .cap{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;justify-content:space-between;gap:12px;padding:4px 4px 6px;
+}
+
+/* ---------- profile ---------- */
+.prof{margin-top:16px;background:var(--plate);border:1px solid var(--hair);border-radius:3px;padding:12px 12px 8px}
+.prof-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;justify-content:space-between;margin-bottom:8px;
+}
+.prof-head b{color:var(--accent);font-weight:700}
+.prof svg{display:block;width:100%;height:auto}
+
+/* ---------- stops ---------- */
+.trk-head{
+  display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding-bottom:8px;
+  border-bottom:1px solid var(--hair);
+}
+.trk-head .bar{width:16px;height:3px;background:var(--trk);flex:0 0 auto;position:relative;top:-3px}
+.trk-head h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:0;font-weight:700}
+.trk-head span{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em}
+.trk{margin-bottom:26px}
+ol.stops{list-style:none;margin:0;padding:0}
+ol.stops li{
+  display:grid;grid-template-columns:58px 1fr;gap:12px;
+  padding:11px 8px 11px 6px;border-bottom:1px solid var(--hair-soft);
+  cursor:pointer;transition:background .15s;
+}
+ol.stops li:hover,ol.stops li.act{background:rgba(226,222,206,.05)}
+ol.stops li.act{box-shadow:inset 3px 0 0 var(--trk)}
+.t{font-family:var(--mono);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:.01em}
+.t small{display:block;font-weight:400;font-size:10px;color:var(--ink-faint);letter-spacing:.08em;margin-top:2px}
+.nm{font-weight:600;font-size:15px;letter-spacing:-.005em}
+.nm em{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--trk);margin-left:8px}
+.no{color:var(--ink-dim);font-size:13.5px;margin-top:3px;line-height:1.45}
+.alt{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-top:4px}
+
+/* ---------- notes ---------- */
+.warn{
+  margin-top:6px;border-left:2px solid var(--brick);padding:10px 0 10px 14px;
+  color:var(--ink-dim);font-size:13.5px;
+}
+.warn b{color:var(--ink);font-weight:600}
+.foot{
+  margin-top:38px;padding-top:18px;border-top:1px solid var(--hair);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;gap:26px;flex-wrap:wrap;line-height:1.9;
+}
+
+/* ---------- svg bits ---------- */
+.mk{cursor:pointer}
+.mk circle.hit{fill:transparent}
+.mk-lbl{font-family:var(--mono);font-size:11px;font-weight:700;fill:#141716}
+.geo-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;fill:var(--ink-faint);text-transform:uppercase}
+.base-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;fill:var(--ink-dim)}
+/* ---------- antet de secțiune ---------- */
+.bk-head{padding:30px 0 4px;display:grid;gap:14px;max-width:74ch}
+.bk-head h2{font-family:var(--mono);font-weight:700;text-transform:uppercase;
+  font-size:clamp(22px,4.4vw,38px);line-height:1.02;margin:0}
+.bk-head p{margin:0;color:var(--ink-dim)}
+.bk-count{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brick);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bk-count i{display:inline-block;width:26px;height:0;border-top:2px solid var(--brick)}
+.bk-note{margin-top:32px;border-left:2px solid var(--hair);padding:3px 0 3px 14px;
+  color:var(--ink-faint);font-size:13px;max-width:74ch;line-height:1.65}
+
+/* ---------- progres ---------- */
+.prog{border:1px solid var(--hair);border-radius:3px;background:var(--plate);
+  padding:20px 20px 16px;margin-top:22px}
+.prog-top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.prog-big{font-family:var(--mono);font-size:44px;font-weight:700;line-height:1;
+  letter-spacing:-.02em;color:var(--olive)}
+.prog-big span{font-size:22px;color:var(--ink-faint);font-weight:400}
+.prog-lbl{font-size:14px;color:var(--ink-dim);line-height:1.45;flex:1 1 200px}
+.bar{height:7px;background:rgba(226,222,206,.09);border-radius:1px;margin:16px 0 4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--olive)}
+.prog-pct{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-faint);display:flex;justify-content:space-between}
+.prog-note{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--hair-soft);
+  font-size:14px;color:var(--ink-dim);line-height:1.5}
+.prog-note b{color:var(--ink);font-weight:600}
+.prog-cats{margin-top:16px;padding-top:14px;border-top:1px solid var(--hair-soft);
+  display:grid;grid-template-columns:1fr 1fr;gap:11px 22px}
+@media(max-width:620px){.prog-cats{grid-template-columns:1fr}}
+.pcat{display:grid;grid-template-columns:1fr auto;gap:3px 10px;align-items:baseline}
+.pcat .n{font-size:13.5px;color:var(--ink-dim)}
+.pcat .v{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--pc)}
+.pcat .b{grid-column:1/-1;height:4px;background:rgba(226,222,206,.09);border-radius:1px;overflow:hidden}
+.pcat .b i{display:block;height:100%;background:var(--pc)}
+.lc-done{font-family:var(--mono);font-size:10px;color:var(--olive);letter-spacing:.1em}
+
+/* ---------- tab locații ---------- */
+.loc-btn .n{color:var(--ochre);font-weight:700}
+@media(max-width:520px){
+  .rail-fixed .day-btn .w{display:none}
+  .rail-fixed .day-btn{padding:13px 11px 12px}
+  .rail-fixed .day-btn .d{font-size:13px}
+}
+.lc-filters{display:flex;gap:7px;flex-wrap:wrap;margin:22px 0 20px}
+.fchip{appearance:none;background:none;cursor:pointer;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--hair);
+  border-radius:2px;color:var(--ink-dim);transition:.15s}
+.fchip:hover{color:var(--ink)}
+.fchip[aria-pressed="true"]{background:var(--fc);border-color:var(--fc);color:#141716;font-weight:700}
+.fchip:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.lc-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:26px;align-items:start}
+@media(max-width:900px){.lc-grid{grid-template-columns:1fr;gap:22px}}
+.lc-sec{margin-bottom:22px}
+.lc-sec>h3{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  margin:0 0 6px;color:var(--fc);display:flex;align-items:baseline;gap:9px}
+.lc-sec>h3 b{font-weight:400;color:var(--ink-faint);font-size:10px;letter-spacing:.1em}
+ul.lc{list-style:none;margin:0;padding:0;border-top:1px solid var(--hair-soft)}
+ul.lc li{display:grid;grid-template-columns:1fr 42px;gap:10px;align-items:center;padding:9px 7px;
+  border-bottom:1px solid var(--hair-soft);cursor:pointer;transition:background .15s}
+ul.lc li:hover,ul.lc li.on{background:rgba(226,222,206,.055)}
+ul.lc li.on{box-shadow:inset 3px 0 0 var(--fc)}
+.lc-n{font-weight:600;font-size:14.5px}
+.lc-m{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-faint);margin-top:2px}
+.lc-s{font-family:var(--mono);font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.lc-s small{display:block;font-weight:400;font-size:9px;color:var(--ink-faint)}
+#loc-detail:empty{display:none}
+.det{margin-top:16px;background:var(--plate);border:1px solid var(--hair);border-left:3px solid var(--fc);
+  border-radius:3px;padding:18px 18px 16px}
+.det h4{margin:0;font-size:19px;letter-spacing:-.01em}
+.det .dmeta{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--fc);margin:5px 0 12px}
+.det p{margin:0 0 12px;color:var(--ink-dim);font-size:14px;line-height:1.55}
+.det .drow{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.08em;color:var(--ink-faint);border-top:1px solid var(--hair-soft);padding-top:11px;margin-top:4px}
+.det .drow span{border:1px solid var(--hair);border-radius:2px;padding:3px 8px}
+.det .drow b{color:var(--ink)}
+.mlink{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-faint);text-decoration:none;border-bottom:1px solid var(--hair);
+  padding-bottom:1px;transition:color .15s,border-color .15s;white-space:nowrap}
+.mlink:hover{color:var(--ink);border-color:var(--ink-dim)}
+.mlink:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.mlinks{display:inline-flex;gap:12px;align-items:center}
+.alt .mlinks{margin-left:9px}
+.dvar li .mlinks{margin-top:5px;display:flex}
+.ddet{margin:2px 0 4px}
+.ddet li{list-style:none;position:relative;padding:6px 0 6px 16px;color:var(--ink-dim);
+  font-size:13.5px;line-height:1.5;border-bottom:1px solid var(--hair-soft)}
+.ddet li:last-child{border-bottom:0}
+.ddet li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:1.5px;background:var(--fc)}
+.ddet ul{margin:0;padding:0}
+.drate{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-faint)}
+.drate b{color:var(--ochre)}
+.dvar{margin-top:14px;border-top:1px solid var(--hair-soft);padding-top:12px}
+.dvar h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 9px}
+.dvar ol{list-style:none;margin:0;padding:0;counter-reset:v}
+.dvar li{counter-increment:v;padding:7px 0 7px 26px;position:relative;font-size:13.5px;
+  color:var(--ink-dim);cursor:pointer;border-bottom:1px solid var(--hair-soft)}
+.dvar li:last-child{border-bottom:0}
+.dvar li::before{content:counter(v);position:absolute;left:0;top:7px;font-family:var(--mono);
+  font-size:9.5px;color:#141716;background:var(--fc);width:16px;height:16px;border-radius:50%;
+  display:grid;place-items:center;font-weight:700}
+.dvar li b{color:var(--ink);font-weight:600;display:block;font-size:14px}
+.dvar li:hover b{text-decoration:underline}
+/* ---------- buton de partajare ---------- */
+.share{appearance:none;background:none;cursor:pointer;font-family:var(--mono);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  border:1px solid var(--hair);border-radius:2px;padding:3px 9px;margin-left:4px;
+  transition:color .15s,border-color .15s,background .15s;white-space:nowrap}
+.share:hover{color:var(--ink);border-color:var(--ink-dim)}
+.share:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.share.ok{color:#141716;background:var(--olive);border-color:var(--olive);font-weight:700}
+#lock{position:fixed;inset:0;display:grid;place-items:center;background:var(--ground);z-index:99}
+.lockbox{max-width:340px;padding:0 24px;text-align:left}
+.lockbox h1{font-family:var(--mono);font-size:34px;text-transform:uppercase;margin:0 0 10px;letter-spacing:-.02em}
+.lockbox p{color:var(--ink-dim);font-size:14px;margin:0 0 20px;line-height:1.5}
+.lockbox label{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+.lockbox input{display:block;width:100%;margin-top:7px;background:var(--plate);color:var(--ink);
+  border:1px solid var(--hair);border-radius:2px;padding:11px 12px;font-family:var(--mono);
+  font-size:14px;letter-spacing:.04em}
+.lockbox input:focus{outline:2px solid var(--ochre);outline-offset:-1px}
+.lockbox button{appearance:none;background:var(--ochre);color:#141716;border:0;border-radius:2px;
+  padding:11px 20px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;cursor:pointer}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.route{stroke-dasharray:5 4}
+.mk.act circle.dot{stroke:var(--ink);stroke-width:2.5}
+</style>
+</head>
+<body>
+<div id="lock"></div>
+<div class="wrap" hidden>
+
+  <header class="mast" id="mast"></header>
+
+  <div class="rail-wrap">
+    <div class="rail" id="rail" role="tablist" aria-label="Zilele vacanței"></div>
+  </div>
+
+  <div id="view-day">
+  <section class="dayhead" id="dayhead"></section>
+
+  <div class="grid">
+    <div>
+      <div class="plate">
+        <svg id="map" viewBox="0 0 920 800" role="img" aria-label="Harta Tenerife cu traseul zilei"></svg>
+        <div class="cap">
+          <span>Tenerife · schemă de teren</span>
+          <span id="map-cap">—</span>
+        </div>
+      </div>
+      <div class="prof">
+        <div class="prof-head">
+          <span>Profil de altitudine al zilei</span>
+          <span>punct maxim <b id="prof-max">—</b></span>
+        </div>
+        <svg id="prof" viewBox="0 0 920 190" role="img" aria-label="Profilul de altitudine al zilei"></svg>
+      </div>
+    </div>
+    <div id="panel"></div>
+  </div>
+  </div>
+
+  <section id="view-loc" hidden>
+    <div class="bk-head">
+      <div class="bk-count" style="color:var(--ochre)"><i style="border-color:var(--ochre)"></i>Raport de parcurs · 28 activități votate + 2 cazări</div>
+      <h2>Toate locațiile</h2>
+      <p>Tot ce a fost pus la vot, cu ce s-a făcut și ce a rămas. Alege din listă sau de pe hartă. Unde activitatea se poate face în mai multe locuri, variantele apar în detaliu.</p>
+    </div>
+    <div id="lc-prog"></div>
+    <div class="lc-filters" id="lc-filters"></div>
+    <div class="lc-grid">
+      <div>
+        <div class="plate">
+          <svg id="locmap" role="img" aria-label="Toate locațiile de pe insulă"></svg>
+          <div class="cap"><span>Toate locațiile votate</span><span id="loc-cap">—</span></div>
+        </div>
+        <div id="loc-detail"></div>
+      </div>
+      <div id="loc-list"></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Traseele sunt schematice — liniile arată ordinea opririlor, nu drumul real</span>
+    <span>Orele sunt ținte, nu obligații</span>
+    <span>Cazări marcate cu pătrat</span>
+    <span>Fiecare oprire are link direct în Google Maps și navigare</span>
+    <span>Tabul Locații are tot ce a fost votat, inclusiv ce a rămas pe dinafară</span>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Conținutul acestui site e criptat cu AES-GCM 256.
+   Cheia se derivă din secretul primit în parametrul ?k= .
+   Fără el, fișierele din repo sunt octeți fără sens.
+   ============================================================ */
+const SALT=Uint8Array.from(atob("PkxEeeXeli29h0elbfZ7Ww=="),c=>c.charCodeAt(0));
+const ITER=150000;
+let KEY=null;
+const _imgCache={};
+
+async function deriveKey(secret){
+  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(secret),"PBKDF2",false,["deriveKey"]);
+  return crypto.subtle.deriveKey(
+    {name:"PBKDF2",salt:SALT,iterations:ITER,hash:"SHA-256"},
+    base,{name:"AES-GCM",length:256},false,["decrypt"]);
+}
+async function decFile(path){
+  const r=await fetch(path,{cache:"no-store"});
+  if(!r.ok)throw new Error("lipsă "+path);
+  const buf=new Uint8Array(await r.arrayBuffer());
+  const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:buf.slice(0,12)},KEY,buf.slice(12));
+  return new Uint8Array(plain);
+}
+async function decImg(name){
+  if(_imgCache[name])return _imgCache[name];
+  const bytes=await decFile(name+".enc");
+  const url=URL.createObjectURL(new Blob([bytes],{type:"image/webp"}));
+  _imgCache[name]=url;return url;
+}
+
+function lockScreen(msg){
+  document.getElementById("lock").innerHTML=
+    '<div class="lockbox"><h1>Tenerife</h1>'+
+    '<p>'+msg+'</p>'+
+    '<label>Cheie de acces<input id="k" type="password" autocomplete="off" spellcheck="false"></label>'+
+    '<button id="go">Deschide</button></div>';
+  const go=()=>{const v=document.getElementById("k").value.trim();if(v)unlock(v,true)};
+  document.getElementById("go").onclick=go;
+  document.getElementById("k").onkeydown=e=>{if(e.key==="Enter")go()};
+  document.getElementById("k").focus();
+}
+
+async function unlock(secret,fromForm){
+  try{
+    KEY=await deriveKey(secret);
+    const src=new TextDecoder().decode(await decFile("data.enc"));
+    const DATA=new Function(src+"\nreturn {ALL,COAST,GEO,BASES,DAYS,LOCS,MAST};")();
+    SECRET_Q=secret;
+    document.getElementById("lock").remove();
+    document.getElementById("mast").innerHTML=DATA.MAST;
+    document.querySelector(".wrap").hidden=false;
+    startApp(DATA);
+  }catch(e){
+    KEY=null;
+    lockScreen(fromForm?"Cheie greșită. Mai încearcă.":"Conținutul e criptat. Introdu cheia primită.");
+  }
+}
+
+let SECRET_Q="";
+(function(){
+  let raw=location.search.replace(/^\?/,"")||location.hash.replace(/^#\??/,"");
+  const k=new URLSearchParams(raw).get("k");
+  if(k)unlock(k,false); else lockScreen("Conținutul e criptat. Introdu cheia primită.");
+})();
+
+function startApp(DATA){
+const {ALL,COAST,GEO,BASES,DAYS,LOCS}=DATA;
+
+/* ============ people ============ */
+
+
+
+
+/* ============ island outline (lat,lon) clockwise ============ */
+
+
+/* ============ projection ============ */
+const LO0=-16.975,LO1=-16.075,LA0=27.955,LA1=28.625;
+const KX=Math.cos(28.3*Math.PI/180);
+const W=920,PADX=26,PADY=26;
+const spanX=(LO1-LO0)*KX, spanY=(LA1-LA0);
+const SC=(W-2*PADX)/spanX;
+const H=Math.round(spanY*SC+2*PADY);
+function px(lon){return PADX+(lon-LO0)*KX*SC}
+function py(lat){return PADY+(LA1-lat)*SC}
+
+/* ============ geo reference labels ============ */
+
+
+/* ============ bases ============ */
+
+
+/* ============ days ============ */
+
+
+/* ============ build map ============ */
+const SVGNS="http://www.w3.org/2000/svg";
+const map=document.getElementById("map");
+map.setAttribute("viewBox",`0 0 ${W} ${H}`);
+/* Marcaj de selectie: pin rosu aprins, ancorat exact pe coordonata.
+   Forma diferita de cerc, ca sa se distinga si pe alb-negru sau daltonism. */
+function addPin(g,x,y,label){
+  const HOT="var(--hot)";
+  g.appendChild(el("path",{d:`M${x-6},${y-11} L${x},${y} L${x+6},${y-11} Z`,fill:HOT}));
+  g.appendChild(el("circle",{cx:x,cy:y-19,r:11,fill:HOT,stroke:"var(--plate)","stroke-width":2}));
+  if(label!==undefined&&label!==null){
+    const t=el("text",{x:x,y:y-15,"text-anchor":"middle",class:"mk-lbl",fill:"#fff"});
+    t.textContent=label;g.appendChild(t);
+  }else{
+    g.appendChild(el("circle",{cx:x,cy:y-19,r:3.6,fill:"var(--plate)"}));
+  }
+}
+function mapsHref(lat,lon){
+  /* doar coordonate: numele ca al doilea parametru "query" era ignorat de Google
+     si putea trimite in alt loc. Pinul pe coordonate e mereu exact. */
+  return "https://www.google.com/maps/search/?api=1&query="+lat+"%2C"+lon;
+}
+function dirHref(lat,lon){
+  return "https://www.google.com/maps/dir/?api=1&destination="+lat+"%2C"+lon+"&travelmode=driving";
+}
+function mapLinks(lat,lon){
+  return `<span class="mlinks">`+
+    `<a class="mlink" target="_blank" rel="noopener" href="${mapsHref(lat,lon)}">hartă</a>`+
+    `<a class="mlink" target="_blank" rel="noopener" href="${dirHref(lat,lon)}">navighează</a>`+
+  `</span>`;
+}
+function el(t,a){const e=document.createElementNS(SVGNS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+
+function drawBase(sv,sfx){
+  sv.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  const defs=el("defs");
+  const cp=el("clipPath",{id:"isl"+sfx});
+  const cpp=el("path",{d:coastPath()});
+  cp.appendChild(cpp);defs.appendChild(cp);sv.appendChild(defs);
+
+  const g=el("g",{});
+  // graticule
+  for(let lo=-16.9;lo<-16.05;lo+=0.1){
+    g.appendChild(el("line",{x1:px(lo),y1:0,x2:px(lo),y2:H,stroke:"rgba(226,222,206,.055)","stroke-width":1}));
+  }
+  for(let la=28.0;la<28.65;la+=0.1){
+    g.appendChild(el("line",{x1:0,y1:py(la),x2:W,y2:py(la),stroke:"rgba(226,222,206,.055)","stroke-width":1}));
+  }
+  // land
+  g.appendChild(el("path",{d:coastPath(),fill:"var(--land)",stroke:"rgba(226,222,206,.34)","stroke-width":1.2,"stroke-linejoin":"round"}));
+  // massif shading, clipped to island
+  const gm=el("g",{"clip-path":`url(#isl${sfx})`});
+  const massifs=[
+    {lat:28.272,lon:-16.642,rx:0.30,ry:0.16,rot:-18,steps:5}, // Teide / Cañadas
+    {lat:28.545,lon:-16.235,rx:0.13,ry:0.055,rot:-28,steps:3}, // Anaga
+    {lat:28.330,lon:-16.855,rx:0.075,ry:0.05,rot:10,steps:3}   // Teno
+  ];
+  massifs.forEach(m=>{
+    for(let i=m.steps;i>=1;i--){
+      const f=i/m.steps;
+      gm.appendChild(el("ellipse",{
+        cx:px(m.lon),cy:py(m.lat),
+        rx:m.rx*KX*SC*f,ry:m.ry*SC*f,
+        transform:`rotate(${m.rot} ${px(m.lon)} ${py(m.lat)})`,
+        fill:"rgba(226,222,206,.030)",stroke:"rgba(226,222,206,.10)","stroke-width":1
+      }));
+    }
+  });
+  g.appendChild(gm);
+  // Teide peak tick
+  g.appendChild(el("path",{d:`M${px(-16.642)-6},${py(28.272)+5} L${px(-16.642)},${py(28.272)-6} L${px(-16.642)+6},${py(28.272)+5} Z`,fill:"rgba(226,222,206,.45)"}));
+  // geo labels
+  GEO.forEach(o=>{
+    const t=el("text",{x:px(o.lon),y:py(o.lat)+(o.n.startsWith("Teide")?22:4),"text-anchor":o.anchor,class:"geo-lbl"});
+    t.textContent=o.n;g.appendChild(t);
+  });
+  sv.appendChild(g);
+}
+drawBase(map,"");
+map.appendChild(el("g",{id:"lyr-base"}));
+map.appendChild(el("g",{id:"lyr-route"}));
+
+function coastPath(){
+  return COAST.map((p,i)=>`${i?"L":"M"}${px(p[1]).toFixed(1)},${py(p[0]).toFixed(1)}`).join(" ")+" Z";
+}
+
+/* ============ render ============ */
+let cur=0,act=null,view="day";
+
+function render(i){
+  cur=i;act=null;view="day";
+  document.getElementById("view-day").hidden=false;
+  const lcb=document.getElementById("loc-btn");
+  if(lcb)lcb.setAttribute("aria-selected","false");
+  const lcv=document.getElementById("view-loc");
+  if(lcv)lcv.hidden=true;
+  const D=DAYS[i];
+  document.documentElement.style.setProperty("--accent",D.accent);
+
+  // rail
+  [...document.querySelectorAll(".day-btn:not(.loc-btn)")].forEach((b,k)=>{
+    b.setAttribute("aria-selected",k===i?"true":"false");
+    b.style.setProperty("--accent",DAYS[k].accent);
+  });
+
+  // head
+  const dh=document.getElementById("dayhead");
+  dh.innerHTML="";
+  const tag=document.createElement("div");tag.className="tag";
+  tag.innerHTML=`<i></i>Ziua ${D.n} din 10 · ${D.wd} ${D.date}`;
+  const h2=document.createElement("h2");h2.textContent=D.title;
+  const p=document.createElement("p");p.textContent=D.lede;
+  const ros=document.createElement("div");ros.className="roster";
+  ros.innerHTML=`<span class="lbl">În traseu</span>`;
+  ALL.forEach(n=>{
+    const c=document.createElement("span");
+    const on=D.people.includes(n);
+    c.className="chip"+(on?" on":"");
+    c.textContent=n;
+    if(on){
+      const trk=D.tracks.find(t=>t.people.includes(n));
+      if(trk&&D.tracks.length>1){c.dataset.trk="1";c.style.setProperty("--trk",trk.color)}
+    }else{c.title=n+" nu e pe insulă în ziua asta"}
+    ros.appendChild(c);
+  });
+  dh.append(tag,h2,p,ros);
+
+  const ph=D.photos||(D.photo?[D.photo]:null);
+  if(ph){
+    const wrap=document.createElement("div");
+    wrap.className="dayphotos"+(ph.length>1?" multi":"");
+    ph.forEach(p=>{
+      const f=document.createElement("figure");f.className="dayphoto";
+      if(p.portret)f.classList.add("portret");
+      f.innerHTML=`<img alt="${p.alt}">`+`<figcaption>${p.cap}</figcaption>`;
+      decImg(p.src).then(u=>{const im=f.querySelector("img");if(im)im.src=u;}).catch(()=>{});
+      wrap.appendChild(f);
+    });
+    dh.appendChild(wrap);
+  }
+
+
+  // base marker layer
+  const lb=document.getElementById("lyr-base");lb.innerHTML="";
+  BASES.forEach(b=>{
+    const active=i>=b.from&&i<=b.to;
+    const x=px(b.lon),y=py(b.lat);
+    lb.appendChild(el("rect",{x:x-5,y:y-5,width:10,height:10,
+      fill:active?"var(--ink)":"none",stroke:"var(--ink)","stroke-width":1.4,opacity:active?1:.35}));
+    const t=el("text",{x:x+10,y:y+4,class:"base-lbl",opacity:active?.95:.35});
+    t.textContent=b.short;lb.appendChild(t);
+  });
+
+  // routes + markers
+  const lr=document.getElementById("lyr-route");lr.innerHTML="";
+  D.tracks.forEach((trk,ti)=>{
+    const pts=trk.stops.map(s=>[px(s.lon),py(s.lat)]);
+    if(pts.length>1){
+      lr.appendChild(el("polyline",{points:pts.map(p=>p.join(",")).join(" "),
+        fill:"none",stroke:trk.color,"stroke-width":2,"stroke-linejoin":"round",
+        opacity:.85,class:"route"}));
+    }
+    trk.stops.forEach((s,si)=>{
+      const g=el("g",{class:"mk","data-t":ti,"data-s":si,tabindex:"0",role:"button"});
+      g.appendChild(el("circle",{class:"hit",cx:px(s.lon),cy:py(s.lat),r:16}));
+      g.appendChild(el("circle",{class:"dot",cx:px(s.lon),cy:py(s.lat),r:11,
+        fill:trk.color,stroke:"var(--plate)","stroke-width":2}));
+      const t=el("text",{x:px(s.lon),y:py(s.lat)+4,"text-anchor":"middle",class:"mk-lbl"});
+      t.textContent=si+1;g.appendChild(t);
+      const ttl=el("title");ttl.textContent=`${s.t} · ${s.nm}`;g.appendChild(ttl);
+      g.addEventListener("click",()=>focusStop(ti,si));
+      g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();focusStop(ti,si)}});
+      lr.appendChild(g);
+    });
+  });
+
+  // panel
+  const pan=document.getElementById("panel");pan.innerHTML="";
+  if(D.warn){
+    const w=document.createElement("div");w.className="warn";
+    w.innerHTML=`<b>De reținut.</b> ${D.warn}`;pan.appendChild(w);
+  }
+  D.tracks.forEach((trk,ti)=>{
+    const box=document.createElement("div");box.className="trk";
+    box.style.setProperty("--trk",trk.color);
+    const hd=document.createElement("div");hd.className="trk-head";
+    hd.innerHTML=`<span class="bar"></span><h3>${trk.name}</h3><span>${trk.people.join(" · ")}</span>`;
+    const ol=document.createElement("ol");ol.className="stops";
+    trk.stops.forEach((s,si)=>{
+      const li=document.createElement("li");
+      li.dataset.t=ti;li.dataset.s=si;li.tabIndex=0;
+      li.innerHTML=
+        `<div class="t">${s.t}${s.d?`<small>${s.d}</small>`:""}</div>`+
+        `<div><div class="nm">${s.nm}<em>${si+1}</em></div>`+
+        (s.no?`<div class="no">${s.no}</div>`:"")+
+        `<div class="alt">${s.alt} m${mapLinks(s.lat,s.lon)}</div></div>`;
+      li.addEventListener("click",e=>{if(e.target.closest("a"))return;focusStop(ti,si)});
+      li.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.target.closest("a")){focusStop(ti,si)}});
+      ol.appendChild(li);
+    });
+    box.append(hd,ol);pan.appendChild(box);
+  });
+
+  document.getElementById("map-cap").textContent=
+    D.tracks.length>1 ? `${D.tracks.length} trasee · ${D.tracks.reduce((a,t)=>a+t.stops.length,0)} opriri`
+                      : `${D.tracks[0].stops.length} opriri`;
+
+  profile(D);
+  dh.querySelector(".tag").appendChild(shareBtn());
+  syncURL();
+}
+
+/* ============ altitude profile ============ */
+function profile(D){
+  const sv=document.getElementById("prof");
+  sv.innerHTML="";
+  const PW=920,PH=190,L=44,R=14,T=16,B=34;
+  const MAXG=3600;
+  const all=D.tracks.flatMap(t=>t.stops);
+  const mx=Math.max(...all.map(s=>s.alt));
+  document.getElementById("prof-max").textContent=
+    `${mx.toLocaleString("ro-RO")} m · ${all.find(s=>s.alt===mx).nm}`;
+
+  // gridlines
+  [0,1000,2000,3000,3555].forEach(v=>{
+    const y=T+(1-v/MAXG)*(PH-T-B);
+    sv.appendChild(el("line",{x1:L,y1:y,x2:PW-R,y2:y,
+      stroke:v===3555?"rgba(226,222,206,.22)":"rgba(226,222,206,.09)",
+      "stroke-width":1,"stroke-dasharray":v===3555?"3 3":"none"}));
+    const t=el("text",{x:L-8,y:y+3.5,"text-anchor":"end",class:"geo-lbl"});
+    t.textContent=v===3555?"3 555":v.toLocaleString("ro-RO");
+    sv.appendChild(t);
+  });
+
+  D.tracks.forEach(trk=>{
+    const n=trk.stops.length;
+    const xs=i=>L+(n===1?(PW-L-R)/2:i*(PW-L-R)/(n-1));
+    const ys=a=>T+(1-a/MAXG)*(PH-T-B);
+    const pts=trk.stops.map((s,i)=>[xs(i),ys(s.alt)]);
+    // area
+    sv.appendChild(el("path",{
+      d:`M${pts[0][0]},${ys(0)} `+pts.map(p=>`L${p[0]},${p[1]}`).join(" ")+` L${pts[n-1][0]},${ys(0)} Z`,
+      fill:trk.color,opacity:.13}));
+    sv.appendChild(el("polyline",{points:pts.map(p=>p.join(",")).join(" "),
+      fill:"none",stroke:trk.color,"stroke-width":2}));
+    trk.stops.forEach((s,i)=>{
+      const g=el("g",{class:"pmk","data-t":D.tracks.indexOf(trk),"data-s":i});
+      g.appendChild(el("circle",{cx:pts[i][0],cy:pts[i][1],r:4.5,fill:trk.color,
+        stroke:"var(--plate)","stroke-width":1.5}));
+      const t=el("text",{x:pts[i][0],y:PH-14,"text-anchor":"middle",class:"geo-lbl"});
+      t.textContent=s.t;g.appendChild(t);
+      const ttl=el("title");ttl.textContent=`${s.nm} · ${s.alt} m`;g.appendChild(ttl);
+      sv.appendChild(g);
+    });
+  });
+}
+
+/* ============ focus a stop ============ */
+function repaintStopMarkers(){
+  document.querySelectorAll("#lyr-route .mk").forEach(g=>{
+    const ti=+g.dataset.t, si=+g.dataset.s;
+    const on=!!act&&act[0]===ti&&act[1]===si;
+    const trk=DAYS[cur].tracks[ti], st=trk.stops[si];
+    const x=px(st.lon), y=py(st.lat);
+    [...g.querySelectorAll("circle:not(.hit),path,text")].forEach(n=>n.remove());
+    if(on){
+      addPin(g,x,y,si+1);
+    }else{
+      g.appendChild(el("circle",{class:"dot",cx:x,cy:y,r:11,
+        fill:trk.color,stroke:"var(--plate)","stroke-width":2}));
+      const t=el("text",{x:x,y:y+4,"text-anchor":"middle",class:"mk-lbl"});
+      t.textContent=si+1;g.appendChild(t);
+    }
+  });
+}
+
+function focusStop(ti,si){
+  const same=act&&act[0]===ti&&act[1]===si;
+  act=same?null:[ti,si];
+  document.querySelectorAll("#panel .stops li").forEach(li=>{
+    li.classList.toggle("act",!!act&&+li.dataset.t===act[0]&&+li.dataset.s===act[1]);
+  });
+  repaintStopMarkers();
+  document.querySelectorAll("#prof .pmk circle").forEach(c=>{
+    const g=c.parentNode;
+    const on=!!act&&+g.dataset.t===act[0]&&+g.dataset.s===act[1];
+    c.setAttribute("r",on?7:4.5);
+    c.setAttribute("stroke",on?"var(--ink)":"var(--plate)");
+  });
+  syncURL();
+}
+
+/* ============ rail ============ */
+const rail=document.getElementById("rail");
+DAYS.forEach((D,i)=>{
+  const b=document.createElement("button");
+  b.className="day-btn";b.type="button";b.setAttribute("role","tab");
+  b.setAttribute("aria-selected",i===0?"true":"false");
+  b.innerHTML=`<span class="n">Z${String(D.n).padStart(2,"0")}</span>`+
+              `<span class="d">${D.date}</span>`+
+              `<span class="w">${D.wd}</span>`;
+  b.addEventListener("click",()=>{render(i);if(b.scrollIntoView)b.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"})});
+  rail.appendChild(b);
+});
+document.addEventListener("keydown",e=>{
+  if(e.target.closest("input,textarea"))return;
+  const bs=document.querySelectorAll(".day-btn:not(.loc-btn)");
+  if(e.key==="ArrowRight"&&cur<DAYS.length-1)bs[cur+1].click();
+  if(e.key==="ArrowLeft"&&cur>0)bs[cur-1].click();
+});
+
+
+
+const CATS={
+ apa:{n:"Apă & adrenalină",c:"var(--teal)"},
+ munte:{n:"Munte & natură",c:"var(--ochre)"},
+ plaja:{n:"Plaje",c:"var(--sky)"},
+ mirador:{n:"Miradoare",c:"var(--violet)"},
+ parc:{n:"Parcuri",c:"var(--plum)"},
+ oras:{n:"Orașe",c:"var(--slate)"},
+ cazare:{n:"Cazări",c:"var(--ink)"}
+};
+const DAYNM={1:"27 aug",2:"28 aug",3:"29 aug",4:"30 aug",5:"31 aug",6:"1 sep",7:"2 sep",8:"3 sep",9:"4 sep",10:"5 sep"};
+
+let locFilter=null, locSel=null, locVar=null;
+const locMap=document.getElementById("locmap");
+drawBase(locMap,"L");
+const lyrLoc=el("g",{id:"lyr-loc"});locMap.appendChild(lyrLoc);
+
+function drawLocProgress(){
+  const box=document.getElementById("lc-prog");
+  const act=LOCS.filter(l=>l.cat!=="cazare");
+  const done=act.filter(l=>l.done);
+  const pct=Math.round(done.length/act.length*100);
+
+  /* primele N la vot: cate au fost bifate */
+  const rank=act.slice().sort((a,b)=>b.sc-a.sc);
+  const top=rank.slice(0,11);
+  const topMissed=top.filter(l=>!l.done);
+  const topDone=top.length-topMissed.length;
+
+  let h=`<div class="prog">`+
+    `<div class="prog-top">`+
+      `<div class="prog-big">${done.length}<span>/${act.length}</span></div>`+
+      `<div class="prog-lbl">activități făcute din cele ${act.length} puse la vot. `+
+      `Ambele cazări intră separat, în afara socotelii.</div>`+
+    `</div>`+
+    `<div class="bar"><i style="width:${pct}%"></i></div>`+
+    `<div class="prog-pct"><span>${pct}% acoperit</span><span>${act.length-done.length} rămase</span></div>`;
+
+  h+=`<p class="prog-note">Din primele 11 activități la vot, ați făcut <b>${topDone}</b>. `+
+     (topMissed.length
+        ? `Singura ratată din capul clasamentului: <b>${topMissed.map(l=>l.nm).join(", ")}</b>.`
+        : `Niciuna ratată.`)+
+     `</p>`;
+
+  h+=`<div class="prog-cats">`;
+  Object.keys(CATS).forEach(k=>{
+    const g=act.filter(l=>l.cat===k);
+    if(!g.length)return;
+    const dn=g.filter(l=>l.done).length;
+    h+=`<div class="pcat" style="--pc:${dn?CATS[k].c:"var(--ink-faint)"}">`+
+       `<span class="n">${CATS[k].n}</span><span class="v">${dn}/${g.length}</span>`+
+       `<span class="b"><i style="width:${Math.round(dn/g.length*100)}%"></i></span></div>`;
+  });
+  h+=`</div></div>`;
+  box.innerHTML=h;
+}
+
+function locBtnInit(){
+  const f=document.getElementById("lc-filters");
+  const mk=(key,label,col)=>{
+    const b=document.createElement("button");
+    b.className="fchip";b.type="button";b.textContent=label;
+    b.style.setProperty("--fc",col);
+    b.setAttribute("aria-pressed",locFilter===key?"true":"false");
+    b.addEventListener("click",()=>{locFilter=(locFilter===key?null:key);locSel=null;locVar=null;showLoc()});
+    f.appendChild(b);
+  };
+  f.innerHTML="";
+  mk(null,"Toate "+LOCS.length,"var(--ink)");
+  mk("done","Făcute "+LOCS.filter(l=>l.done&&l.cat!=="cazare").length,"var(--olive)");
+  mk("todo","Rămase "+LOCS.filter(l=>!l.done&&l.cat!=="cazare").length,"var(--brick)");
+  Object.keys(CATS).forEach(k=>mk(k,CATS[k].n+" "+LOCS.filter(l=>l.cat===k).length,CATS[k].c));
+}
+
+function locPass(l){
+  if(!locFilter)return true;
+  if(locFilter==="done")return l.done&&l.cat!=="cazare";
+  if(locFilter==="todo")return !l.done&&l.cat!=="cazare";
+  return l.cat===locFilter;
+}
+
+function drawLocMarkers(){
+  lyrLoc.innerHTML="";
+  const vis=LOCS.filter(locPass);
+  // variants of the selected location
+  if(locSel!==null&&LOCS[locSel].va.length){
+    LOCS[locSel].va.forEach((va,vi)=>{
+      const g=el("g",{class:"mk",tabindex:"0",role:"button"});
+      g.appendChild(el("circle",{class:"hit",cx:px(va.lon),cy:py(va.lat),r:14}));
+      if(locVar===vi){
+        addPin(g,px(va.lon),py(va.lat),vi+1);
+      }else{
+        g.appendChild(el("circle",{cx:px(va.lon),cy:py(va.lat),r:8,
+          fill:"var(--plate)",stroke:CATS[LOCS[locSel].cat].c,"stroke-width":2.2,
+          "stroke-dasharray":"3 2"}));
+        const t=el("text",{x:px(va.lon),y:py(va.lat)+3.5,"text-anchor":"middle",
+          class:"mk-lbl",fill:CATS[LOCS[locSel].cat].c,"font-size":"9"});
+        t.textContent=vi+1;g.appendChild(t);
+      }
+      const ti=el("title");ti.textContent=va.nm;g.appendChild(ti);
+      g.addEventListener("click",()=>{locVar=(locVar===vi?null:vi);showLoc()});
+      lyrLoc.appendChild(g);
+    });
+  }
+  const ordered=vis.slice().sort((a,b)=>
+    (LOCS.indexOf(a)===locSel?1:0)-(LOCS.indexOf(b)===locSel?1:0));
+  ordered.forEach(l=>{
+    const i=LOCS.indexOf(l), on=locSel===i;
+    const g=el("g",{class:"mk",tabindex:"0",role:"button"});
+    g.appendChild(el("circle",{class:"hit",cx:px(l.lon),cy:py(l.lat),r:15}));
+    if(on){
+      addPin(g,px(l.lon),py(l.lat));
+    }else if(l.cat==="cazare"){
+      g.appendChild(el("rect",{x:px(l.lon)-4,y:py(l.lat)-4,width:8,height:8,
+        fill:"var(--ink)",stroke:"var(--plate)","stroke-width":1.5}));
+    }else{
+      g.appendChild(el("circle",{cx:px(l.lon),cy:py(l.lat),r:6.5,
+        fill:l.done?CATS[l.cat].c:"var(--plate)",
+        stroke:CATS[l.cat].c,"stroke-width":1.8}));
+    }
+    const ti=el("title");ti.textContent=l.nm+(l.stay?" · "+l.stay:(l.done?" · făcut, "+DAYNM[l.day]:" · rămasă"));
+    g.appendChild(ti);
+    g.addEventListener("click",()=>{locSel=(on?null:i);locVar=null;showLoc()});
+    g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();locSel=(on?null:i);locVar=null;showLoc()}});
+    lyrLoc.appendChild(g);
+  });
+  document.getElementById("loc-cap").textContent=
+    vis.length+" locații"+(locSel!==null?" · "+LOCS[locSel].nm:"");
+}
+
+function drawLocList(){
+  const w=document.getElementById("loc-list");w.innerHTML="";
+  Object.keys(CATS).forEach(k=>{
+    const items=LOCS.map((l,i)=>({l,i})).filter(x=>x.l.cat===k&&locPass(x.l))
+                    .sort((a,b)=>(b.l.sc||0)-(a.l.sc||0));
+    if(!items.length)return;
+    const sec=document.createElement("div");sec.className="lc-sec";
+    sec.style.setProperty("--fc",CATS[k].c);
+    const ul=document.createElement("ul");ul.className="lc";
+    items.forEach(({l,i})=>{
+      const li=document.createElement("li");
+      if(locSel===i)li.classList.add("on");
+      const meta=l.stay?l.stay:(l.done?"✓ "+DAYNM[l.day]:"rămasă");
+      li.innerHTML=`<div><div class="lc-n">${l.nm}</div>`+
+        `<div class="lc-m">${meta}`+
+        `${l.va.length?" · "+l.va.length+" variante":""}${l.det.length?" · "+l.det.length+" detalii":""}</div></div>`+
+        (l.sc!==null?`<div class="lc-s">${l.sc}<small>din 35</small></div>`
+                    :`<div class="lc-s" style="color:var(--ink-faint)">—<small>bază</small></div>`);
+      li.addEventListener("click",()=>{locSel=(locSel===i?null:i);locVar=null;showLoc()});
+      ul.appendChild(li);
+    });
+    sec.innerHTML=`<h3>${CATS[k].n}<b>${items.length}</b></h3>`;
+    sec.appendChild(ul);w.appendChild(sec);
+  });
+  if(!w.children.length)w.innerHTML='<p style="color:var(--ink-faint);font-size:14px">Niciun rezultat pentru filtrul ales.</p>';
+}
+
+function drawLocDetail(){
+  const d=document.getElementById("loc-detail");
+  if(locSel===null){d.innerHTML="";return}
+  const l=LOCS[locSel], c=CATS[l.cat];
+  let h=`<div class="det" style="--fc:${c.c}">`+
+    `<h4>${l.nm}</h4>`+
+    `<div class="dmeta">${c.n} · ${l.stay?l.stay:(l.done?"făcut pe "+DAYNM[l.day]:"nu s-a făcut")}</div>`+
+    `<p>${l.note}</p>`+
+    (l.det.length?`<div class="ddet"><ul>${l.det.map(d=>`<li>${d}</li>`).join("")}</ul></div>`:"")+
+    `<div class="drow">`+
+      (l.sc!==null?`<span>scor <b>${l.sc}/35</b></span>`:"")+
+      (l.rt?`<span class="drate">Google <b>${l.rt.toFixed(1)}</b> · ${l.rc.toLocaleString("ro-RO")} recenzii</span>`:"")+
+      (l.hours?`<span>program <b>${l.hours}</b></span>`:"")+
+      (l.info?`<span>durată <b>${l.info}</b></span>`:"")+
+      `<span>${mapLinks(l.lat,l.lon)}</span>`+
+    `</div>`+
+    (l.votes?`<div class="drow" style="border-top:0;padding-top:6px"><span style="border:0;padding-left:0">voturi: ${l.votes}</span></div>`:"");
+  if(l.va.length){
+    h+=`<div class="dvar"><h5>${l.va.length} variante de loc</h5><ol>`;
+    l.va.forEach((v,i)=>{h+=`<li data-v="${i}"${locVar===i?' style="background:rgba(226,222,206,.05)"':""}><b>${v.nm}</b>${v.no}${mapLinks(v.lat,v.lon)}</li>`});
+    h+=`</ol></div>`;
+  }
+  d.innerHTML=h+`</div>`;
+  d.querySelectorAll(".dvar li").forEach(li=>{
+    li.addEventListener("click",e=>{if(e.target.closest("a"))return;const i=+li.dataset.v;locVar=(locVar===i?null:i);showLoc()});
+  });
+}
+
+function showLoc(){
+  view="loc";
+  document.getElementById("view-day").hidden=true;
+  document.getElementById("view-loc").hidden=false;
+  document.querySelectorAll(".day-btn:not(.loc-btn)").forEach(b=>b.setAttribute("aria-selected","false"));
+  lcBtn.setAttribute("aria-selected","true");
+  document.documentElement.style.setProperty("--accent","var(--ochre)");
+  drawLocProgress();locBtnInit();drawLocMarkers();drawLocList();drawLocDetail();
+  const lh=document.querySelector("#view-loc .bk-count");
+  if(lh&&!lh.querySelector(".share"))lh.appendChild(shareBtn());
+  syncURL();
+}
+
+const lcBtn=document.createElement("button");
+lcBtn.className="day-btn loc-btn";lcBtn.type="button";lcBtn.id="loc-btn";
+lcBtn.setAttribute("role","tab");lcBtn.setAttribute("aria-selected","false");
+lcBtn.style.setProperty("--accent","var(--ochre)");
+lcBtn.innerHTML=`<span class="n">28</span><span class="d">Locații</span><span class="w">toate</span>`;
+lcBtn.addEventListener("click",showLoc);
+
+const railFixed=document.createElement("div");
+railFixed.className="rail-fixed";
+railFixed.append(lcBtn);
+rail.appendChild(railFixed);
+
+
+/* ============ adresă partajabilă ============ */
+/* Fiecare tab, zi, oprire și locație are propriul URL. Linkul curent e mereu
+   cel din bara de adrese, deci copierea lui trimite exact ce vezi pe ecran. */
+
+LOCS.forEach(l=>{l.sl=l.nm.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+  .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")});
+
+function setURL(p){
+  const q=new URLSearchParams();
+  if(SECRET_Q)q.set("k",SECRET_Q);
+  Object.keys(p).forEach(k=>{if(p[k]!==null&&p[k]!==undefined&&p[k]!=="")q.set(k,p[k])});
+  const qs=q.toString();
+  try{
+    history.replaceState(null,"",qs?"?"+qs:location.pathname);
+  }catch(e){
+    /* file:// nu permite replaceState cu query, cădem pe hash */
+    try{location.replace("#"+qs)}catch(_){}
+  }
+}
+
+function syncURL(){
+  const p={};
+  if(view==="loc"){
+    p.tab="locatii";
+    if(locFilter)p.filtru=locFilter;
+    if(locSel!==null){p.loc=LOCS[locSel].sl;if(locVar!==null)p.varianta=locVar+1}
+  }else{
+    p.zi=DAYS[cur].n;
+    if(act){p.traseu=act[0]+1;p.oprire=act[1]+1}
+  }
+  setURL(p);
+}
+
+function readURL(){
+  let raw=location.search.replace(/^\?/,"");
+  if(!raw)raw=location.hash.replace(/^#\??/,"");
+  return new URLSearchParams(raw);
+}
+
+function applyURL(){
+  const q=readURL();
+  const tab=q.get("tab");
+
+
+  if(tab==="locatii"){
+    const f=q.get("filtru");
+    locFilter=(f&&(CATS[f]||f==="done"||f==="todo"))?f:null;
+    const sl=q.get("loc");
+    const idx=sl?LOCS.findIndex(l=>l.sl===sl):-1;
+    locSel=idx>=0?idx:null;
+    const vn=parseInt(q.get("varianta"),10);
+    locVar=(locSel!==null&&vn>=1&&vn<=LOCS[locSel].va.length)?vn-1:null;
+    showLoc();return;
+  }
+
+  const zi=parseInt(q.get("zi"),10);
+  let i=DAYS.findIndex(d=>d.n===zi);
+  if(i<0)i=0;
+  render(i);
+  const bs=document.querySelectorAll(".day-btn:not(.loc-btn)");
+  if(bs[i]&&bs[i].scrollIntoView)bs[i].scrollIntoView({inline:"center",block:"nearest"});
+
+  const tr=parseInt(q.get("traseu"),10)-1, op=parseInt(q.get("oprire"),10)-1;
+  const D=DAYS[i];
+  if(tr>=0&&op>=0&&D.tracks[tr]&&D.tracks[tr].stops[op]){
+    focusStop(tr,op);
+    const li=document.querySelector(`#panel .stops li[data-t="${tr}"][data-s="${op}"]`);
+    if(li&&li.scrollIntoView)li.scrollIntoView({block:"center"});
+  }
+}
+
+function shareBtn(){
+  const b=document.createElement("button");
+  b.className="share";b.type="button";b.textContent="copiază link";
+  b.title="Copiază adresa exactă a ecranului ăstuia";
+  b.addEventListener("click",async()=>{
+    const url=location.href;
+    let ok=false;
+    try{await navigator.clipboard.writeText(url);ok=true}
+    catch(e){
+      try{
+        const ta=document.createElement("textarea");
+        ta.value=url;ta.style.position="fixed";ta.style.opacity="0";
+        document.body.appendChild(ta);ta.select();
+        ok=document.execCommand("copy");document.body.removeChild(ta);
+      }catch(_){ok=false}
+    }
+    b.textContent=ok?"copiat":"copiază manual";
+    b.classList.toggle("ok",ok);
+    setTimeout(()=>{b.textContent="copiază link";b.classList.remove("ok")},2000);
+  });
+  return b;
+}
+
+window.addEventListener("popstate",applyURL);
+window.addEventListener("hashchange",applyURL);
+
+applyURL();
+
+}
+</script>
+</body>
+</html>
