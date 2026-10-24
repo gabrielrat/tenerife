@@ -382,6 +382,7 @@ ul.lc li.on{box-shadow:inset 3px 0 0 var(--fc)}
 const SALT=Uint8Array.from(atob("PkxEeeXeli29h0elbfZ7Ww=="),c=>c.charCodeAt(0));
 const ITER=150000;
 let KEY=null;
+const TRIPS=["noiembrie.enc"];
 const _imgCache={};
 
 async function deriveKey(secret){
@@ -419,7 +420,19 @@ function lockScreen(msg){
 async function unlock(secret,fromForm){
   try{
     KEY=await deriveKey(secret);
-    const src=new TextDecoder().decode(await decFile("data.enc"));
+    let src;
+    try{src=new TextDecoder().decode(await decFile("data.enc"));}
+    catch(e1){
+      /* altă cheie → altă călătorie: fiecare pagină criptată cu cheia ei */
+      for(const f of TRIPS){
+        let html;try{html=new TextDecoder().decode(await decFile(f));}catch(e2){continue}
+        const q=new URLSearchParams(location.search);
+        if(q.get("k")!==secret){q.set("k",secret);history.replaceState(null,"","?"+q.toString()+location.hash);}
+        document.open();document.write(html);document.close();
+        return;
+      }
+      throw e1;
+    }
     const DATA=new Function(src+"\nreturn {ALL,COAST,GEO,BASES,DAYS,LOCS,MAST};")();
     SECRET_Q=secret;
     document.getElementById("lock").remove();
